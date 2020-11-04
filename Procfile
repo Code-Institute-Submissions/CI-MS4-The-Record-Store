@@ -1,0 +1,1 @@
+web: gunicorn the_record_store.wsgi:application
