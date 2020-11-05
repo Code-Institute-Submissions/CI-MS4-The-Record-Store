@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
+import datetime
+
 # Create your models here.
 
 
@@ -74,6 +76,11 @@ class Tag(models.Model):
     def get_friendly_name(self):
         return self.friendly_name
 
+def current_year():
+    return datetime.date.today().year
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
 
 class Product(models.Model):
     artist = models.ForeignKey(
@@ -87,7 +94,8 @@ class Product(models.Model):
     colour = models.ForeignKey(
         'Colour', null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=254, default='')
-    release_year = models.PositiveIntegerField(validators=[MaxValueValidator(9999)], default=0000)
+    release_year = models.PositiveIntegerField(
+        default=current_year(), validators=[MinValueValidator(1984), max_value_current_year])
     tracklist = ArrayField(models.CharField(
         max_length=200, blank=True), default=list)
     description = models.TextField(default='')
