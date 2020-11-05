@@ -91,8 +91,7 @@ class Product(models.Model):
     tracklist = ArrayField(models.CharField(
         max_length=200, blank=True), default=list)
     description = models.TextField(default='')
-    tags = ArrayField(models.ForeignKey(
-        'Tag', null=True, blank=True, on_delete=models.SET_NULL), default=list)
+    tags = models.ManyToManyField(Tag)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     rating = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True)
