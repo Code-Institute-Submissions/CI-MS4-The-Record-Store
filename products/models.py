@@ -63,6 +63,17 @@ class Format(models.Model):
     def get_friendly_name(self):
         return self.friendly_name
 
+class Tag(models.Model):
+
+    name = models.CharField(max_length=254)
+    friendly_name = models.CharField(max_length=254, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_friendly_name(self):
+        return self.friendly_name
+
 
 class Product(models.Model):
     artist = models.ForeignKey(
@@ -80,8 +91,8 @@ class Product(models.Model):
     tracklist = ArrayField(models.CharField(
         max_length=200, blank=True), default=list)
     description = models.TextField(default='')
-    tags = ArrayField(models.CharField(
-        max_length=200, blank=True), default=list)
+    tags = ArrayField(models.ForeignKey(
+        'Tag', null=True, blank=True, on_delete=models.SET_NULL), default=list)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     rating = models.DecimalField(
         max_digits=6, decimal_places=2, null=True, blank=True)

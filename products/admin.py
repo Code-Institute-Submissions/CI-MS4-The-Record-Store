@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Artist, Label, Colour, Format, Genre
+from .models import Product, Artist, Label, Colour, Format, Genre, Tag
 
 # Register your models here.
 
@@ -51,6 +51,12 @@ class FormatAdmin(admin.ModelAdmin):
     'name',
 )
 
+class FormatTag(admin.ModelAdmin):
+    list_display = (
+    'friendly_name',
+    'name',
+)
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Genre, GenreAdmin)
@@ -58,3 +64,4 @@ admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Label, LabelAdmin)
 admin.site.register(Colour, ColourAdmin)
 admin.site.register(Format, FormatAdmin)
+admin.site.register(Tag, TagAdmin)
