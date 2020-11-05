@@ -14,8 +14,14 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
+            # Generate SKU
+            sku = str(form.cleaned_data['name'])[0:3]+"/"+str(form.cleaned_data['artist'])[0:3]+"/"+str(form.cleaned_data['label'])[0:3]+"/"+str(form.cleaned_data['colour'])[0:3]+"/"+str(form.cleaned_data['format'])[0:3]
+            sku = sku.upper()
+            
             product = form.save()
-            return redirect(reverse('view_product', args=[product.id]))
+            product.sku = sku
+            product.save()
+            return redirect(reverse('add_product'))
     else:
         form = ProductForm()
 
