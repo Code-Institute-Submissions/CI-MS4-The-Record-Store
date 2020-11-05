@@ -51,7 +51,7 @@ class FormatAdmin(admin.ModelAdmin):
     'name',
 )
 
-class FormatTag(admin.ModelAdmin):
+class TagAdmin(admin.ModelAdmin):
     list_display = (
     'friendly_name',
     'name',
