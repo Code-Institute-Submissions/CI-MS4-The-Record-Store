@@ -14,7 +14,6 @@ class ProductAdmin(admin.ModelAdmin):
         'format',
         'release_year',
         'price',
-        'rating',
         'image',
         'tracklist',
     )
