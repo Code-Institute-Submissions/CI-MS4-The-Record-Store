@@ -22,5 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('products/', include('products.urls')),
-    path("select2/", include("django_select2.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'home',
     'products',
     'storages',
-    'django_select2'
 ]
 
 MIDDLEWARE = [
@@ -166,16 +165,3 @@ if os.environ.get('USE_AWS') == 'True':
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 
-CACHES = {
-    # … default cache config and others
-    "select2": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/2",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
-
-# Tell select2 which cache configuration to use:
-SELECT2_CACHE_BACKEND = "select2"
