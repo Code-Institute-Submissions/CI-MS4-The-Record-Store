@@ -17,12 +17,14 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = 'artist',
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
-    #     artist = Artist.objects.all()
-    #     friendly_names = [(a.id, a.get_friendly_name()) for a in artist]
-    #     self.fields['artist'].choices = friendly_names
+        artist = Artist.objects.all()
+        friendly_names = [(a.id, a.get_friendly_name()) for a in artist]
+        self.fields['artist'].choices = friendly_names
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'single-dynamic'
 
     #     genre = Genre.objects.all()
     #     friendly_names = [(g.id, g.get_friendly_name()) for g in genre]

@@ -50,4 +50,9 @@
 
 {% block postloadjs %}
     {{ block.super }}
+    <script>
+    $(".single-dynamic").select2({
+        tags: true
+    });
+    </script>
 {% endblock %}
