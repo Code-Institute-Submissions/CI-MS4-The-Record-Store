@@ -13,7 +13,7 @@ def add_product(request):
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
-        add_dynamically_created_data_to_the_database()
+        add_dynamically_created_data_to_the_database(form)
         if form.is_valid():
 
             print("Form is valid")
@@ -37,7 +37,7 @@ def add_product(request):
     return render(request, template, context)
 
 
-def add_dynamically_created_data_to_the_database():
+def add_dynamically_created_data_to_the_database(form):
     # Check if there is an Artist not in the database
     artist_submitted_in_the_form = form.data['artist']
     if(not artist_submitted_in_the_form.isnumeric()):
