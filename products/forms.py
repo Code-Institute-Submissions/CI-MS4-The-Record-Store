@@ -15,7 +15,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = 'artist','label','genre', 'format','colour','tags',
+        fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,5 +50,7 @@ class ProductForm(forms.ModelForm):
         self.fields['tags'].choices = friendly_names
         self.fields['tags'].widget.attrs['class'] = 'single-dynamic'
         self.fields['tags'].widget.attrs['multiple'] = 'multiple'
+
+        self.fields['tracklist'].widget = forms.HiddenInput()
         
         

@@ -28,19 +28,25 @@
 
         <div class="row">
             <div class="col-12 col-md-6">
-                <form method="POST" action="{% url 'add_product' %}" class="form mb-2" enctype="multipart/form-data">
+                <form method="POST" action="{% url 'add_product' %}" class="form mb-2" id="product-form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% for field in form %}
-                        {% if field.name != 'image' %}
-                            {{field.name}}
-                            {{ field }}
-                        {% else %}
-                            {{ field }}
-                        {% endif %}
-                    {% endfor %}
+                    {{form.name}}
+                    {{form.artist}}
+                    {{form.label}}
+                    {{form.genre}}
+                    {{form.release_year}}
+                    {{form.price}}
+                    {{form.description}}
+                    {{form.format}}
+                    {{form.colour}}
+                    {{form.tags}}
+                    {{form.tracklist}}
+                    <label for="track_01">Track 01:</label>
+                    <input type="text" id="track_01" class="tracklist_item" name="text_field[]">
+                    <button id="add_feild" type="button">ADD FIELD</button>
                     <div class="text-right">
                         <a class="btn btn-outline-black rounded-0" href="">Cancel</a>
-                        <button class="btn btn-black rounded-0" type="submit">Add Product</button>
+                        <button class="btn btn-black rounded-0" >Add Product</button>
                     </div>
                 </form>
             </div>            
@@ -56,5 +62,53 @@
         width: "100%",
         theme: "classic"
     });
-    </script>
+
+const zeroPad = (num, places) => String(num).padStart(places, '0')
+
+var trackNumber = 1;
+var add_button = document.getElementById('add_feild');
+
+add_button.addEventListener('click', function(ev) {
+    var last_track = document.getElementById("track_"+zeroPad(trackNumber, 2));
+    trackNumber ++;
+
+    var new_label = document.createElement("label");
+    new_label.setAttribute("for", "track_"+ zeroPad(trackNumber, 2));
+    new_label.innerText = "Track " + zeroPad(trackNumber, 2) +":";
+
+    var new_field = document.createElement("input");
+    new_field.setAttribute("type", "text");
+    new_field.setAttribute("id", "track_"+ zeroPad(trackNumber, 2));
+    new_field.setAttribute("class", "tracklist_item");
+    new_field.setAttribute("name", "text_field[]");
+
+    last_track.parentNode.insertBefore(new_field, last_track.nextSibling);
+    new_track = document.getElementById("track_" + zeroPad(trackNumber, 2));
+    new_track.parentNode.insertBefore(new_label, new_track)
+})
+
+var form = document.getElementById('product-form');
+
+form.addEventListener('submit', function(ev) {
+    ev.preventDefault();
+    //Concatonate the tracklist inputs into an arrayfield string.
+    tracklistInputs = document.getElementsByClassName('tracklist_item');
+    var tracklist = "";
+    for(i = 0 ; i < tracklistInputs.length; i ++){
+        let trackName = ""
+        if(i < tracklistInputs.length-1){
+            trackName = (i+1)+"."+" "+tracklistInputs[i].value+" ,"
+        }
+        else{
+            trackName = (i+1)+"."+" "+tracklistInputs[i].value
+        }
+       
+       tracklist += trackName;
+    }
+
+    let tracklistInput = new_track = document.getElementById("id_tracklist");
+    tracklistInput.value = tracklist;
+    form.submit();
+})
+</script>
 {% endblock %}

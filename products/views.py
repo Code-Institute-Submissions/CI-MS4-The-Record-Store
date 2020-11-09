@@ -17,12 +17,12 @@ def add_product(request):
         form = ProductForm(updated_request, request.FILES)
         if form.is_valid():
             # Generate SKU
-            # sku = str(form.cleaned_data['name'])[0:3]+"/"+str(form.cleaned_data['artist'])[0:3]+"/"+str(form.cleaned_data['label'])[0:3]+"/"+str(form.cleaned_data['colour'])[0:3]+"/"+str(form.cleaned_data['format'])[0:3]
-            # sku = sku.upper()
+            sku = str(form.cleaned_data['name'])[0:3]+"/"+str(form.cleaned_data['artist'])[0:3]+"/"+str(form.cleaned_data['label'])[0:3]+"/"+str(form.cleaned_data['colour'])[0:3]+"/"+str(form.cleaned_data['format'])[0:3]
+            sku = sku.upper()
 
-            # product = form.save()
-            # product.sku = sku
-            # product.save()
+            product = form.save()
+            product.sku = sku
+            product.save()
             return redirect(reverse('home'))
         else:
             print(form.errors)

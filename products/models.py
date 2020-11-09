@@ -98,9 +98,9 @@ class Product(models.Model):
     release_year = models.PositiveIntegerField(
         default=current_year(), validators=[MinValueValidator(1984), max_value_current_year])
     tracklist = ArrayField(models.CharField(
-        max_length=200, blank=True), default=list)
+        max_length=200, null=True, blank=True), default=list, null=True, blank=True)
     description = models.TextField(default='')
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
     image = models.ImageField(null=True, blank=True)
     sku = models.CharField(max_length=254, null=True, blank=True)
