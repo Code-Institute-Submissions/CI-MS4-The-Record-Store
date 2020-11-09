@@ -100,17 +100,19 @@ def add_dynamically_created_data_to_the_database(updated_request):
         new_colour.save()
         updated_request.update({'colour': Colour.objects.get(name = new_colour.name).pk})
 
-    return updated_request
-    # tags_submitted_in_the_form = form.data['tags']
+    tags_submitted_in_the_form = updated_request.getlist('tags')
+    for tag in tags_submitted_in_the_form:  
+        if(not tag.isnumeric()):
+            # Create a new label and insert it into the database
+            new_tag_name = tag.lower()
+            new_tag_name = new_tag_name.replace(" ", "_")
+            new_tag_friendly_name = tag
+            new_tag = Tag()
+            new_tag.name = new_tag_name
+            new_tag.friendly_name = new_tag_friendly_name
+            new_tag.save()
+            new_tag_index = tags_submitted_in_the_form.index(tag)
+            tags_submitted_in_the_form[new_tag_index] = Tag.objects.get(name = new_tag.name).pk
+            updated_request.setlist('tags', tags_submitted_in_the_form)
 
-    # for tag in tags_submitted_in_the_form:
-    #     print(tag)
-    # if(not tags_submitted_in_the_form.isnumeric()):
-    #     # Create a new label and insert it into the database
-    #     new_tag_name = tags_submitted_in_the_form.lower()
-    #     new_tag_name = new_tag_name.replace(" ", "_")
-    #     new_tag_friendly_name = tags_submitted_in_the_form
-    #     new_tag = Tag()
-    #     new_tag.name = new_tag_name
-    #     new_tag.friendly_name = new_tag_friendly_name
-    #     new_tag.save()
+    return updated_request

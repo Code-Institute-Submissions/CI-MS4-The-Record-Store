@@ -138,7 +138,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-print(os.environ.get('USE_AWS'))
 if os.environ.get('USE_AWS') == 'True':
     print("USE_AWS")
     # Cache control
