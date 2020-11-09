@@ -15,7 +15,7 @@ class ProductForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fields = 'name','artist','label','genre', 'format', 'colour'
+        fields = 'artist','label','genre', 'format','colour',
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -48,5 +48,7 @@ class ProductForm(forms.ModelForm):
         # tag = Tag.objects.all()
         # friendly_names = [(t.id, t.get_friendly_name()) for t in tag]
         # self.fields['tags'].choices = friendly_names
+        # self.fields['tags'].widget.attrs['class'] = 'single-dynamic'
+        # self.fields['tags'].widget.attrs['multiple'] = 'multiple123'
         
         

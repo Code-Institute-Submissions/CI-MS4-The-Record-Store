@@ -52,7 +52,9 @@
     {{ block.super }}
     <script>
     $(".single-dynamic").select2({
-        tags: true
+        tags: true,
+        width: "100%",
+        theme: "classic"
     });
     </script>
 {% endblock %}

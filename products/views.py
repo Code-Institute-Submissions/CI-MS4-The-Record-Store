@@ -12,12 +12,10 @@ def add_product(request):
     """ Add a product to the store """
 
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        add_dynamically_created_data_to_the_database(form)
+        updated_request = request.POST.copy()
+        updated_request = add_dynamically_created_data_to_the_database(updated_request)
+        form = ProductForm(updated_request, request.FILES)
         if form.is_valid():
-
-            print("Form is valid")
-            print(form.cleaned_data['artist'])
             # Generate SKU
             # sku = str(form.cleaned_data['name'])[0:3]+"/"+str(form.cleaned_data['artist'])[0:3]+"/"+str(form.cleaned_data['label'])[0:3]+"/"+str(form.cleaned_data['colour'])[0:3]+"/"+str(form.cleaned_data['format'])[0:3]
             # sku = sku.upper()
@@ -26,6 +24,8 @@ def add_product(request):
             # product.sku = sku
             # product.save()
             return redirect(reverse('home'))
+        else:
+            print(form.errors)
     else:
         form = ProductForm()
 
@@ -37,9 +37,9 @@ def add_product(request):
     return render(request, template, context)
 
 
-def add_dynamically_created_data_to_the_database(form):
+def add_dynamically_created_data_to_the_database(updated_request):
     # Check if there is an Artist not in the database
-    artist_submitted_in_the_form = form.data['artist']
+    artist_submitted_in_the_form = updated_request['artist']
     if(not artist_submitted_in_the_form.isnumeric()):
         # Create a new artist and insert it into the database
         new_artist_name = artist_submitted_in_the_form.lower()
@@ -49,8 +49,10 @@ def add_dynamically_created_data_to_the_database(form):
         new_artist.name = new_artist_name
         new_artist.friendly_name = new_artist_friendly_name
         new_artist.save()
+        updated_request.update({'artist': Artist.objects.get(name = new_artist.name).pk})
 
-    label_submitted_in_the_form = form.data['label']
+
+    label_submitted_in_the_form = updated_request['label']
     if(not label_submitted_in_the_form.isnumeric()):
         # Create a new label and insert it into the database
         new_label_name = label_submitted_in_the_form.lower()
@@ -60,8 +62,9 @@ def add_dynamically_created_data_to_the_database(form):
         new_label.name = new_label_name
         new_label.friendly_name = new_label_friendly_name
         new_label.save()
+        updated_request.update({'label': Label.objects.get(name = new_label.name).pk})
 
-    genre_submitted_in_the_form = form.data['genre']
+    genre_submitted_in_the_form = updated_request['genre']
     if(not genre_submitted_in_the_form.isnumeric()):
         # Create a new label and insert it into the database
         new_genre_name = genre_submitted_in_the_form.lower()
@@ -71,8 +74,9 @@ def add_dynamically_created_data_to_the_database(form):
         new_genre.name = new_genre_name
         new_genre.friendly_name = new_genre_friendly_name
         new_genre.save()
+        updated_request.update({'genre': Genre.objects.get(name = new_genre.name).pk})
     
-    format_submitted_in_the_form = form.data['format']
+    format_submitted_in_the_form = updated_request['format']
     if(not format_submitted_in_the_form.isnumeric()):
         # Create a new label and insert it into the database
         new_format_name = format_submitted_in_the_form.lower()
@@ -82,8 +86,9 @@ def add_dynamically_created_data_to_the_database(form):
         new_format.name = new_format_name
         new_format.friendly_name = new_format_friendly_name
         new_format.save()
+        updated_request.update({'format': Format.objects.get(name = new_format.name).pk})
 
-    colour_submitted_in_the_form = form.data['label']
+    colour_submitted_in_the_form = updated_request['colour']
     if(not colour_submitted_in_the_form.isnumeric()):
         # Create a new label and insert it into the database
         new_colour_name = colour_submitted_in_the_form.lower()
@@ -93,3 +98,19 @@ def add_dynamically_created_data_to_the_database(form):
         new_colour.name = new_colour_name
         new_colour.friendly_name = new_colour_friendly_name
         new_colour.save()
+        updated_request.update({'colour': Colour.objects.get(name = new_colour.name).pk})
+
+    return updated_request
+    # tags_submitted_in_the_form = form.data['tags']
+
+    # for tag in tags_submitted_in_the_form:
+    #     print(tag)
+    # if(not tags_submitted_in_the_form.isnumeric()):
+    #     # Create a new label and insert it into the database
+    #     new_tag_name = tags_submitted_in_the_form.lower()
+    #     new_tag_name = new_tag_name.replace(" ", "_")
+    #     new_tag_friendly_name = tags_submitted_in_the_form
+    #     new_tag = Tag()
+    #     new_tag.name = new_tag_name
+    #     new_tag.friendly_name = new_tag_friendly_name
+    #     new_tag.save()
