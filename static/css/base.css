@@ -1,3 +1,82 @@
+:root {
+  --main-text-and-icon-color: #802BB1;
+  --main-navbar-color: #2D283E;
+  --main-hightlight-color: #D1D7E0;
+}
+
 body {
-    padding-top: 60px;
+    padding-top: 200px;
+    background-color: var(--main-hightlight-color);
   }
+
+#nav-search{
+  padding-top: 25px;
+}
+
+#brand-icon{
+  transition: all 0.3s ease-in-out;
+  font-size: 4rem;
+  background-color: var(--main-text-and-icon-color);
+  color: var(--main-navbar-color);
+  padding: 3px;
+}
+#brand-name{
+  transition: all 0.3s ease-in-out;
+  font-size: 0.46rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--main-text-and-icon-color);
+}
+#brand{
+  
+}
+#brand a:hover{
+  text-decoration: none;
+}
+#brand a:hover #brand-name{
+  color: var(--main-hightlight-color);
+}
+#brand a:hover #brand-icon{
+  background-color: var(--main-hightlight-color);
+}
+
+.navbar{
+  background-color: var(--main-navbar-color);
+}
+.navbar-icon{
+  color: var(--main-text-and-icon-color);
+  transition: all 0.3s ease-in-out;
+}
+.navbar-icon:hover{
+  color: var(--main-hightlight-color);
+}
+.navbar-nav .nav-link{
+  transition: all 0.3s ease-in-out;
+  color: var(--main-text-and-icon-color);
+} 
+
+.navbar-nav .nav-link:hover{
+  color: var(--main-hightlight-color);
+}
+
+#search-bar{
+  border-color: var(--main-text-and-icon-color);
+  background-color: var(--main-hightlight-color);
+}
+#search-icon{
+  border-color: var(--main-text-and-icon-color);
+  background-color: var(--main-navbar-color);
+}
+
+.dropdown-menu{
+  background-color: var(--main-navbar-color);
+}
+
+.dropdown-item{
+  transition: all 0.3s ease-in-out;
+  color: var(--main-text-and-icon-color);
+}
+.dropdown-item:hover{
+  color: var(--main-hightlight-color);
+  background-color: var(--main-navbar-color);
+}
