@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block extra_css %} 
 
@@ -30,16 +31,16 @@
             <div class="col-12 col-md-6">
                 <form method="POST" action="{% url 'add_product' %}" class="form mb-2" id="product-form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{form.name}}
-                    {{form.artist}}
-                    {{form.label}}
-                    {{form.genre}}
-                    {{form.release_year}}
-                    {{form.price}}
-                    {{form.description}}
-                    {{form.format}}
-                    {{form.colour}}
-                    {{form.tags}}
+                    {{form.name|as_crispy_field}}
+                    {{form.artist|as_crispy_field}}
+                    {{form.label|as_crispy_field}}
+                    {{form.genre|as_crispy_field}}
+                    {{form.release_year|as_crispy_field}}
+                    {{form.price|as_crispy_field}}
+                    {{form.description|as_crispy_field}}
+                    {{form.format|as_crispy_field}}
+                    {{form.colour|as_crispy_field}}
+                    {{form.tags|as_crispy_field}}
                     {{form.tracklist}}
                     <label for="track_01">Track 01:</label>
                     <input type="text" id="track_01" class="tracklist_item" name="text_field[]">
@@ -59,8 +60,6 @@
     <script>
     $(".single-dynamic").select2({
         tags: true,
-        width: "100%",
-        theme: "classic"
     });
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
