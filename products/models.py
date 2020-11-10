@@ -83,6 +83,7 @@ def max_value_current_year(value):
     return MaxValueValidator(current_year())(value)
 
 class Product(models.Model):
+    name = models.CharField(max_length=254, default='')
     artist = models.ForeignKey(
         'Artist', null=True, blank=True, on_delete=models.SET_NULL)
     # artist = ModelChoiceField(queryset=Artist.objects.all())
@@ -94,15 +95,14 @@ class Product(models.Model):
         'Format', null=True, blank=True, on_delete=models.SET_NULL)
     colour = models.ForeignKey(
         'Colour', null=True, blank=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=254, default='')
     release_year = models.PositiveIntegerField(
         default=current_year(), validators=[MinValueValidator(1984), max_value_current_year])
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+    tags = models.ManyToManyField(Tag, blank=True)
+    description = models.TextField(default='')
+    image = models.ImageField(null=True, blank=True)
     tracklist = ArrayField(models.CharField(
         max_length=200, null=True, blank=True), default=list, null=True, blank=True)
-    description = models.TextField(default='')
-    tags = models.ManyToManyField(Tag, blank=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
-    image = models.ImageField(null=True, blank=True)
     sku = models.CharField(max_length=254, null=True, blank=True)
 
     def __str__(self):
