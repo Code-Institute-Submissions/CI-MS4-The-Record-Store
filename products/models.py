@@ -96,13 +96,13 @@ class Product(models.Model):
     colour = models.ForeignKey(
         'Colour', null=True, blank=True, on_delete=models.SET_NULL)
     release_year = models.PositiveIntegerField(
-        default=current_year(), validators=[MinValueValidator(1984), max_value_current_year])
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=0.00)
+        default=current_year(), validators=[MinValueValidator(1930), max_value_current_year])
+    price = models.DecimalField(max_digits=5, decimal_places=2, default=00.00)
     tags = models.ManyToManyField(Tag, blank=True)
     description = models.TextField(default='')
     image = models.ImageField(null=True, blank=True)
     tracklist = ArrayField(models.CharField(
-        max_length=200, null=True, blank=True), default=list, null=True, blank=True)
+        max_length=254, null=True, blank=True), default=list, null=True, blank=True)
     sku = models.CharField(max_length=254, null=True, blank=True)
 
     def __str__(self):
