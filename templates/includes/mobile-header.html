@@ -1,0 +1,48 @@
+<div class="row no-gutters d-lg-none text-center" id="nav-search">
+  <div class="col" id="mobile-search-bar">
+    <div class="row no-gutters h-100">
+      <div class="col-2 text-center my-auto mobile-search-toggle">
+        <i class="fas fa-chevron-left mobile-navbar-icon"></i>
+      </div>
+      <div class="col-8 my-auto">
+        <!-- Serach Bar -->
+        <div class="input-group w-100">
+          <input
+            class="form-control rounded-0"
+            type="text"
+            name="q"
+            id="search-bar"
+            placeholder="Search by Title, Artist, Label etc"
+          />
+          <div class="input-group-append">
+            <button class="form-control rounded-0" type="submit" id="search-icon">
+              <span class="icon">
+                <i class="fas fa-search navbar-icon"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-1 text-center my-auto" id="site-navigation-toggle">
+    <i class="fas fa-bars mobile-navbar-icon"></i>
+  </div>
+  <div class="col-8 offset-1  my-auto" id="brand">
+    <!-- Brand/logo -->
+    <a href="{% url 'home'%}">
+      <i class="fas fa-record-vinyl" id="brand-icon"></i>
+      <div id="brand-name">The Record Store</div>
+    </a>
+  </div>
+  <div class="col-1 text-center my-auto mobile-search-toggle">
+    <span class="icon">
+      <i class="fas fa-search mobile-navbar-icon"></i>
+    </span>
+  </div>
+  <div class="col-1 text-center my-auto">
+    <span class="icon">
+      <i class="fas fa-shopping-cart mobile-navbar-icon"></i>
+    </span>
+  </div>
+</div>
