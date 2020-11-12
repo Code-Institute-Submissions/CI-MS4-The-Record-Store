@@ -2,11 +2,12 @@
   --main-text-and-icon-color: #802BB1;
   --main-navbar-color: #2D283E;
   --main-hightlight-color: #D1D7E0;
+  --main-footer-color: #564f6f;
 }
 
 body {
-    padding-top: 200px;
-    background-color: var(--main-hightlight-color);
+    padding-top: 145px;
+    background-color: var(--main-navbar-color);
   }
 
 #nav-search{
@@ -79,4 +80,27 @@ body {
 .dropdown-item:hover{
   color: var(--main-hightlight-color);
   background-color: var(--main-navbar-color);
+}
+
+.footer-main{
+  height: 200px;
+  background-color: var(--main-text-and-icon-color);
+  color: var(--main-navbar-color);
+}
+.footer-extra{
+  height: 50px;
+  background-color: var(--main-navbar-color);
+  color: var(--main-text-and-icon-color);
+}
+
+.carousel .carousel-item {
+  height: 700px;
+}
+
+.carousel-item img {
+    position: absolute;
+    object-fit:cover;
+    top: 0;
+    left: 0;
+    min-height: 700px;
 }
