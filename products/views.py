@@ -116,3 +116,14 @@ def add_dynamically_created_data_to_the_database(updated_request):
             updated_request.setlist('tags', tags_submitted_in_the_form)
 
     return updated_request
+
+def view_products(request):
+    """ A view to show individual product details """
+
+    products = Product.objects.all()
+
+    context = {
+        'products': products,
+    }
+
+    return render(request, 'products/view_products.html', context)

@@ -7,8 +7,8 @@
 
 body {
   /* padding-top: 124px; */
-  /* background-color: var(--main-navbar-color); */
-  background-color: white;
+  background-color: var(--main-hightlight-color);
+  /* background-color: white; */
 }
 
 header {
@@ -127,7 +127,6 @@ header {
 }
 
 .footer-extra {
-  height: 50px;
   background-color: var(--main-navbar-color);
   color: var(--main-text-and-icon-color);
   font-size: 2rem;
@@ -210,6 +209,22 @@ main {
   text-transform: uppercase;
   font-weight: 600;
   margin-top: 20px;
+}
+
+.square{
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+
+}
+
+.square-inner{
+  position:  absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  height: 90%;
+  transform: translate(-50%,-50%);
 }
 
 html {
