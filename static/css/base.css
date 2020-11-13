@@ -1,103 +1,136 @@
 :root {
-  --main-text-and-icon-color: #802BB1;
-  --main-navbar-color: #2D283E;
-  --main-hightlight-color: #D1D7E0;
+  --main-text-and-icon-color: #802bb1;
+  --main-navbar-color: #2d283e;
+  --main-hightlight-color: #d1d7e0;
   --main-footer-color: #564f6f;
 }
 
 body {
-    /* padding-top: 124px; */
-    /* background-color: var(--main-navbar-color); */
-    background-color: white;
+  /* padding-top: 124px; */
+  /* background-color: var(--main-navbar-color); */
+  background-color: white;
 }
 
-header{
+header {
   position: relative;
 }
 
-#nav-search{
-  padding-top: 5px;
-  padding-bottom: 5px;
+#nav-search {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-#brand-icon{
+#brand-icon {
   transition: all 0.3s ease-in-out;
-  font-size: 4rem;
+  font-size: 5rem;
   background-color: var(--main-text-and-icon-color);
   color: var(--main-navbar-color);
   padding: 3px;
 }
-#brand-name{
+#brand-name {
   transition: all 0.3s ease-in-out;
-  font-size: 0.46rem;
+  font-size: 1.1rem;
   font-weight: 800;
   text-transform: uppercase;
   color: var(--main-text-and-icon-color);
 }
-#brand{
-  
+#brand {
 }
-#brand a:hover{
+#brand a:hover {
   text-decoration: none;
 }
-#brand a:hover #brand-name{
+#brand a:hover #brand-name {
   color: var(--main-hightlight-color);
 }
-#brand a:hover #brand-icon{
+#brand a:hover #brand-icon {
   background-color: var(--main-hightlight-color);
 }
 
-.navbar{
+.navbar {
   background-color: var(--main-navbar-color);
 }
-.navbar-icon{
+.navbar-icon {
   color: var(--main-text-and-icon-color);
   transition: all 0.3s ease-in-out;
 }
-.navbar-icon:hover{
+.navbar-icon:hover {
   color: var(--main-hightlight-color);
 }
-.navbar-nav .nav-link{
+.navbar-nav .nav-link {
   transition: all 0.3s ease-in-out;
   font-size: 2rem;
   color: var(--main-text-and-icon-color);
-} 
+}
 
-.navbar-nav .nav-link:hover{
+.navbar-nav .footer-nav-link{
+  transition: all 0.3s ease-in-out;
+  color: var(--main-navbar-color);
+}
+
+.navbar-nav .footer-nav-link:hover{
+  color: var(--main-hightlight-color);
+  text-decoration: none;
+}
+
+.navbar-nav .nav-link:hover {
   color: var(--main-hightlight-color);
 }
 
-#search-bar{
+#search-bar {
   border-color: var(--main-text-and-icon-color);
   background-color: var(--main-hightlight-color);
 }
-#search-icon{
+#search-icon {
   border-color: var(--main-text-and-icon-color);
   background-color: var(--main-navbar-color);
 }
 
-.dropdown-menu{
+.dropdown-menu {
   background-color: var(--main-navbar-color);
 }
 
-.dropdown-item{
+.dropdown-item {
   transition: all 0.3s ease-in-out;
   color: var(--main-text-and-icon-color);
 }
-.dropdown-item:hover{
+.dropdown-item:hover {
   color: var(--main-hightlight-color);
   background-color: var(--main-navbar-color);
 }
 
-.footer-main{
-  height: 200px;
+.footer-main {
   background-color: var(--main-text-and-icon-color);
   color: var(--main-navbar-color);
+  font-size: 2rem;
+  font-weight: 600;
 }
-.footer-extra{
+
+.footer-heading{
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.footer-section{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.social-media-icon{
+  transition: all 0.3s ease-in-out;
+  color: var(--main-navbar-color);
+  font-size: 3rem;
+  padding: 5px;
+}
+.social-media-icon:hover{
+  color: var(--main-hightlight-color);
+}
+
+.footer-extra {
   height: 50px;
   background-color: var(--main-navbar-color);
   color: var(--main-text-and-icon-color);
+  font-size: 2rem;
 }
 
 .carousel .carousel-item {
@@ -105,22 +138,22 @@ header{
 }
 
 .carousel-item img {
-    position: absolute;
-    object-fit:cover;
-    top: 0;
-    left: 0;
-    min-height: 700px;
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  min-height: 700px;
 }
 
-.mobile-navbar-icon{
+.mobile-navbar-icon {
   color: var(--main-text-and-icon-color);
   font-size: 2rem;
 }
 
-main{
+main {
   position: relative;
 }
-#mobile-site-nav{
+#mobile-site-nav {
   transition: all 0.3s ease-in-out;
   position: absolute;
   top: 0;
@@ -128,13 +161,14 @@ main{
   width: 100vh;
   height: 100vh;
   background-color: var(--main-navbar-color);
+  z-index: 99999999999;
 }
 
-#mobile-site-nav.show{
+#mobile-site-nav.show {
   left: 0;
 }
 
-#mobile-search-bar{
+#mobile-search-bar {
   transition: all 0.3s ease-in-out;
   position: absolute;
   background-color: var(--main-navbar-color);
@@ -145,49 +179,74 @@ main{
   z-index: 99999999999999;
 }
 
-#mobile-search-bar.show{
+#mobile-search-bar.show {
   left: 0;
 }
 
-.site-navigation-accordion-button{
+.site-navigation-accordion-button {
   transition: all 0.3s ease-in-out;
   border-radius: 0;
   border-width: 0;
   background-color: transparent;
   color: var(--main-text-and-icon-color);
 }
-.site-navigation-accordion-button:focus{
+.site-navigation-accordion-button:focus {
   outline: none;
   /* color: var(--main-hightlight-color); */
 }
 
-.collapsed-navigation{
+.collapsed-navigation {
   /* background-color: var(--main-footer-color); */
 }
 
-
-/* Extra Small devices (landscape phones, 0px and up) */
-@media (min-width: 0px) {
-  html { font-size: 10px; }
+.form-control {
+  font-size: 2.5rem;
+  background-color:var(--main-hightlight-color);
 }
 
+.dark-button{
+  background-color:  var(--main-navbar-color);
+  color: var(--main-text-and-icon-color);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+html {
+  font-size: 10px;
+}
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  html { font-size: 15px; }
+@media screen and (min-width: 576px) {
 }
 
 /* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  html { font-size: 20px; }
+@media screen and (min-width: 768px) {
 }
 
 /* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  html { font-size: 20px; }
+@media screen and (min-width: 992px) {
+  html {
+    font-size: 8px;
+  }
+  #brand-icon {
+    font-size: 10rem;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-  html { font-size: 20px; }
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 8px;
+  }
+  #brand-icon {
+    font-size: 10rem;
+  }
+}
+
+/* 4K */
+@media screen and (min-width: 2560px) {
+  html {
+    font-size: 20px;
+  }
 }

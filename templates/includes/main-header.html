@@ -1,4 +1,4 @@
-<div class="row no-gutters d-none d-lg-block" id="nav-search">
+<div class="row no-gutters d-none d-lg-flex" id="nav-search">
   <div class="col-1 offset-1 my-auto" id="brand">
     <!-- Brand/logo -->
     <a href="{% url 'home'%}">
@@ -13,7 +13,7 @@
         class="form-control rounded-0"
         type="text"
         name="q"
-        id="search-bar"
+        id="search-bar-main"
         placeholder="Search by Title, Artist, Label etc"
       />
       <div class="input-group-append">
@@ -51,8 +51,10 @@
       </li>
     </ul>
   </div>
+
+
 </div>
-<div class="row no-gutters d-none d-lg-block" id="nav-menu">
+<div class="row no-gutters d-none d-lg-flex" id="nav-menu">
   <div class="col-6 offset-3">
     <div class="row no-gutters">
       <!-- Site Nav -->
