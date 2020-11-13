@@ -13,18 +13,19 @@
   {% block content %}
 
     <div class="row no-gutters">
-        <div class="col-10 offset-1 col-lg-8 offset-lg-2">
+        <div class="col-lg-8 offset-lg-2">
             <div class="row no-gutters">
                 {% for product in products %}
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card">
                   <div class="square">
                       <div class="square-inner text-center">
-                          <div class="h-75">
+                          <div class="h-75 product-header">
                             <div class="product-image" style="background-image: url({{product.image.url}})"></div>
+                            <div class="add-to-cart-hover-button text-center dark-button">Add to cart</div>
                           </div>
                           <h2>{{product.name}}</h2>
-                          <h2>{{product.artist}}</h2>
-                          <h2>{{product.label}}</h2>
+                          <h2>{{product.artist.friendly_name}}</h2>
+                          <h2>{{product.label.friendly_name}}</h2>
                           <h2>{{product.price}}</h2>
                       </div>
                   </div>
