@@ -127,3 +127,5 @@ def view_products(request):
     }
 
     return render(request, 'products/view_products.html', context)
+
+
