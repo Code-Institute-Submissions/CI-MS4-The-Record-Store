@@ -60,6 +60,11 @@
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
             </div>
         </form>
+        <form class="form" action="{% url 'add_to_wishlist' product.id %}" method="POST">
+            {% csrf_token %}
+            <input class="text-center dark-button" type="submit" value="Add to wishlist"></input>
+            <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+        </form>
     </div>
 </div>
 

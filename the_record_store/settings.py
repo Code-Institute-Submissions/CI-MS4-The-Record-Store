@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'home',
     'products',
     'cart',
-    'wishlist'
+    'wishlist',
     'storages',
     'crispy_forms',
 ]
@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'cart.contexts.cart_contents',
+                'wishlist.contexts.wishlist_contents',
             ],
                 'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -149,7 +150,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if os.environ.get('USE_AWS') == 'True':
-    print("USE_AWS")
     # Cache control
     AWS_S3_OBJECT_PARAMETERS = {
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',

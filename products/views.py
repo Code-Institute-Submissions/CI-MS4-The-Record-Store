@@ -24,8 +24,7 @@ def add_product(request):
             product.sku = sku
             product.save()
             return redirect(reverse('home'))
-        else:
-            print(form.errors)
+
     else:
         form = ProductForm()
 

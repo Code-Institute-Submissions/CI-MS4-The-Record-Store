@@ -22,15 +22,13 @@ def add_to_cart(request, item_id):
     else:
         cart[item_id] = quantity
         messages.success(request, f'Added {product.name} to your cart')
-    print(f'Added {product.name} to your cart')
-    print(quantity)
+
 
     request.session['cart'] = cart
-    print(request.session['cart'])
     return redirect(redirect_url)
 
 def remove_from_cart(request, item_id):
-    print("remove item from cart")
+
     product = get_object_or_404(Product, pk=item_id)
     cart = request.session.get('cart', {})
     cart.pop(item_id)
@@ -39,7 +37,7 @@ def remove_from_cart(request, item_id):
     return redirect(redirect_url)
 
 def update_cart(request, item_id):
-    print("updating cart")
+
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})

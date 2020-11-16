@@ -1,0 +1,10 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block page_header %} {%endblock%}
+{% block content %}
+    {% if wishlist_items|length %} 
+        {% for wishlist_item in wishlist_items %}
+        {{wishlist_item}}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
