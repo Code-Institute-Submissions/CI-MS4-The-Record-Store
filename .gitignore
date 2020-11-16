@@ -1,5 +1,7 @@
-*.sqlite3
-*.pyc
+/the_record_store/media
+/.vscode
+/env
+/.gitignore
+/db.sqlite3
 __pycache__
-*.vscode
-*env
+the_record_store/.env
