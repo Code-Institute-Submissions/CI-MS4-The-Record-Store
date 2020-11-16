@@ -128,4 +128,13 @@ def view_products(request):
 
     return render(request, 'products/view_products.html', context)
 
+def view_product(request, product_id):
+    """ A view to show individual product details """
 
+    product = get_object_or_404(Product, pk=product_id)
+
+    context = {
+        'product': product,
+    }
+
+    return render(request, 'products/view_product.html', context)
