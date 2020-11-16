@@ -12,31 +12,35 @@
 
   {% block content %}
 
-    <div class="row no-gutters">
-        <div class="col-lg-8 offset-lg-2">
-            <div class="row no-gutters">
-                {% for product in products %}
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card">
-                  <div class="square">
-                      <div class="square-inner text-center">
-                          <div class="h-75 product-header">
-                            <div class="product-image" style="background-image: url({{product.image.url}})"></div>
-                            <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
-                                <input class="add-to-cart-hover-button text-center dark-button" type="submit">Add to cart</input>
-                            </form>
-                            
-                          </div>
-                          <h2>{{product.name}}</h2>
-                          <h2>{{product.artist.friendly_name}}</h2>
-                          <h2>{{product.label.friendly_name}}</h2>
-                          <h2>{{product.price}}</h2>
-                      </div>
-                  </div>
-                </div>
-                {% endfor %}
+  <div class="row no-gutters">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="row no-gutters">
+        {% for product in products %}
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card">
+          <div class="square">
+            <div class="square-inner text-center">
+              <div class="h-75 product-header">
+                <div class="product-image" style="background-image: url({{product.image.url}})"></div>
+                <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
+                  {% csrf_token %}
+                  <input class="add-to-cart-hover-button text-center dark-button" type="submit" value="Add to cart"></input>
+                  <input class="form-control qty_input" type="hidden" name="quantity" value="1" min="1" max="99"
+                    data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}" />
+                  <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+                </form>
+
+              </div>
+              <h2>{{product.name}}</h2>
+              <h2>{{product.artist.friendly_name}}</h2>
+              <h2>{{product.label.friendly_name}}</h2>
+              <h2>{{product.price}}</h2>
             </div>
+          </div>
         </div>
+        {% endfor %}
+      </div>
     </div>
+  </div>
 
 
 
