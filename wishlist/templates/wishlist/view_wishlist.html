@@ -16,11 +16,7 @@
     <input class="text-center dark-button" type="submit" value="Add All To Cart"></input>
     <input type="hidden" name="redirect_url" value="{{ request.path }}" />
 </form>
-<!-- <form class="form" action="{% url 'share_wishlist' %}" method="POST">
-    {% csrf_token %}
-    <input class="text-center dark-button" type="submit" value="Share"></input>
-    <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-</form> -->
+
 {% if wishlist_items|length %}
 {% for wishlist_item in wishlist_items %}
 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card">

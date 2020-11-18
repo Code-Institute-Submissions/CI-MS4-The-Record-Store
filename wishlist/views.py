@@ -57,7 +57,3 @@ def add_wishlist_to_cart(request):
     request.session['cart'] = cart
     redirect_url = request.POST.get('redirect_url')
     return redirect(redirect_url)
-
-# def share_wishlist(request):
-#     redirect_url = request.POST.get('redirect_url')
-#     return redirect(redirect_url)

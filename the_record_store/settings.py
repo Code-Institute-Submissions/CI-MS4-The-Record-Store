@@ -45,8 +45,11 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'wishlist',
+    'profiles',
     'storages',
     'crispy_forms',
+    'allauth',
+    'allauth.account',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'cart.contexts.cart_contents',
                 'wishlist.contexts.wishlist_contents',
+                'django.template.context_processors.request',
             ],
                 'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -86,6 +90,16 @@ TEMPLATES = [
             ]
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
 WSGI_APPLICATION = 'the_record_store.wsgi.application'
