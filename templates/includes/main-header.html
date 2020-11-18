@@ -30,7 +30,7 @@
     <ul class="navbar-nav row no-gutters">
       <li class="nav-item p-0 col-4">
         <div class="text-center">
-          <a class="nav-link" href="#Wishlist"
+          <a class="nav-link" href="{% url 'view_wishlist' %}"
             ><i class="far fa-heart fa-lg navbar-icon"></i
           ></a>
         </div>
@@ -44,7 +44,7 @@
       </li>
       <li class="nav-item p-0 col-4">
         <div class="text-center">
-          <a class="nav-link" href="#Cart"
+          <a class="nav-link" href="{% url 'view_cart' %}"
             ><i class="fas fa-shopping-cart fa-lg navbar-icon"></i
           ></a>
         </div>
@@ -74,7 +74,7 @@
             class="dropdown-menu w-100 text-center"
             aria-labelledby="navbarDropdownMenuLink"
           >
-            <a class="dropdown-item" href="#">All</a>
+            <a class="dropdown-item" href="{% url 'view_products' %}">All</a>
             <a class="dropdown-item" href="#">Rock</a>
             <a class="dropdown-item" href="#">Hip Hop</a>
           </div>
