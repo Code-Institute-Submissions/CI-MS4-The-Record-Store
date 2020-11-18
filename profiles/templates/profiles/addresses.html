@@ -6,7 +6,7 @@
   {% endblock %}
 
   {% block content %}
-{{profile.user.first_name}} {{profile.user.last_name}}
-{{profile.user.email}}
-{{form.default_address}}
+    {% for address in addresses %}
+        {{address}}
+    {% endfor %}
   {% endblock %}
