@@ -9,11 +9,11 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
+from pathlib import Path
+import dj_database_url
 import os
 from dotenv import load_dotenv
 load_dotenv()
-import dj_database_url
-from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['ci-ms4.herokuapp.com', '127.0.0.1']
-SITE_ID=1
+SITE_ID = 1
 
 # Application definition
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'cart',
     'wishlist',
     'profiles',
+    'checkout',
     'storages',
     'crispy_forms',
     'allauth',
@@ -71,7 +72,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-                'DIRS': [
+        'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
@@ -86,7 +87,7 @@ TEMPLATES = [
                 'wishlist.contexts.wishlist_contents',
                 'django.template.context_processors.request',
             ],
-                'builtins': [
+            'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
                 'crispy_forms.templatetags.crispy_forms_field',
             ]
@@ -128,16 +129,20 @@ else:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': ("django.contrib.auth.password_validation."
+                 "UserAttributeSimilarityValidator"),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': ("django.contrib.auth.password_validation."
+                 "MinimumLengthValidator"),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': ("django.contrib.auth.password_validation."
+                 "CommonPasswordValidator"),
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': ("django.contrib.auth.password_validation."
+                 "NumericPasswordValidator"),
     },
 ]
 
@@ -177,7 +182,8 @@ if os.environ.get('USE_AWS') == 'True':
     AWS_S3_REGION_NAME = 'eu-west-1'
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com'
+    AWS_S3_CUSTOM_DOMAIN = (
+        f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com')
 
     # Static and media files
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
@@ -188,5 +194,3 @@ if os.environ.get('USE_AWS') == 'True':
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
-
-

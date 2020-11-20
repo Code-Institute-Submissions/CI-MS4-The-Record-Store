@@ -17,6 +17,7 @@
       <div>{{profile.user.email}}</div> 
       <h3>Primary Address</h3>
       <!-- {{form.default_address}} -->
+      {% if primary_address|length %}
       {% for address in primary_address %}
       {{address.address_line_1}}<br>
       {{address.address_line_2}}<br>
@@ -26,7 +27,10 @@
       {{address.post_code_or_zip}}<br>
       {{address.phone_number}}
       {% endfor%}
-      <a href="{% url 'addresses' %}">Addresses</a>
+      {% else %}
+      <div>You haven't set your primary address yet, please choose one from your address book.</div>
+      {% endif %}
+      <a href="{% url 'addresses' %}">Address Book</a>
     </div>
     <div class="col-8">
       <h3>Order History</h3>
