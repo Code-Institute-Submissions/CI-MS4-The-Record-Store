@@ -22,7 +22,7 @@ header {
 
 #brand-icon {
   transition: all 0.3s ease-in-out;
-  font-size: 5rem;
+  font-size: 10rem;
   background-color: var(--main-text-and-icon-color);
   color: var(--main-navbar-color);
   padding: 3px;
@@ -228,7 +228,7 @@ main {
 }
 
 html {
-  font-size: 10px;
+  font-size: 16px;
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -244,18 +244,12 @@ html {
   html {
     font-size: 8px;
   }
-  #brand-icon {
-    font-size: 10rem;
-  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media screen and (min-width: 1200px) {
   html {
     font-size: 8px;
-  }
-  #brand-icon {
-    font-size: 10rem;
   }
 }
 

@@ -6,7 +6,26 @@
   {% endblock %}
 
   {% block content %}
+  <div class="row no-gutters">
     {% for address in addresses %}
-        {{address}}
+    <div class="col">
+      {{address.address_line_1}}<br>
+      {{address.address_line_2}}<br>
+      {{address.town_or_city}}<br>
+      {{address.county_province}}<br>
+      {{address.country}}<br>
+      {{address.post_code_or_zip_code}}<br>
+      {{address.phone_number}}<br>
+      <a href="{% url 'edit_address' address.id %}">Edit</a>
+      <a href="{% url 'delete_address' address.id %}">Delete</a>
+    </div>
+
     {% endfor %}
+  </div>
+  <div class="row no-gutters">
+    <div class="col">
+      <a href="{% url 'add_address' %}">Add New Address</a>
+    </div>
+  </div>
+
   {% endblock %}

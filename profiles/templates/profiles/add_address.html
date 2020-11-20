@@ -1,0 +1,27 @@
+  {% extends "base.html" %}
+  {% load static %}
+
+  {% block page_header %}
+
+  {% endblock %}
+
+  {% block content %}
+  <div class="row no-gutters">
+
+    <div class="col-10 offset-2 col-md-6">
+      <form method="POST" action="{% url 'add_address' %}" class="form mb-2" id="address-form"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        {{ field | as_crispy_field }}
+        {% endfor %}
+        <div class="text-right">
+          <a class="btn btn-outline-black rounded-0" href="{% url 'addresses' %}">Cancel</a>
+          <button class="btn btn-black rounded-0">Add Address</button>
+        </div>
+        <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+      </form>
+    </div>
+
+  </div>
+  {% endblock %}

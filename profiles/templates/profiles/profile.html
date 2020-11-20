@@ -6,7 +6,36 @@
   {% endblock %}
 
   {% block content %}
-{{profile.user.first_name}} {{profile.user.last_name}}
-{{profile.user.email}}
-{{form.default_address}}
+  <div class="row no-gutters">
+    <div class="col text-center">
+      <h2>Account Details</h2>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-2 offset-2">
+      <div>{{profile.user.first_name}} {{profile.user.last_name}}</div>
+      <div>{{profile.user.email}}</div> 
+      <h3>Primary Address</h3>
+      <!-- {{form.default_address}} -->
+      {% for address in primary_address %}
+      {{address.address_line_1}}<br>
+      {{address.address_line_2}}<br>
+      {{address.town_or_city}}<br>
+      {{address.county_province}}<br>
+      {{address.country}}<br>
+      {{address.post_code_or_zip}}<br>
+      {{address.phone_number}}
+      {% endfor%}
+      <a href="{% url 'addresses' %}">Addresses</a>
+    </div>
+    <div class="col-8">
+      <h3>Order History</h3>
+      {% if orders|length %}
+      {% else %}
+      <div>You haven't placed any orders yet.</div>
+      {% endif %}
+    </div>
+  </div>
+
+
   {% endblock %}

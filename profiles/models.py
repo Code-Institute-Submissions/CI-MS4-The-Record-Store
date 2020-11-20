@@ -15,6 +15,7 @@ class Address(models.Model):
     country = models.CharField(max_length=254)
     post_code_zip_code = models.CharField(max_length=254)
     phone_number = PhoneField(blank=True)
+    primary_address = models.BooleanField(default=False)
 
     def __str__(self):
         return self.address_line_1
@@ -24,7 +25,7 @@ class Address(models.Model):
 class UserProfile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    default_address =  models.ForeignKey(Address, on_delete=models.CASCADE)
+    default_address =  models.ForeignKey(Address, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
