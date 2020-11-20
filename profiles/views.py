@@ -44,10 +44,16 @@ def addresses(request):
 def add_address(request):
 
     if request.method == 'POST':
-        form = AddressForm(request.POST)
+        updated_request = request.POST.copy()
+        updated_request.update({'user': request.user})
+        form = AddressForm(updated_request)
         if form.is_valid():
+            if form.cleaned_data['primary_address'] is True:
+                clear_previous_primary_address(request.user)
             form.save()
             return redirect(reverse('addresses'))
+        else:
+            print(form.errors)
     else:
         form = AddressForm()
 
@@ -66,6 +72,8 @@ def edit_address(request, item_id):
         form = AddressForm(request.POST, instance=address)
         print(form)
         if form.is_valid():
+            if form.cleaned_data['primary_address'] is True:
+                clear_previous_primary_address(request.user)
             form.save()
             return redirect(reverse('addresses'))
     else:
@@ -85,3 +93,11 @@ def delete_address(request, item_id):
     address = get_object_or_404(Address, pk=item_id)
     address.delete()
     return redirect(reverse('addresses'))
+
+
+def clear_previous_primary_address(user):
+
+    previous_primary_address = (
+        Address.objects.filter(primary_address=True).first())
+    previous_primary_address.primary_address = False
+    previous_primary_address.save()
