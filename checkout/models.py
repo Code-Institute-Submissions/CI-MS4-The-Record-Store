@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 import uuid
 from profiles.models import UserProfile
 from products.models import Product
@@ -36,6 +37,14 @@ class Order(models.Model):
     def _generate_order_number(self):
         return uuid.uuid4().hex.upper()
 
+    def update_total(self):
+
+        self.order_total = self.line_items.aggregate(
+            Sum('line_item_total'))['line_item_total__sum'] or 0
+
+        self.grand_total = self.order_total + self.delivery_cost
+        self.save()
+
     def save(self, *args, **kwargs):
         if not self.order_number:
             self.order_number = self._generate_order_number()
@@ -52,12 +61,13 @@ class OrderLineItem(models.Model):
     product = models.ForeignKey(Product, null=False, blank=False,
                                 on_delete=models.CASCADE)
     quantity = models.IntegerField(null=False, blank=False, default=0)
-    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2,
-                                         null=False, blank=False,
-                                         editable=False)
+    line_item_total = models.DecimalField(
+        max_digits=6, decimal_places=2, null=False,
+        blank=False, editable=False)
 
     def save(self, *args, **kwargs):
-        self.lineitem_total = self.product.price * self.quantity
+        print('order line item save')
+        self.line_item_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
 
     def __str__(self):
