@@ -26,7 +26,7 @@ class Address(models.Model):
 class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    default_address = models.ForeignKey(
+    primary_address = models.ForeignKey(
         Address, null=True, on_delete=models.CASCADE)
 
     def __str__(self):

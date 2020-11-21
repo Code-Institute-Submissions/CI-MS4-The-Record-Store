@@ -16,7 +16,7 @@
       <div>{{profile.user.first_name}} {{profile.user.last_name}}</div>
       <div>{{profile.user.email}}</div> 
       <h3>Primary Address</h3>
-      <!-- {{form.default_address}} -->
+      <!-- {{form.primary_address}} -->
       {% if primary_address|length %}
       {% for address in primary_address %}
       {{address.address_line_1}}<br>

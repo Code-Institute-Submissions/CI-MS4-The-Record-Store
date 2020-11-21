@@ -6,7 +6,7 @@ class DefaultAddressForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['default_address', ]
+        fields = ['primary_address', ]
 
 
 class AddressForm(forms.ModelForm):

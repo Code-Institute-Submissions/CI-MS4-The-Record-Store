@@ -15,7 +15,7 @@ def profile(request):
         user=request.user).filter(primary_address=True)
     print(primary_address)
     form = DefaultAddressForm()
-    form.fields['default_address'].choices = [
+    form.fields['primary_address'].choices = [
         (address.pk, address.address_line_1) for address in addresses]
     orders = None
     context = {
