@@ -12,10 +12,10 @@ class Address(models.Model):
     address_line_1 = models.CharField(max_length=254)
     address_line_2 = models.CharField(max_length=254)
     town_or_city = models.CharField(max_length=254)
-    county_province = models.CharField(max_length=254)
+    county_or_province = models.CharField(max_length=254)
     country = CountryField(blank_label='Country *',
                            null=False, blank=False, max_length=256)
-    post_code_zip_code = models.CharField(max_length=254)
+    post_code_or_zip_code = models.CharField(max_length=254)
     phone_number = PhoneField(blank=True)
     primary_address = models.BooleanField(default=False)
 

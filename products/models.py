@@ -112,9 +112,10 @@ class Product(models.Model):
     sku = models.CharField(max_length=254, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        sku = (str(self.name)[0:3]+"/"+str(self.artist)[0:3]
-               + "/"+str(self.label)[0:3]+"/"+str(self.colour)[0:3]
-               + "/"+str(self.format)[0:3])
+        sku = ("L"+str(self.label.pk) + '/'+"A"+str(self.artist.pk) +
+               '/'+str(self.name)[0:3]+'/'+str(self.colour)[0:3] +
+               '/'+str(self.format)[0:5])
+
         sku = sku.upper()
         self.sku = sku
         super().save(*args, **kwargs)

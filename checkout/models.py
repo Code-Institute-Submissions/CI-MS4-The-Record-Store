@@ -24,7 +24,8 @@ class Order(models.Model):
     county_or_province = models.CharField(max_length=80, null=False,
                                           blank=False)
     country = CountryField(blank_label='Country *', null=False, blank=False)
-    post_code_or_zip = models.CharField(max_length=80, null=False, blank=False)
+    post_code_or_zip_code = models.CharField(
+        max_length=80, null=False, blank=False)
     phone_number = PhoneField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
     delivery_cost = models.DecimalField(max_digits=6, decimal_places=2,

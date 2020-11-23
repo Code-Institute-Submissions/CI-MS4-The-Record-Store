@@ -11,9 +11,9 @@ def checkout(request):
     else:
         if request.user.is_authenticated:
             user_profile = UserProfile.objects.get(user=request.user)
-            print(user_profile.primary_address)
             user_primary_address = user_profile.primary_address
             order_form = OrderForm(instance=user_primary_address)
+            order_form.fields["email"].initial = user_profile.user.email
         else:
             order_form = OrderForm()
 
