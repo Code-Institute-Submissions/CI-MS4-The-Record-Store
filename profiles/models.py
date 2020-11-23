@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from phone_field import PhoneField
+
 from django_countries.fields import CountryField
 # Create your models here.
 
@@ -16,7 +16,7 @@ class Address(models.Model):
     country = CountryField(blank_label='Country *',
                            null=False, blank=False, max_length=256)
     post_code_or_zip_code = models.CharField(max_length=254)
-    phone_number = PhoneField(blank=True)
+    phone_number = models.CharField(max_length=20, null=False, blank=False)
     primary_address = models.BooleanField(default=False)
 
     def __str__(self):

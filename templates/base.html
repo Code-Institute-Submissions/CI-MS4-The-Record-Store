@@ -54,6 +54,8 @@
   </head>
 
   <body>
+
+    {% block page_header %} 
     <header class="container-fluid p-0">
       <nav class="navbar navbar-expand-sm p-0">
         <div class="row no-gutters w-100 h-100 navbar-inner">
@@ -66,14 +68,19 @@
         </div>
       </nav>
     </header>
-    {% block page_header %} {% endblock %}
+    {% endblock %}
     <main class="container-fluid p-0">
       <!-- Mobile Site Navigation -->
       {% include 'includes/mobile-site-navigation.html' %} {% block content %}
       {% endblock %}
     </main>
 
-    {% include 'includes/main-footer.html' %} {%block postloadjs %}
+    {% block page_footer %} 
+      {% include 'includes/main-footer.html' %} 
+    {% endblock %}
+    
+    
+    {%block postloadjs %}
     <script type="text/javascript">
       $(".toast").toast("show");
 

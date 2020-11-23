@@ -3,7 +3,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
 {% endblock %}
-{% block page_header %} {%endblock%}
+
 {% block content %}
 <h2>Wishlist</h2>
 <form class="form" action="{% url 'remove_all_from_wishlist' %}" method="POST">

@@ -109,6 +109,17 @@ header {
   font-size: 3rem;
   text-transform: uppercase;
   font-weight: 600;
+  color: var(--main-navbar-color);
+  margin-top: 3rem;
+}
+.footer-heading.c1{
+  color: var(--main-text-and-icon-color);
+}
+
+.checkout_hr{
+  border-bottom: solid .1rem var(--main-text-and-icon-color);
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .footer-section{
@@ -198,9 +209,19 @@ main {
   /* background-color: var(--main-footer-color); */
 }
 
+
 .form-control {
-  font-size: 2.5rem;
-  background-color:var(--main-hightlight-color);
+  font-size: 2rem;
+  border-color: var(--main-text-and-icon-color);
+  color: var(--main-text-and-icon-color);
+  background-color: var(--main-hightlight-color);
+  margin-top: 1rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.form-control::placeholder {
+  color: var(--main-text-and-icon-color);
 }
 
 .dark-button{
@@ -208,7 +229,7 @@ main {
   color: var(--main-text-and-icon-color);
   text-transform: uppercase;
   font-weight: 600;
-  margin-top: 20px;
+  line-height: 0;
 }
 
 .square{
@@ -258,4 +279,38 @@ html {
   html {
     font-size: 20px;
   }
+}
+
+.checkout-product-image{
+  background-color:var(--main-hightlight-color);
+  border-radius: 10px;
+}
+
+.checkout-product-text{
+  font-size: 2rem;
+}
+.order-summary{
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+  background-color: var(--main-navbar-color);
+  border-left: 3px solid var(--main-text-and-icon-color);
+  color: var(--main-text-and-icon-color);
+}
+
+.shipping-information{
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+}
+
+.checkout-branding{
+  padding-bottom: 5rem;
+}
+.checkout-branding i{
+  background-color: var(--main-navbar-color);
+  color: var(--main-hightlight-color);
+  font-size: 15rem;
+}
+
+.checkout-branding h3{
+  font-size: 2rem;
 }

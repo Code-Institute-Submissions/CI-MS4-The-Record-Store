@@ -1,25 +1,84 @@
-{% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% load static %}
-{% block extra_css %} 
-
+{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %}
+{%block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+{% load cart_tools %}
 {% endblock %}
-
-
-
 {% block page_header %}
+{% endblock %}
+{% block content %}
+<div class="row vh-100">
+    <div class="col-12 col-md-5 offset-md-1 shipping-information">
+        <div class="col-12 my-auto text-center checkout-branding">
+            <i class="fas fa-record-vinyl"></i>
+            <h3>The Record Store</h3>
+        </div>
+        <form method="POST" action="x" class="form mb-2" id="order-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row no-gutters">
+                <h2 class="col-12 footer-heading">Contact Information</h2>
+                <div class="col-12">{{ order_form.email }}</div>
+                <h2 class="col-12 footer-heading">Shipping Address</h2>
+                <div class="col-6">
+                    <div class="mr-2">{{ order_form.first_name }}</div>
+                </div>
+                <div class="col-6">
+                    <div class="ml-2">{{ order_form.last_name }}</div>
+                </div>
+                <div class="col-12">{{ order_form.address_line_1 }}</div>
+                <div class="col-12">{{ order_form.address_line_2 }}</div>
+                <div class="col-12">{{ order_form.city_or_town }}</div>
+                <div class="col-4">
+                    <div class="mr-2">{{ order_form.country }}</div>
+                </div>
+                <div class="col-4">
+                    <div class="mr-2 ml-2">{{ order_form.county_or_province }}</div>
+                </div>
+                <div class="col-4">
+                    <div class="ml-2">{{ order_form.post_code_or_zip_code }}</div>
+                </div>
+                <div class="col-12 d-flex">{{ order_form.phone_number }}</div>
+                <h2 class="col-12 footer-heading">Payment</h2>
+                <input type="text" name="" id="" class="form-control">
+                <button type="submit" class="form-control dark-button">Complete Order</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 col-md-5 offset-1 order-summary">
+        <h2 class="text-center footer-heading c1">Order Summary</h2>
+        <div class="row no-gutters">
+            {% for cart_item in cart_items %}
+            <div class="col-8 offset-2">
+                <div class="row no-gutters">
+                    <div class="col-2">
+                        <div class="square">
+                            <div class="square-inner text-center checkout-product-image">
+                                <div class="product-image"
+                                    style="background-image: url({{cart_item.product.image.url}})">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 offset-2 my-auto checkout-product-text">
+                        x {{cart_item.quantity}} {{cart_item.product}}
+                        €{{cart_item.product.price | calc_subtotal:cart_item.quantity }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class=" col-8 offset-2 checkout_hr">
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-8 offset-2">
+            <h2 class="">Subtotal = €{{total}}</h2>
+            <h2 class="">Shipping = €{{shipping}}</h2>
+            <div class="checkout_hr"></div>
+            <h2 class="">Grand Total = €{{grand_total}}</h2>
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}
-
-{% block content %}
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <form method="POST" action="x" class="form mb-2" id="order-form" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% for field in order_form %}
-                        {{ field | as_crispy_field }}
-                    {% endfor %}
-                </form>
-            </div>            
-        </div>
+{% block page_footer %}
 {% endblock %}
