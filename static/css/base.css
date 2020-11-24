@@ -106,6 +106,8 @@ header {
 
 .dropdown-menu {
   background-color: var(--main-navbar-color);
+  font-size: 2rem;
+  padding: 2rem;
 }
 
 .dropdown-item {
