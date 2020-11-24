@@ -121,9 +121,21 @@ def view_products(request):
     """ A view to show individual product details """
 
     products = Product.objects.all()
+    formats = Format.objects.all()
+    genres = Genre.objects.all()
+    artists = Artist.objects.all()
+    colours = Colour.objects.all()
+    labels = Label.objects.all()
+    tags = Tag.objects.all()
 
     context = {
         'products': products,
+        'formats': formats,
+        'genres': genres,
+        'artists': artists,
+        'colours': colours,
+        'labels': labels,
+        'tags': tags,
     }
 
     return render(request, 'products/view_products.html', context)

@@ -49,17 +49,17 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <button class="form-control append-button-dark"
+                                        <button class="decrement-qty form-control append-button-dark"
                                             data-item_id="{{ cart_item.item_id }}"
                                             id="decrement-qty_{{ cart_item.item_id }}">
-                                            <i class="fas fa-minus fa-sm"></i>
+                                            <i class="fas fa-minus fa-sm"></i>, 
                                         </button>
                                     </div>
-                                    <input class="form-control qty_input" type="number" name="quantity"
+                                    <input class="form-control text-center qty_input" type="number" name="quantity"
                                         value="{{ cart_item.quantity }}" min="1" max="99"
                                         data-item_id="{{ cart_item.item_id }}" id="id_qty_{{ cart_item.item_id }}">
                                     <div class="input-group-append">
-                                        <button class=" form-control append-button-dark"
+                                        <button class="increment-qty form-control append-button-dark"
                                             data-item_id="{{ cart_item.item_id }}"
                                             id="increment-qty_{{ cart_item.item_id }}">
                                             <span>

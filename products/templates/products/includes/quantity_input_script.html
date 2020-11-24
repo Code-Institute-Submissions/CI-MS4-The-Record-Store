@@ -23,7 +23,7 @@
       handleEnableDisable(itemId);
     });
 
-    {% comment %} If a value is enter and submitted in the number field prevent the increment & decrement buttons from being submitted {% endcomment %}
+    {% comment %} If a value is entered and submitted in the number field prevent the increment & decrement buttons from being submitted {% endcomment %}
     $(".qty_input").on("keypress", function (e) {
       if (e.which == 13) {
         $(".decrement-qty").attr("type","button");
