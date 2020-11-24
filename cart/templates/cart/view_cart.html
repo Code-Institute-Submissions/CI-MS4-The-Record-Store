@@ -1,62 +1,122 @@
 {% extends "base.html" %}
 {% load static %}
+{%block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
 {% load cart_tools %}
+{% endblock %}
 
 {% block content %}
-{% if cart_items|length %} {% for cart_item in cart_items %}
-<h2>{{cart_item.product}}</h2>
-<h2>Price: €{{cart_item.product.price}}</h2>
-<h2>Total: €{{ cart_item.product.price | calc_subtotal:cart_item.quantity }} </h2>
-<form class="form update-form" method="POST" action="{% url 'update_cart' cart_item.item_id %}">
-    {% csrf_token %}
-    <div class="form-group">
-        <h2>Quantity</h2>
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <button class="decrement-qty btn btn-sm btn-black rounded-0" data-item_id="{{ cart_item.item_id }}"
-                    id="decrement-qty_{{ cart_item.item_id }}">
-                    <span>
-                        <i class="fas fa-minus fa-sm"></i>
-                    </span>
-                </button>
-            </div>
-            <input class="form-control form-control-sm qty_input" type="number" name="quantity"
-                value="{{ cart_item.quantity }}" min="1" max="99" data-item_id="{{ cart_item.item_id }}"
-                id="id_qty_{{ cart_item.item_id }}">
-            <div class="input-group-append">
-                <button class="increment-qty btn btn-sm btn-black rounded-0" data-item_id="{{ cart_item.item_id }}"
-                    id="increment-qty_{{ cart_item.item_id }}">
-                    <span>
-                        <i class="fas fa-plus fa-sm"></i>
-                    </span>
-                </button>
+<div class="row no-gutters">
+    <div class="col-8 offset-2">
+        <div class="page-title">Shopping Cart</div>
+
+        {% if cart_items|length %}
+        <div class="row no-gutters">
+            <div class="col-6 footer-heading">Products</div>
+            <div class="col-2 footer-heading text-center">Price</div>
+            <div class="col-2 footer-heading text-center ">Quantity</div>
+            <div class="col-2 footer-heading text-center">Total</div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col">
+                {% for cart_item in cart_items %}
+                <div class="row no-gutters">
+                    <div class="col-12 dark-hr"></div>
+                </div>
+                <div class="row no-gutters">
+                    <div class="col-6">
+                        <div class="row no-gutters">
+                            <div class="col-5">
+                                <div class="square">
+                                    <div class="square-inner text-center checkout-product-image">
+                                        <div class="product-image"
+                                            style="background-image: url({{cart_item.product.image.url}})">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5 my-auto">
+                                <h2>{{cart_item.product}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 my-auto text-center">
+                        <h2>€{{cart_item.product.price}}</h2>
+                    </div>
+                    <div class="col-2 my-auto">
+                        <form class="form update-form" method="POST" action="{% url 'update_cart' cart_item.item_id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="form-control append-button-dark"
+                                            data-item_id="{{ cart_item.item_id }}"
+                                            id="decrement-qty_{{ cart_item.item_id }}">
+                                            <i class="fas fa-minus fa-sm"></i>
+                                        </button>
+                                    </div>
+                                    <input class="form-control qty_input" type="number" name="quantity"
+                                        value="{{ cart_item.quantity }}" min="1" max="99"
+                                        data-item_id="{{ cart_item.item_id }}" id="id_qty_{{ cart_item.item_id }}">
+                                    <div class="input-group-append">
+                                        <button class=" form-control append-button-dark"
+                                            data-item_id="{{ cart_item.item_id }}"
+                                            id="increment-qty_{{ cart_item.item_id }}">
+                                            <span>
+                                                <i class="fas fa-plus fa-sm"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- <form class="form" action="{% url 'remove_from_cart' cart_item.item_id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Remove" />
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+                        </form> -->
+                    </div>
+                    <div class="col-2 my-auto text-center">
+                        <h2>€{{ cart_item.product.price | calc_subtotal:cart_item.quantity }} </h2>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
+
+        <div class="row no-gutters">
+            <div class="col text-right">
+                <h2 class="footer-heading">Subtotal Total = €{{total}}</h2>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-2">
+                <a href="{% url 'view_products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="text-uppercase">Keep Shopping</span>
+                </a>
+            </div>
+            <div class="col-3 offset-7 text-center">
+                <a href="{% url 'checkout' %}" class="form-control dark-button">
+                    <span class="text-uppercase">Checkout</span>
+                    <span class="icon">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+
+        {% else %}
+        <h1>There are no items in your cart.</h1>
+        {% endif %}
     </div>
-</form>
-<form class="form" action="{% url 'remove_from_cart' cart_item.item_id %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Remove" />
-    </div>
-    <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-</form>
-{% endfor %}
-<h2>Grand Total = €{{total}}</h2>
-<a href="{% url 'view_products' %}" class="btn btn-outline-black rounded-0 btn-lg">
-    <span class="icon">
-        <i class="fas fa-chevron-left"></i>
-    </span>
-    <span class="text-uppercase">Keep Shopping</span>
-</a>
-<a href="{% url 'checkout' %}" class="btn btn-black rounded-0 btn-lg">
-    <span class="text-uppercase">Secure Checkout</span>
-    <span class="icon">
-        <i class="fas fa-lock"></i>
-    </span>
-</a>
-{% else %}
-<h1>There are no items in your cart.</h1>
-{% endif %} {% endblock %}
+</div>
+
+</div>
+{% endblock %}
 
 
 {% block postloadjs %}
