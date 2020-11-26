@@ -99,5 +99,6 @@ def clear_previous_primary_address(user):
 
     previous_primary_address = (
         Address.objects.filter(primary_address=True).first())
-    previous_primary_address.primary_address = False
-    previous_primary_address.save()
+    if(previous_primary_address):
+        previous_primary_address.primary_address = False
+        previous_primary_address.save()

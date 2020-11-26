@@ -1,42 +1,65 @@
-  {% extends "base.html" %}
-  {% load static %}
-
-
-  {% block content %}
-  <div class="row no-gutters">
-    <div class="col text-center">
-      <h2>Account Details</h2>
-    </div>
+{% extends "base.html" %} {% load static %} {% block content %}
+<div class="row no-gutters">
+  <div class="col-10 offset-1 col-md-4 offset-md-4">
+    <div class="page-title text-center">Account</div>
+    <div class="dark-hr"></div>
   </div>
-  <div class="row no-gutters">
-    <div class="col-2 offset-2">
-      <div>{{profile.user.first_name}} {{profile.user.last_name}}</div>
-      <div>{{profile.user.email}}</div> 
-      <h3>Primary Address</h3>
-      <!-- {{form.primary_address}} -->
-      {% if primary_address|length %}
-      {% for address in primary_address %}
-      {{address.address_line_1}}<br>
-      {{address.address_line_2}}<br>
-      {{address.town_or_city}}<br>
-      {{address.county_province}}<br>
-      {{address.country}}<br>
-      {{address.post_code_or_zip}}<br>
-      {{address.phone_number}}
-      {% endfor%}
-      {% else %}
-      <div>You haven't set your primary address yet, please choose one from your address book.</div>
-      {% endif %}
-      <a href="{% url 'addresses' %}">Address Book</a>
-    </div>
-    <div class="col-8">
-      <h3>Order History</h3>
-      {% if orders|length %}
-      {% else %}
-      <div>You haven't placed any orders yet.</div>
+</div>
+<div class="row no-gutters">
+  <div class="col-2 offset-1">
+    <div class="footer-heading">{{profile.user.first_name}} {{profile.user.last_name}}</div>
+    <div class="standard-paragraph">{{profile.user.email}}</div>
+    <div class="footer-heading">Primary Address</div>
+    <!-- {{form.primary_address}} -->
+    <div class="standard-paragraph ">
+      {% if primary_address|length %} {% for address in primary_address %}
+      {{address.address_line_1}}<br />
+      {{address.address_line_2}}<br />
+      {{address.town_or_city}}<br />
+      {{address.county_or_province}}<br/>
+      {{address.country}}<br />
+      {{address.post_code_or_zip_code}}<br />
+      {{address.phone_number}}<br /> {% endfor%} {% else %}
+      <div>
+        You haven't set your primary address yet, please choose one from your
+        address book.
+      </div>
       {% endif %}
     </div>
+    <a class="form-control btn dark-button" href="{% url 'addresses' %}">Manage Addresses</a>
   </div>
+  <div class="col-7 offset-1">
+    <div class="footer-heading">Order History</div>
+    {% if orders|length %}
+    {% else %}
+    <div class="row">
+      <div class="col-12 order-history-info-item">
+        <div class="row">
+          <div class="col-3">
+            <div class="order-sub-heading">Order Placed:</div>
+            <div>26 November 2020</div>
+            <div class="order-sub-heading">Order Number:</div>
+            <div>12356789010</div>
+            <div class="order-sub-heading">Order Total:</div>
+            <div>€369.99</div>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-12">
+                <span>Order dispatched to Home Address</span>
+                <!-- <span><a class="btn dark-button" href="https://www.fastway.ie/courier-services/track-your-parcel">Track
+                    Parcel</a></span> -->
+              </div>
+              <div class="col-12">
+                <span>Line Items Go Here</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
 
-
-  {% endblock %}
+{% endblock %}

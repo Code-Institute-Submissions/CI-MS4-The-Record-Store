@@ -5,24 +5,48 @@
 
   {% block content %}
   <div class="row no-gutters">
-    {% for address in addresses %}
-    <div class="col">
-      {{address.address_line_1}}<br>
-      {{address.address_line_2}}<br>
-      {{address.town_or_city}}<br>
-      {{address.county_province}}<br>
-      {{address.country}}<br>
-      {{address.post_code_or_zip_code}}<br>
-      {{address.phone_number}}<br>
-      <a href="{% url 'edit_address' address.id %}">Edit</a>
-      <a href="{% url 'delete_address' address.id %}">Delete</a>
+    <div class="col-10 offset-1 col-md-4 offset-md-4">
+      <div class="page-title text-center">Manage Addresses</div>
+      <div class="dark-hr"></div>
     </div>
-
-    {% endfor %}
   </div>
   <div class="row no-gutters">
-    <div class="col">
-      <a href="{% url 'add_address' %}">Add New Address</a>
+    <div class="col-10 offset-1">
+      <div class="row">
+        {% if addresses|length %}
+        {% for address in addresses %}
+        <div class="standard-paragraph text-center col-4">
+          {% if address.primary_address %}
+          <div class="primary">Primary Address</div>
+          {% endif %}
+          {{address.address_line_1}}<br />
+          {{address.address_line_2}}<br />
+          {{address.town_or_city}}<br />
+          {{address.county_or_province}}<br />
+          {{address.country.name}}<br />
+          {{address.post_code_or_zip_code}}<br />
+          {{address.phone_number}}<br/>
+          <a href="{% url 'edit_address' address.id %}">Edit</a>
+          <span> | </span>
+          <a href="{% url 'delete_address' address.id %}">Delete</a>
+        </div>
+        {% endfor%}
+
+        {% else %}
+
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  <div class="row no-gutters">
+    <div class="col-10 offset-1">
+      <div class="row">
+        <div class="col-4 offset-4">
+          <a class="form-control dark-button text-center" href="{% url 'add_address' %}">Add New Address</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
