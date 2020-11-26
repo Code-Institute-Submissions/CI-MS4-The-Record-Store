@@ -6,11 +6,11 @@
                     data-target="#collapsed-genres" aria-expanded="true" aria-controls="collapsed-genres">
                     Genre
                 </button>
-                <div id="collapsed-genres" class="collapse collapsed-navigation" aria-labelledby="genre"
-                    data-parent="#site-navigation-accordion">
-                    <a class="dropdown-item" href="#">All</a>
-                    <a class="dropdown-item" href="#">Rock</a>
-                    <a class="dropdown-item" href="#">Hip Hop</a>
+                <div id="collapsed-genres" class="collapse collapsed-navigation" aria-labelledby="genre">
+                    {% for genre in genres %} 
+                    <a class="dropdown-item" href="{% url 'view_products' %}?genre={{genre}}">
+                    {{genre.friendly_name}}</a>
+                    {% endfor %}
                 </div>
             </li>
             <li class="nav-item p-0 text-center">

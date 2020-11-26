@@ -181,7 +181,7 @@ header {
 
 .mobile-navbar-icon {
   color: var(--main-text-and-icon-color);
-  font-size: 2rem;
+  font-size: 2.5rem;
   line-height: 0;
 }
 
@@ -273,8 +273,15 @@ main {
   transform: translate(-50%, -50%);
 }
 
-html {
-  font-size: 16px;
+/* Small devices (landscape phones, 576px and up) */
+@media screen and (min-width: 0px) {
+  html {
+    font-size: 8px;
+  }
+
+  #brand-icon {
+    font-size: 5rem;
+  }
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -283,6 +290,11 @@ html {
 
 /* Medium devices (tablets, 768px and up) */
 @media screen and (min-width: 768px) {
+  .collapse.only-collapse-on-xs {
+    display: flex;
+    height: auto !important;
+    visibility: visible;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -362,7 +374,7 @@ html {
 }
 
 .filter-dropdown-button {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   text-transform: uppercase;
   font-weight: 600;
   color: var(--main-navbar-color);
@@ -371,6 +383,11 @@ html {
   background-color: transparent;
   border: none;
 }
+
+select{
+  -webkit-appearance: none;
+}
+
 
 .filter-dropdown-button:after{
   transition: all 0.3s ease-in-out;
@@ -407,8 +424,8 @@ html {
 .noUi-horizontal .noUi-handle {
   width: 8px;
   height: 20px;
-  left: 8px;
   background-color: var(--main-navbar-color);
+  right: -7px;
   box-shadow: none;
 }
 
@@ -416,6 +433,11 @@ html {
 .noUi-handle:before {
   display: none;
 }
+
+.noUi-target {
+
+}
+
 
 .noUi-connect {
   background-color: var(--main-text-and-icon-color);
