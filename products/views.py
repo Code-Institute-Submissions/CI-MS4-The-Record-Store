@@ -140,6 +140,8 @@ def view_products(request):
     format_filters = {}
     colour_filters = {}
     tag_filters = {}
+    min_price = 0.00
+    max_price = 300.00
 
     if request.GET:
         if 'sort' in request.GET:
@@ -152,8 +154,8 @@ def view_products(request):
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
-            products = products.order_by(sortkey)                 
-        
+            products = products.order_by(sortkey)
+
         if 'filter' in request.GET:
 
             _filter = Q()
@@ -163,23 +165,36 @@ def view_products(request):
                 filter_value = (re.search('=(.*)', filter)).group(1)
                 if filter_type == "genre":
                     genre_filters[filter_value] = filter_value
-                    _filter.add((Q(genre__name=filter_value)), _filter.connector)
+                    _filter.add((Q(genre__name=filter_value)),
+                                _filter.connector)
                 if filter_type == "artist":
-                    _filter.add((Q(artist__name=filter_value)), _filter.connector)
+                    _filter.add((Q(artist__name=filter_value)),
+                                _filter.connector)
                     artist_filters[filter_value] = filter_value
                 if filter_type == "label":
-                    _filter.add((Q(label__name=filter_value)), _filter.connector)
+                    _filter.add((Q(label__name=filter_value)),
+                                _filter.connector)
                     label_filters[filter_value] = filter_value
                 if filter_type == "format":
-                    _filter.add((Q(format__name=filter_value)), _filter.connector)
+                    _filter.add((Q(format__name=filter_value)),
+                                _filter.connector)
                     format_filters[filter_value] = filter_value
                 if filter_type == "colour":
-                    _filter.add((Q(colour__name=filter_value)), _filter.connector)
+                    _filter.add((Q(colour__name=filter_value)),
+                                _filter.connector)
                     colour_filters[filter_value] = filter_value
                 if filter_type == "tag":
-                    _filter.add((Q(tags__name=filter_value)), _filter.connector)
+                    _filter.add((Q(tags__name=filter_value)),
+                                _filter.connector)
                     tag_filters[filter_value] = filter_value
             products = products.filter(_filter)
+
+        if 'price' in request.GET:
+            price_range = request.GET['price']
+            min_price = re.search('(.*)-', price_range).group(1)
+            max_price = re.search('-(.*)', price_range).group(1)
+            products = products.filter(price__range=(min_price, max_price))
+            print(products)
 
         if 'genre' in request.GET:
             genre_request = request.GET['genre'].split(',')
@@ -216,6 +231,8 @@ def view_products(request):
         'format_filters': format_filters,
         'colour_filters': colour_filters,
         'tag_filters': tag_filters,
+        'min_price': min_price,
+        'max_price': max_price,
     }
 
     return render(request, 'products/view_products.html', context)

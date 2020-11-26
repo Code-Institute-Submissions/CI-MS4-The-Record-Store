@@ -20,12 +20,12 @@
             <div class="row no-gutters">
               <div class="col-6">
                 <div class="mr-1">
-                  <input class="form-control" type="number" name="" id="lower-price">
+                  <input class="form-control" type="number" name="" id="lower-price" value="{{min_price}}">
                 </div>
               </div>
               <div class="col-6">
                 <div class="ml-1">
-                  <input class="form-control" type="number" name="" id="upper-price">
+                  <input class="form-control" type="number" name="" id="upper-price" value="{{max_price}}">
                 </div>
               </div>
               <div class="col-12" id="slider"></div>
@@ -241,9 +241,25 @@
     crossorigin="anonymous"></script>
   <script>
     var slider = document.getElementById('slider');
+    var lowerPrice = document.getElementById('lower-price');
+    var upperPrice = document.getElementById('upper-price');
+
+    lowerPrice.addEventListener("change", function(){
+      var currentUrl = new URL(window.location);
+      var priceRange = `${this.value }-${upperPrice.getAttribute("value")}`
+      currentUrl.searchParams.set("price", priceRange);
+      window.location.replace(currentUrl);
+    });
+
+    upperPrice.addEventListener("change", function(){
+      var currentUrl = new URL(window.location);
+      var priceRange = `${lowerPrice.getAttribute("value") }-${this.value}`
+      currentUrl.searchParams.set("price", priceRange);
+      window.location.replace(currentUrl);
+    });
 
     noUiSlider.create(slider, {
-      start: [0, 300],
+      start: [lowerPrice.getAttribute("value"), upperPrice.getAttribute("value")],
       connect: true,
       range: {
         'min': 0,
@@ -251,11 +267,16 @@
       }
     });
 
-    var lowerPrice = document.getElementById('lower-price');
-    var upperPrice = document.getElementById('upper-price');
+
     slider.noUiSlider.on('update', function (values, handle) {
       lowerPrice.value = values[0];
       upperPrice.value = values[1];
+    });
+    slider.noUiSlider.on('set', function (values, handle) {
+      var currentUrl = new URL(window.location);
+      var priceRange = `${values[0]}-${values[1]}`
+      currentUrl.searchParams.set("price", priceRange);
+      window.location.replace(currentUrl);
     });
 
 
