@@ -17,8 +17,10 @@ class ProductAdmin(admin.ModelAdmin):
         'image',
         'tracklist',
     )
-
+    # search_fields = ['name', 'artist__Artist_name']
     ordering = ('sku',)
+
+    
 
 
 class GenreAdmin(admin.ModelAdmin):

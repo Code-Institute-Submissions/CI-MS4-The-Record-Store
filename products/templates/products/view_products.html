@@ -4,7 +4,7 @@
   {% block extra_css %}
   <link rel="stylesheet" href="{% static 'products/css/products.css' %}">
   {% endblock %}
-
+  {% load product_tools %}
 
   {% block content %}
 
@@ -41,9 +41,9 @@
           <div class="filter collapse show" id="genre-dropdown-menu">
             {% for genre in genres  %}
             <div class="filter-checkbox">
-              <input type="checkbox" id="{{genre.friendly_name}}" name="{{genre.friendly_name}}"
-                value="{{genre.friendly_name}}">
-              <label for="{{genre.friendly_name}}">{{genre.friendly_name}}</label><br>
+              <input onchange="filterChanged(this.name, this.checked)" type="checkbox" id="{{genre}}_filter" name="t_genre={{genre}}"
+                {% if genre_filters|keyvalue:genre == genre.name %}checked{% endif %}>
+              <label for="{{genre}}">{{genre.friendly_name}}</label><br>
             </div>
             {% endfor %}
           </div>
@@ -57,8 +57,8 @@
           <div class="filter collapse show" id="artist-dropdown-menu">
             {% for artist in artists  %}
             <div class="filter-checkbox">
-              <input type="checkbox" id="{{artist.friendly_name}}" name="{{artist.friendly_name}}"
-                value="{{artist.friendly_name}}">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{artist.friendly_name}}"
+                name="t_artist={{artist}}" {% if artist_filters|keyvalue:artist == artist.name %}checked{% endif %}>
               <label for="{{artist.friendly_name}}">{{artist.friendly_name}}</label><br>
             </div>
             {% endfor %}
@@ -73,8 +73,8 @@
           <div class="filter collapse show" id="label-dropdown-menu">
             {% for label in labels  %}
             <div class="filter-checkbox">
-              <input type="checkbox" id="{{label.friendly_name}}" name="{{label.friendly_name}}"
-                value="{{label.friendly_name}}">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{label.friendly_name}}"
+                name="t_label={{label}}" {% if label_filters|keyvalue:label == label.name %}checked{% endif %}>
               <label for="{{label.friendly_name}}">{{label.friendly_name}}</label><br>
             </div>
             {% endfor %}
@@ -89,8 +89,8 @@
           <div class="filter collapse show" id="format-dropdown-menu">
             {% for format in formats  %}
             <div class="filter-checkbox">
-              <input type="checkbox" id="{{format.friendly_name}}" name="{{format.friendly_name}}"
-                value="{{format.friendly_name}}">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{format.friendly_name}}"
+                name="t_format={{format}}" {% if format_filters|keyvalue:format == format.name %}checked{% endif %}>
               <label for="{{format.friendly_name}}">{{format.friendly_name}}</label><br>
             </div>
             {% endfor %}
@@ -105,8 +105,8 @@
           <div class="filter collapse show" id="colour-dropdown-menu">
             {% for colour in colours  %}
             <div class="filter-checkbox">
-              <input type="checkbox" id="{{colour.friendly_name}}" name="{{colour.friendly_name}}"
-                value="{{colour.friendly_name}}">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{colour.friendly_name}}"
+                name="t_colour={{colour}}" {% if colour_filters|keyvalue:colour == colour.name %}checked{% endif %}>
               <label for="{{colour.friendly_name}}">{{colour.friendly_name}}</label><br>
             </div>
             {% endfor %}
@@ -121,8 +121,8 @@
           <div class="filter collapse show" id="tag-dropdown-menu">
             {% for tag in tags  %}
             <div class="filter-checkbox">
-              <input type="checkbox" id="{{tag.friendly_name}}" name="{{tag.friendly_name}}"
-                value="{{tag.friendly_name}}">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{tag.friendly_name}}" name="t_tag={{tag}}"
+                {% if tag_filters|keyvalue:tag == tag.name %}checked{% endif %}>
               <tag for="{{tag.friendly_name}}">{{tag.friendly_name}}</tag><br>
             </div>
             {% endfor %}
@@ -141,19 +141,23 @@
       <div class="row no-gutters">
         <div class="col-12">
           <div class="col-3 offset-9 text-center">
-            <div class="dropdown">
-              <button class="filter-dropdown-button" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Sort By
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Price: Low to High</a>
-                <a class="dropdown-item" href="#">Price: High to Low</a>
-                <a class="dropdown-item" href="#">Alphabetically: A-Z</a>
-                <a class="dropdown-item" href="#">Alphabetically: Z-A</a>
-                <a class="dropdown-item" href="#">Date: New to Old</a>
-                <a class="dropdown-item" href="#">Date: Old to New</a>
-              </div>
+            <div class="sort-select-wrapper w-50">
+              <select id="sort-selector"
+                class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)
+                </option>
+                <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to
+                  low)</option>
+                <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>
+                  Alphabetically: A-Z</option>
+                <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Alphabetically: Z-A
+                </option>
+                <!-- <option value="release_year_asc" {% if current_sorting == 'release_year_asc' %}selected{% endif %}>Date: New to Old
+                </option>
+                <option value="release_year_desc" {% if current_sorting == 'release_year_desc' %}selected{% endif %}>Date Old to New
+                </option> -->
+              </select>
             </div>
           </div>
         </div>
@@ -214,7 +218,8 @@
               </div>
               <!-- Product Details -->
               <a class="product-title" href="{% url 'view_product' product.id %}">{{product.name}}</a><br>
-              <a class="product-artist" href="{% url 'view_product' product.id %}">{{product.artist.friendly_name}}</a><br>
+              <a class="product-artist"
+                href="{% url 'view_product' product.id %}">{{product.artist.friendly_name}}</a><br>
               <a class="product-label" href="{% url 'view_product' product.id %}">{{product.label.friendly_name}}</a>
               <div class="product-sub-heading">€{{product.price}}</div>
             </div>
@@ -252,5 +257,47 @@
       lowerPrice.value = values[0];
       upperPrice.value = values[1];
     });
+
+
+    $('#sort-selector').change(function () {
+      var selector = $(this);
+      var currentUrl = new URL(window.location);
+
+      var selectedVal = selector.val();
+      if (selectedVal != "reset") {
+        var sort = selectedVal.split("_")[0];
+        var direction = selectedVal.split("_")[1];
+
+        currentUrl.searchParams.set("sort", sort);
+        currentUrl.searchParams.set("direction", direction);
+
+        window.location.replace(currentUrl);
+      } else {
+        currentUrl.searchParams.delete("sort");
+        currentUrl.searchParams.delete("direction");
+
+        window.location.replace(currentUrl);
+      }
+    })
+
+    function filterChanged(filter, isChecked) {
+      var currentUrl = new URL(window.location);
+      if (isChecked) {
+        currentUrl.searchParams.append("filter", filter);
+      } else {
+        currentUrl = removeURLParameter(currentUrl, filter)
+      }
+
+      window.location.replace(currentUrl);
+    }
+
+    function removeURLParameter(url, parameter) {
+      encodedFilterParameter = encodeURIComponent(parameter);
+      filterToRemove = "filter="+encodedFilterParameter;
+      url= url.href.toString();
+      urlWithFilterRemoved = url.replace(filterToRemove,"");
+      url = new URL(urlWithFilterRemoved)
+      return url;
+    }
   </script>
   {% endblock %}

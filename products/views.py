@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
+from django.db.models.functions import Lower
 from .forms import ProductForm
 from .models import Product, Artist, Label, Genre, Format, Colour, Tag
+import re
 
 # Create your views here.
 
@@ -128,6 +130,78 @@ def view_products(request):
     labels = Label.objects.all()
     tags = Tag.objects.all()
 
+    search_query = None
+    sort = None
+    direction = None
+    _filter = None
+    genre_filters = {}
+    artist_filters = {}
+    label_filters = {}
+    format_filters = {}
+    colour_filters = {}
+    tag_filters = {}
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                products = products.annotate(lower_name=Lower('name'))
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            products = products.order_by(sortkey)                 
+        
+        if 'filter' in request.GET:
+
+            _filter = Q()
+            filters = request.GET.getlist('filter')
+            for filter in filters:
+                filter_type = (re.search('t_(.*)=', filter)).group(1)
+                filter_value = (re.search('=(.*)', filter)).group(1)
+                if filter_type == "genre":
+                    genre_filters[filter_value] = filter_value
+                    _filter.add((Q(genre__name=filter_value)), _filter.connector)
+                if filter_type == "artist":
+                    _filter.add((Q(artist__name=filter_value)), _filter.connector)
+                    artist_filters[filter_value] = filter_value
+                if filter_type == "label":
+                    _filter.add((Q(label__name=filter_value)), _filter.connector)
+                    label_filters[filter_value] = filter_value
+                if filter_type == "format":
+                    _filter.add((Q(format__name=filter_value)), _filter.connector)
+                    format_filters[filter_value] = filter_value
+                if filter_type == "colour":
+                    _filter.add((Q(colour__name=filter_value)), _filter.connector)
+                    colour_filters[filter_value] = filter_value
+                if filter_type == "tag":
+                    _filter.add((Q(tags__name=filter_value)), _filter.connector)
+                    tag_filters[filter_value] = filter_value
+            products = products.filter(_filter)
+
+        if 'genre' in request.GET:
+            genre_request = request.GET['genre'].split(',')
+            products = products.filter(genre__name__in=genre_request)
+
+        if 'tag' in request.GET:
+            tag_request = request.GET['tag'].split(',')
+            products = products.filter(tags__name__in=tag_request)
+
+        if 'search_bar_main' in request.GET:
+            search_query = request.GET['search_bar_main']
+            if not search_query:
+                return redirect(reverse('view_products'))
+
+            search_queries = (Q(name__icontains=search_query) |
+                              Q(artist__name__icontains=search_query) |
+                              Q(label__name__icontains=search_query) |
+                              Q(description__icontains=search_query) |
+                              Q(tracklist__icontains=search_query)
+                              )
+            products = products.filter(search_queries)
+
     context = {
         'products': products,
         'formats': formats,
@@ -136,6 +210,12 @@ def view_products(request):
         'colours': colours,
         'labels': labels,
         'tags': tags,
+        'genre_filters': genre_filters,
+        'artist_filters': artist_filters,
+        'label_filters': label_filters,
+        'format_filters': format_filters,
+        'colour_filters': colour_filters,
+        'tag_filters': tag_filters,
     }
 
     return render(request, 'products/view_products.html', context)

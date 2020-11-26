@@ -99,7 +99,8 @@ header {
   border-color: var(--main-text-and-icon-color);
   background-color: var(--main-navbar-color);
   color: var(--main-text-and-icon-color);
-  padding: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
   border-width: 1px;
   line-height: 0;
 }
@@ -142,6 +143,7 @@ header {
   border-bottom: solid 0.1rem var(--main-text-and-icon-color);
   margin-top: 3rem;
   margin-bottom: 3rem;
+  opacity: 0.2;
 }
 
 .footer-section {
@@ -348,8 +350,9 @@ html {
 
 .dark-hr {
   border-bottom: solid 0.1rem var(--main-navbar-color);
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  opacity: 0.2;
 }
 
 .qty_input {

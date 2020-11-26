@@ -8,22 +8,28 @@
   </div>
   <div class="col-6 offset-1 my-auto">
     <!-- Serach Bar -->
+    <form method="GET" action="{% url 'view_products' %}">
     <div class="input-group w-100">
       <input
         class="form-control rounded-0"
         type="text"
-        name="q"
+        name="search_bar_main"
         id="search-bar-main"
         placeholder="Search by Title, Artist, Label etc"
       />
       <div class="input-group-append">
-        <button class="form-control append-button-dark" type="submit" id="search-icon">
+        <button
+          class="form-control append-button-dark"
+          type="submit"
+          id="search-icon"
+        >
           <span class="icon">
             <i class="fas fa-search navbar-icon"></i>
           </span>
         </button>
       </div>
     </div>
+    </form>
   </div>
   <div class="col-3 my-auto">
     <!-- Wishlist, Profile & Cart -->
@@ -51,8 +57,6 @@
       </li>
     </ul>
   </div>
-
-
 </div>
 <div class="row no-gutters d-none d-lg-flex" id="nav-menu">
   <div class="col-6 offset-3">
@@ -70,13 +74,11 @@
           >
             Genre
           </a>
-          <div
-            class="dropdown-menu w-100 text-center"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
+          <div class="dropdown-menu w-100 text-center" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="{% url 'view_products' %}">All</a>
-            <a class="dropdown-item" href="#">Rock</a>
-            <a class="dropdown-item" href="#">Hip Hop</a>
+            {% for genre in genres %}
+            <a class="dropdown-item" href="{% url 'view_products' %}?genre={{genre}}">{{genre.friendly_name}}</a>
+            {% endfor %}
           </div>
         </li>
         <li class="nav-item p-0 text-center p-0 col-3">
@@ -100,8 +102,9 @@
             class="dropdown-menu w-100 text-center"
             aria-labelledby="navbarDropdownMenuLink"
           >
-            <a class="dropdown-item" href="#">3 for 2</a>
-            <a class="dropdown-item" href="#">Clearance</a>
+            {% for tag in tags %}
+            <a class="dropdown-item" href="{% url 'view_products' %}?tag={{tag}}">{{tag.friendly_name}}</a>
+            {% endfor %}
           </div>
         </li>
       </ul>
