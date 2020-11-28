@@ -1,7 +1,6 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %} 
-{%block extra_css %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %} {%block extra_css %}
 <link rel="stylesheet" href="{% static 'products/css/products.css' %}" />
-{% load cart_tools %} {% endblock %} {% block page_header %} {% endblock %} 
+{% load cart_tools %} {% endblock %} {% block page_header %} {% endblock %}
 {%block content %}
 <div class="row vh-100">
   <div class="col-12 col-md-5 offset-md-1 shipping-information">
@@ -9,13 +8,7 @@
       <i class="fas fa-record-vinyl"></i>
       <h3>The Record Store</h3>
     </div>
-    <form
-      method="POST"
-      action="{% url 'checkout' %}"
-      class="form mb-2"
-      id="order-form"
-      enctype="multipart/form-data"
-    >
+    <form method="POST" action="{% url 'checkout' %}" class="form mb-2" id="order-form" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="row no-gutters">
         <h2 class="col-12 footer-heading">Contact Information</h2>
@@ -40,6 +33,19 @@
           <div class="ml-2">{{ order_form.post_code_or_zip_code }}</div>
         </div>
         <div class="col-12 d-flex">{{ order_form.phone_number }}</div>
+        <div class="form-check-inline">
+          {% if user.is_authenticated %}
+          <label class="form-control borderless" for="id-save-info">Save Address</label>
+          <input class="form-control" type="checkbox" id="id-save-info" name="save-info" checked />
+          {% else %}
+          <label class="form-check-label" for="id-save-info">
+            <a class="text-info" href="{% url 'account_signup' %}">Create an account</a>
+            or
+            <a class="text-info" href="{% url 'account_login' %}">login</a> to
+            save this information
+          </label>
+          {% endif %}
+        </div>
         <h2 class="col-12 footer-heading">Payment</h2>
         <div class="form-control" id="card-element"></div>
         <button type="submit" class="form-control dark-button">
@@ -57,10 +63,7 @@
           <div class="col-2">
             <div class="square">
               <div class="square-inner text-center checkout-product-image">
-                <div
-                  class="product-image"
-                  style="background-image: url({{cart_item.product.image.url}})"
-                ></div>
+                <div class="product-image" style="background-image: url({{cart_item.product.image.url}})"></div>
               </div>
             </div>
           </div>

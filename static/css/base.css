@@ -249,6 +249,10 @@ main {
   color: var(--main-text-and-icon-color);
 }
 
+.form-control.borderless{
+  border-style: unset;
+}
+
 .dark-button {
   transition: all 0.3s ease-in-out;
   background-color: var(--main-navbar-color);

@@ -5,6 +5,8 @@ from .forms import OrderForm
 from profiles.models import UserProfile
 from products.models import Product
 from .models import Order, OrderLineItem
+from profiles.forms import AddressForm
+from profiles.views import Address_Manager
 from django.conf import settings
 from cart.contexts import cart_contents
 import stripe
@@ -38,7 +40,7 @@ def checkout(request):
                     quantity=cart_item['quantity'],
                 )
                 order_line_item.save()
-
+            request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
 
         else:
@@ -73,6 +75,30 @@ def checkout(request):
 
 
 def checkout_success(request, order_number):
+
+    save_info = request.session.get('save_info')
+    order = get_object_or_404(Order, order_number=order_number)
+    if request.user.is_authenticated:
+        if save_info:
+            address_data = {'user': order.user_profile.user,
+                            'first_name': order.first_name,
+                            'last_name': order.last_name,
+                            'address_line_1': order.address_line_1,
+                            'address_line_2': order.address_line_2,
+                            'town_or_city': order.town_or_city,
+                            'county_or_province': order.county_or_province,
+                            'country': order.country,
+                            'post_code_or_zip_code': order.post_code_or_zip_code,
+                            'phone_number': order.phone_number,
+                            'primary_address': True}
+            address_form = AddressForm(address_data)
+            if address_form.is_valid():
+                print("address is valid")
+                address_manager = Address_Manager(request)
+                address_manager.clear_previous_primary_address(request.user)
+                address_form.save()
+            else:
+                print(address_form.errors)
     template = 'checkout/checkout_success.html'
     context = {}
 

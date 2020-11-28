@@ -42,14 +42,14 @@ def addresses(request):
 
 @login_required
 def add_address(request):
-
+    address_manager = Address_Manager(request)
     if request.method == 'POST':
         updated_request = request.POST.copy()
         updated_request.update({'user': request.user})
         form = AddressForm(updated_request)
         if form.is_valid():
             if form.cleaned_data['primary_address'] is True:
-                clear_previous_primary_address(request.user)
+                address_manager.clear_previous_primary_address(request.user)
             form.save()
             return redirect(reverse('addresses'))
         else:
@@ -67,13 +67,14 @@ def add_address(request):
 
 @login_required
 def edit_address(request, item_id):
+    address_manager = Address_Manager(request)
     address = get_object_or_404(Address, pk=item_id)
     if request.method == 'POST':
         form = AddressForm(request.POST, instance=address)
         print(form)
         if form.is_valid():
             if form.cleaned_data['primary_address'] is True:
-                clear_previous_primary_address(request.user)
+                address_manager.clear_previous_primary_address(request.user)
             form.save()
             return redirect(reverse('addresses'))
     else:
@@ -95,10 +96,15 @@ def delete_address(request, item_id):
     return redirect(reverse('addresses'))
 
 
-def clear_previous_primary_address(user):
+class Address_Manager:
 
-    previous_primary_address = (
-        Address.objects.filter(primary_address=True).first())
-    if(previous_primary_address):
-        previous_primary_address.primary_address = False
-        previous_primary_address.save()
+    def __init__(self, request):
+        self.request = request
+
+    def clear_previous_primary_address(self, user):
+        print("Clearing previous primary addess")
+        previous_primary_address = (
+            Address.objects.filter(primary_address=True).first())
+        if(previous_primary_address):
+            previous_primary_address.primary_address = False
+            previous_primary_address.save()
