@@ -99,6 +99,10 @@ def checkout_success(request, order_number):
                 address_form.save()
             else:
                 print(address_form.errors)
+    if 'cart' in request.session:
+        del request.session['cart']
+    if 'save_info' in request.session['save_info']:
+        del request.session['save_info']
     template = 'checkout/checkout_success.html'
     context = {}
 
