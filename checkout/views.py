@@ -80,8 +80,10 @@ def checkout_success(request, order_number):
 
 
 def add_hidden_info(original_request, cart, user):
-    original_request.update(
-        {'user_profile': UserProfile.objects.get(user=user)})
+
+    if user.id is not None:
+        original_request.update(
+            {'user_profile': UserProfile.objects.get(user=user)})
     original_request.update(
         {'delivery_cost': cart['delivery_cost']})
     original_request.update(
