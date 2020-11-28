@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% load crispy_forms_tags %} {% load static %}
+{%block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+{% load cart_tools %}
+{% endblock %}
+{% block page_header %}
+{% endblock %}
+{% block content %}
+<div class="row vh-100">
+    CHECKOUT SUCCESS
+</div>
+
+{% endblock %}
+{% block page_footer %}
+{% endblock %}
