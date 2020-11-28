@@ -13,11 +13,11 @@ def profile(request):
     addresses = Address.objects.filter(user=request.user)
     primary_address = Address.objects.filter(
         user=request.user).filter(primary_address=True)
-    print(primary_address)
     form = DefaultAddressForm()
     form.fields['primary_address'].choices = [
         (address.pk, address.address_line_1) for address in addresses]
-    orders = None
+
+    orders = profile.orders.all()
     context = {
         'profile': profile,
         'form': form,
