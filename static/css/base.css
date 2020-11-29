@@ -294,6 +294,12 @@ main {
   padding-top: 100%;
 }
 
+.main-content{
+  font-size: 2rem;
+}
+
+
+
 .square-inner {
   position: absolute;
   top: 50%;
