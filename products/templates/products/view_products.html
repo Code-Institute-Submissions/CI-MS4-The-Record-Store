@@ -248,9 +248,9 @@
                   <!-- Product Details -->
                   <a class="product-title" href="{% url 'view_product' product.id %}">{{product.name}}</a><br>
                   <a class="product-artist"
-                    href="{% url 'view_product' product.id %}">{{product.artist.friendly_name}}</a><br>
+                    href="{% url 'view_products' %}?artist={{product.artist}}">{{product.artist.friendly_name}}</a><br>
                   <a class="product-label"
-                    href="{% url 'view_product' product.id %}">{{product.label.friendly_name}}</a>
+                    href="{% url 'view_products' %}?label={{product.label}}">{{product.label.friendly_name}}</a>
                   <div class="product-sub-heading">€{{product.price}}</div>
                 </div>
               </div>

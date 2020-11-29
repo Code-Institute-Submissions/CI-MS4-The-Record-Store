@@ -190,6 +190,12 @@ def view_products(request):
             products = products.filter(price__range=(min_price, max_price))
             print(products)
 
+        if 'artist' in request.GET:
+            artist_request = request.GET['artist'].split(',')
+            products = products.filter(artist__name__in=artist_request)
+        if 'label' in request.GET:
+            label_request = request.GET['label'].split(',')
+            products = products.filter(label__name__in=label_request)
         if 'genre' in request.GET:
             genre_request = request.GET['genre'].split(',')
             products = products.filter(genre__name__in=genre_request)
