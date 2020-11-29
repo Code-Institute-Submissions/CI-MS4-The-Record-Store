@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  <div class="row">
+    
+    
+    <div class="col-10 offset-1 col-md-4 offset-md-4">
+      <div class="page-title text-center">{% block title_content %} {% endblock %}</div>
+      <div class="dark-hr"></div>
+    </div>
+    
+    
+    
+    <div class="col-12 col-md-6 offset-3 allauth-form">
+      {% block inner_content %} {% endblock %}
+    </div>
+  </div>
+</div>
+{% endblock %}

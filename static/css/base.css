@@ -267,6 +267,26 @@ main {
   color: var(--main-hightlight-color);
 }
 
+.sub-link{
+  transition: all 0.3s ease-in-out;
+  color: var(--main-text-and-icon-color);
+  font-size: 1.5rem;
+}
+
+.sub-link:hover{
+  color: var(--main-navbar-color);
+}
+
+.sub-label{
+  color: var(--main-navbar-color);
+  font-size: 1.5rem;
+}
+
+.allauth-form{
+  margin-top: 5rem;
+  margin-bottom: 10rem;
+}
+
 
 .square {
   position: relative;

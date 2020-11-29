@@ -1,0 +1,25 @@
+{% extends "account/base.html" %}
+{% block title_content %}Sign Up{% endblock %}
+{%block inner_content %}
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    <input class="form-control" type="text" name="first_name" placeholder="First name" maxlength="30" required=""
+        id="id_first_name">
+    <input class="form-control" type="text" name="last_name" placeholder="Last name" maxlength="30" required=""
+        id="id_last_name">
+    <input type="email" name="email" placeholder="E-mail address" autocomplete="email" class="form-control" required=""
+        id="id_email">
+    <input class="form-control" type="password" name="password1" placeholder="Password" autocomplete="new-password"
+        required="" id="id_password1">
+    <input class="form-control" type="password" name="password2" placeholder="Password (again)" required=""
+        id="id_password2">
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+    <div class="row no-gutters">
+        <button class="dark-button form-control col-3" type="submit">Sign Up</button>
+    </div>
+    <span class="sub-label">Already a customer?</span><a class="sub-link" href="{{ login_url }}"> Sign In</a>
+</form>
+
+{% endblock %}

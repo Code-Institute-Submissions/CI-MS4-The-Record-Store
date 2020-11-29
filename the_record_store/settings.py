@@ -76,6 +76,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -87,6 +88,7 @@ TEMPLATES = [
                 'django.template.context_processors.media',
                 'cart.contexts.cart_contents',
                 'wishlist.contexts.wishlist_contents',
+                'products.contexts.product_sub_models',
                 'django.template.context_processors.request',
             ],
             'builtins': [
@@ -203,6 +205,17 @@ STRIPE_CURRENCY = 'eur'
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
+
+
+ACCOUNT_FORMS = {
+    'signup': 'the_record_store.forms.CustomSignupForm',
+}
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = 'profile'
 
 
 django_heroku.settings(locals())

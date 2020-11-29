@@ -123,12 +123,6 @@ def view_products(request):
     """ A view to show individual product details """
 
     products = Product.objects.all()
-    formats = Format.objects.all()
-    genres = Genre.objects.all()
-    artists = Artist.objects.all()
-    colours = Colour.objects.all()
-    labels = Label.objects.all()
-    tags = Tag.objects.all()
 
     search_query = None
     sort = None
@@ -219,12 +213,6 @@ def view_products(request):
 
     context = {
         'products': products,
-        'formats': formats,
-        'genres': genres,
-        'artists': artists,
-        'colours': colours,
-        'labels': labels,
-        'tags': tags,
         'genre_filters': genre_filters,
         'artist_filters': artist_filters,
         'label_filters': label_filters,
