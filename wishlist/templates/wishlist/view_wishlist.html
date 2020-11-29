@@ -5,45 +5,101 @@
 {% endblock %}
 
 {% block content %}
-<h2>Wishlist</h2>
-<form class="form" action="{% url 'remove_all_from_wishlist' %}" method="POST">
-    {% csrf_token %}
-    <input class="text-center dark-button" type="submit" value="Remove All"></input>
-    <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-</form>
-<form class="form" action="{% url 'add_wishlist_to_cart' %}" method="POST">
-    {% csrf_token %}
-    <input class="text-center dark-button" type="submit" value="Add All To Cart"></input>
-    <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-</form>
 
-{% if wishlist_items|length %}
-{% for wishlist_item in wishlist_items %}
-<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card">
-    <div class="square">
-        <div class="square-inner text-center">
-            <div class="h-75 product-header">
-                <div class="product-image" style="background-image: url({{wishlist_item.product.image.url}})"></div>
-                <form class="form" action="{% url 'add_to_cart' wishlist_item.product.id %}" method="POST">
-                    {% csrf_token %}
-                    <input class="add-to-cart-hover-button text-center dark-button" type="submit"
-                        value="Add to cart"></input>
-                    <input class="form-control qty_input" type="hidden" name="quantity" value="1" min="1" max="99"
-                        data-item_id="{{ wishlist_item.product.id }}" id="id_qty_{{ wishlist_item.product.id }}" />
-                    <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-                </form>
-            </div>
-            <a href="{% url 'view_product' wishlist_item.product.id %}">{{wishlist_item.product.name}}</a>
-            <h2>{{wishlist_item.product.label.friendly_name}}</h2>
-            <h2>{{wishlist_item.product.price}}</h2>
-            <form class="form" action="{% url 'remove_from_wishlist' wishlist_item.product.id %}" method="POST">
+<div class="row no-gutters">
+    <div class="col-10 offset-1 col-md-4 offset-md-4">
+        <div class="page-title text-center">Wishlist</div>
+        <div class="dark-hr"></div>
+    </div>
+</div>
+
+
+<div class="row no-gutters">
+    <div class="col-4 offset-4">
+        <div class="row no-gutters">
+            <form class="form col-4" action="{% url 'remove_all_from_wishlist' %}" method="POST">
                 {% csrf_token %}
-                <input class="text-center dark-button" type="submit" value="Remove"></input>
+                <input class="text-center dark-button form-control" type="submit" value="Remove All"></input>
+                <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+            </form>
+            <form class="form col-4 offset-4" action="{% url 'add_wishlist_to_cart' %}" method="POST">
+                {% csrf_token %}
+                <input class="text-center dark-button form-control" type="submit" value="Add All To Cart"></input>
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
             </form>
         </div>
+
     </div>
 </div>
-{% endfor %}
+
+
+
+<div class="row no-gutters">
+    {% if wishlist_items|length %}
+    {% for wishlist_item in wishlist_items %}
+    <!-- Add to cart & and to wishlist forms -->
+    <form class="form" action="{% url 'add_to_cart' wishlist_item.product.id %}" method="POST"
+        id="add-to-cart-{{wishlist_item.product.id}}">
+        {% csrf_token %}
+        <input class="form-control qty_input" type="hidden" name="quantity" value="1" min="1" max="99"
+            data-item_id="{{ wishlist_item.product.id }}" id="id_qty_{{ wishlist_item.product.id }}" />
+        <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+    </form>
+    <form class="form" action="{% url 'remove_from_wishlist' wishlist_item.product.id %}" method="POST"
+        id="remove-from-wishlist-{{wishlist_item.product.id}}">
+        {% csrf_token %}
+        <input class="form-control qty_input" type="hidden" name="quantity" value="1" min="1" max="99"
+            data-item_id="{{ wishlist_item.product.id }}" id="id_qty_{{ wishlist_item.product.id }}" />
+        <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+    </form>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card">
+        <div class="square">
+            <div class="square-inner text-center">
+                <!-- Product Image -->
+                <div class="h-75 product-header">
+                    {% if wishlist_item.product.image %}
+                    <div class="product-image" style="background-image: url({{wishlist_item.product.image.url}})">
+                        <div class="product-image-overlay">
+                        </div>
+                        <div class="product-image-overlay-buttons row no-gutters">
+                            <div class="col-3 offset-2 my-auto">
+                                <div class="square">
+                                    <div class="square-inner text-center">
+                                        <button class="product-image-overlay-button" type="submit"
+                                            form="add-to-cart-{{wishlist_item.product.id}}">
+                                            <i class="fas fa-cart-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 offset-2 my-auto">
+                                <div class="square">
+                                    <div class="square-inner text-center">
+                                        <button class="product-image-overlay-button" type="submit"
+                                            form="remove-from-wishlist-{{wishlist_item.product.id}}">
+                                            <i class="fas fa-heart-broken"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+
+                    {% endif %}
+                </div>
+                <!-- Product Details -->
+                <a class="product-title"
+                    href="{% url 'view_product' wishlist_item.product.id %}">{{wishlist_item.product.name}}</a><br>
+                <a class="product-artist"
+                    href="{% url 'view_products' %}?artist={{wishlist_item.product.artist}}">{{wishlist_item.product.artist.friendly_name}}</a><br>
+                <a class="product-label"
+                    href="{% url 'view_products' %}?label={{wishlist_item.product.label}}">{{wishlist_item.product.label.friendly_name}}</a>
+                <div class="product-sub-heading">€{{wishlist_item.product.price}}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endif %}
 {% endblock %}
