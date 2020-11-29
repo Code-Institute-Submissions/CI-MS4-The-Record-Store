@@ -510,6 +510,18 @@ select {
   color: var(--main-text-and-icon-color);
 }
 
+.icon-button{
+  transition: all 0.3s ease-in-out;
+  background-color: transparent;
+  border-style: none;
+  color: var(--main-text-and-icon-color);
+}
+
+.icon-button:hover{
+  color: var(--main-navbar-color)
+}
+
+
 /*--------------------------------------------------------------Custom Checkboxes------------------------------------*/
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
   input[type="checkbox"] {

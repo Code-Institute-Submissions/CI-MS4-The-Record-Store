@@ -7,12 +7,18 @@
 
 {% block content %}
 <div class="row no-gutters">
+    <div class="col-10 offset-1 col-md-4 offset-md-4">
+      <div class="page-title text-center">Shopping Cart</div>
+      <div class="dark-hr"></div>
+    </div>
+  </div>
+<div class="row no-gutters">
     <div class="col-8 offset-2">
-        <div class="page-title">Shopping Cart</div>
+
 
         {% if cart_items|length %}
         <div class="row no-gutters">
-            <div class="col-6 footer-heading">Products</div>
+            <div class="col-5 footer-heading">Products</div>
             <div class="col-2 footer-heading text-center">Price</div>
             <div class="col-2 footer-heading text-center ">Quantity</div>
             <div class="col-2 footer-heading text-center">Total</div>
@@ -24,7 +30,7 @@
                     <div class="col-12 dark-hr"></div>
                 </div>
                 <div class="row no-gutters">
-                    <div class="col-6">
+                    <div class="col-5">
                         <div class="row no-gutters">
                             <div class="col-5">
                                 <div class="square">
@@ -70,14 +76,17 @@
                                 </div>
                             </div>
                         </form>
-                        <!-- <form class="form" action="{% url 'remove_from_cart' cart_item.item_id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Remove" />
-                            <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-                        </form> -->
                     </div>
                     <div class="col-2 my-auto text-center">
                         <h2>€{{ cart_item.product.price | calc_subtotal:cart_item.quantity }} </h2>
+                    </div>
+                    <div class="col-1 text-center my-auto navbar-icon">
+                        <form class="form" action="{% url 'remove_from_cart' cart_item.item_id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="fas fa-trash-alt icon-button"></button>
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+                        </form>
+                        
                     </div>
                 </div>
                 {% endfor %}
@@ -90,12 +99,12 @@
             </div>
         </div>
         <div class="row no-gutters">
-            <div class="col-2">
-                <a href="{% url 'view_products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+            <div class="col-2 ">
+                <a href="{% url 'view_products' %}" class="sub-link">
                     <span class="icon">
                         <i class="fas fa-chevron-left"></i>
                     </span>
-                    <span class="text-uppercase">Keep Shopping</span>
+                    <span class="text-uppercase sub-link ">Keep Shopping</span>
                 </a>
             </div>
             <div class="col-3 offset-7 text-center">
