@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, Address
+from wishlist.views import update_wishlist
 from .forms import DefaultAddressForm, AddressForm
 # Create your views here.
 
@@ -24,7 +25,7 @@ def profile(request):
         'primary_address': primary_address,
         'orders': orders
     }
-
+    update_wishlist(request.user, request.session)
     return render(request, template, context)
 
 
@@ -94,6 +95,8 @@ def delete_address(request, item_id):
     address = get_object_or_404(Address, pk=item_id)
     address.delete()
     return redirect(reverse('addresses'))
+
+
 
 
 class Address_Manager:
