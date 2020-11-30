@@ -105,7 +105,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2, default=00.00)
     tags = models.ManyToManyField(Tag, blank=True)
     description = models.TextField(default='')
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True,)
     tracklist = ArrayField(models.CharField(
         max_length=254, null=True, blank=True), default=list, null=True,
         blank=True)

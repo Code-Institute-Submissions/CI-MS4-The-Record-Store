@@ -1,4 +1,5 @@
 from django import forms
+from .widgets import CustomClearableFileInput
 from .models import Product, Artist, Genre, Label, Colour, Format, Tag
 
 
@@ -8,8 +9,20 @@ class ProductForm(forms.ModelForm):
         model = Product
         fields = '__all__'
 
+        widgets = {
+            'image': CustomClearableFileInput(),
+        }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields['name'].widget.attrs['class'] = ('form-control')
+        self.fields['release_year'].widget.attrs['class'] = ('form-control')
+        self.fields['price'].widget.attrs['class'] = ('form-control')
+        self.fields['description'].widget.attrs['class'] = ('form-control')
+
+        self.fields['image'].widget
+        self.fields['image'].required = False
 
         artists = Artist.objects.all()
         friendly_names = ([(artist.id, artist.get_friendly_name())

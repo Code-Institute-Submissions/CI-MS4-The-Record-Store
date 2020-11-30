@@ -242,3 +242,37 @@ def view_product(request, product_id):
     }
 
     return render(request, 'products/view_product.html', context)
+
+@login_required
+def edit_product(request, product_id):
+    if not request.user.is_superuser:
+        return redirect(reverse('home'))
+
+    product = get_object_or_404(Product, pk=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('view_product', args=[product.id]))
+
+    else:
+        form = ProductForm(instance=product)
+
+    template = 'products/edit_product.html'
+    context = {
+        'form': form,
+        'product': product,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def delete_product(request, product_id):
+    """ Delete a product from the store """
+    if not request.user.is_superuser:
+        return redirect(reverse('home'))
+
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    return redirect(reverse('products'))

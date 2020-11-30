@@ -1,0 +1,29 @@
+  {% if widget.is_initial %}
+  <div class="row">
+      <div class="col-4">
+          <div class="square">
+              <div class="square-inner text-center">
+                  <a class="product-header h-100" href="{{ widget.value.url }}">
+                      <div class="product-image" style="background-image: url({{widget.value.url}})"></div>
+                  </a>
+              </div>
+          </div>
+      </div>
+      <div class="col-4 my-auto">
+          {% if not widget.required %}
+          <div class="custom-control custom-checkbox mt-2">
+              <input class="" type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+              <label class="" for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>
+          </div>
+          {% endif %}<br>
+      </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="col-4 my-auto">
+        <span class="dark-button btn-file form-control text-center">
+            Select Image <input id="new-image" type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+        </span>
+        <div class="order-sub-heading" id="filename"></div>
+      </div>
+  </div>

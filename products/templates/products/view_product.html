@@ -7,7 +7,11 @@
 {% block content %}
 <div class="row no-gutters my-5">
     <div class="col-6">
+    {% if product.image %}
         <div class="product-image" style="background-image: url({{product.image.url}})"></div>
+    {% else %}
+        <div class="product-image" style="background-image: url('{{ MEDIA_URL }}noimage.png')"></div>
+    {% endif %}
     </div>
     <div class="col-6">
         <div class="page-title">{{product.artist.friendly_name}}</div>
@@ -40,7 +44,11 @@
     <div class="col-5 offset-1 text-left">
         <div class="order-sub-heading">Tracklist</div>
         {% for track in product.tracklist %}
-        <div>{{track}}</div>
+        {% if forloop.counter < 10 %}
+        <div>Track {{forloop.counter|stringformat:"02d"}}: {{track}}</div>
+        {% else %}
+        <div>Track {{forloop.counter|stringformat:"01d"}}: {{track}}</div>
+        {% endif %}
         {% endfor %}
     </div>
 </div>

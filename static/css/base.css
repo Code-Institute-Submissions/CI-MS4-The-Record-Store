@@ -239,8 +239,6 @@ main {
   border-color: var(--main-text-and-icon-color);
   color: var(--main-text-and-icon-color);
   background-color: var(--main-hightlight-color);
-  /* padding-top: 2.5rem;
-  padding-bottom: 2.5rem; */
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
 }
@@ -249,8 +247,50 @@ main {
   color: var(--main-text-and-icon-color);
 }
 
-.form-control.borderless{
+.form-control.borderless {
   border-style: unset;
+}
+
+.form-label{
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: var(--main-navbar-color);
+}
+
+.select2-container--default .select2-selection{
+  font-size: 2rem;
+  border-color: var(--main-text-and-icon-color);
+  color: var(--main-text-and-icon-color);
+  background-color: var(--main-hightlight-color);
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+  color: var(--main-text-and-icon-color);
+}
+
+.select2-results {
+  color: var(--main-text-and-icon-color);
+  background-color: var(--main-hightlight-color);
+  font-size: 2rem;
+}
+
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  background-color: var(--main-hightlight-color);
+  border-color: var(--main-text-and-icon-color);
+  color: var(--main-text-and-icon-color);
+  font-size: 2rem;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+  outline-style: none;
+}
+
+.select2-search--dropdown {
+  background-color: var(--main-hightlight-color);
 }
 
 .dark-button {
@@ -267,26 +307,25 @@ main {
   color: var(--main-hightlight-color);
 }
 
-.sub-link{
+.sub-link {
   transition: all 0.3s ease-in-out;
   color: var(--main-text-and-icon-color);
   font-size: 1.5rem;
 }
 
-.sub-link:hover{
+.sub-link:hover {
   color: var(--main-navbar-color);
 }
 
-.sub-label{
+.sub-label {
   color: var(--main-navbar-color);
   font-size: 1.5rem;
 }
 
-.allauth-form{
+.allauth-form {
   margin-top: 5rem;
   margin-bottom: 10rem;
 }
-
 
 .square {
   position: relative;
@@ -294,11 +333,9 @@ main {
   padding-top: 100%;
 }
 
-.main-content{
+.main-content {
   font-size: 2rem;
 }
-
-
 
 .square-inner {
   position: absolute;
@@ -309,12 +346,33 @@ main {
   transform: translate(-50%, -50%);
 }
 
-.order-sub-heading{
+.order-sub-heading {
   text-transform: uppercase;
   color: var(--main-text-and-icon-color);
   font-weight: 600;
 }
+.custom-checkbox{
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: var(--main-text-and-icon-color);
+  font-weight: 600;
+  line-height: 1.5;
+}
 
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0;
+}
+ 
 /* Small devices (landscape phones, 576px and up) */
 @media screen and (min-width: 0px) {
   html {
@@ -504,23 +562,22 @@ select {
   margin-bottom: 1rem;
 }
 
-.primary{
+.primary {
   color: var(--main-text-and-icon-color);
   text-transform: uppercase;
   color: var(--main-text-and-icon-color);
 }
 
-.icon-button{
+.icon-button {
   transition: all 0.3s ease-in-out;
   background-color: transparent;
   border-style: none;
   color: var(--main-text-and-icon-color);
 }
 
-.icon-button:hover{
-  color: var(--main-navbar-color)
+.icon-button:hover {
+  color: var(--main-navbar-color);
 }
-
 
 /*--------------------------------------------------------------Custom Checkboxes------------------------------------*/
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
