@@ -5,6 +5,7 @@ from django.db.models.functions import Lower
 from .forms import ProductForm
 from .models import Product, Artist, Label, Genre, Format, Colour, Tag
 import re
+from django.contrib import messages
 
 # Create your views here.
 
@@ -29,7 +30,7 @@ def add_product(request):
     context = {
         'form': form,
     }
-
+    messages.success(request, 'Successfully added product!')
     return render(request, template, context)
 
 
@@ -253,10 +254,12 @@ def edit_product(request, product_id):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Successfully updated product!')
             return redirect(reverse('view_product', args=[product.id]))
 
     else:
         form = ProductForm(instance=product)
+        messages.info(request, f'You are editing {product}')
 
     template = 'products/edit_product.html'
     context = {
@@ -264,6 +267,7 @@ def edit_product(request, product_id):
         'product': product,
     }
 
+    
     return render(request, template, context)
 
 
@@ -275,4 +279,5 @@ def delete_product(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
+    messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))

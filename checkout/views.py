@@ -105,7 +105,9 @@ def checkout_success(request, order_number):
         del request.session['save_info']
     template = 'checkout/checkout_success.html'
     context = {}
-
+    messages.success(request, f'Order successfully processed! \
+        Your order number is {order_number}. A confirmation \
+        email will be sent to {order.email}.')
     return render(request, template, context)
 
 

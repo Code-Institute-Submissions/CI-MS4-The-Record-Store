@@ -23,7 +23,8 @@ def profile(request):
         'profile': profile,
         'form': form,
         'primary_address': primary_address,
-        'orders': orders
+        'orders': orders,
+        'on_profile_page': True
     }
     update_wishlist(request.user, request.session)
     return render(request, template, context)

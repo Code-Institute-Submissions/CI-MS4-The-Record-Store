@@ -68,9 +68,10 @@ def add_wishlist_to_cart(request):
 
     for wishlist_item in wishlist:
         cart[wishlist_item] = 1
-
     request.session['cart'] = cart
+    messages.success(request, f'Added all wishlist items to your cart')
     redirect_url = request.POST.get('redirect_url')
+
     return redirect(redirect_url)
 
 
