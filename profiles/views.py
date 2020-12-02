@@ -24,7 +24,7 @@ def profile(request):
         'form': form,
         'primary_address': primary_address,
         'orders': orders,
-        'on_profile_page': True
+        'hide_checkout_preview': True
     }
     update_wishlist(request.user, request.session)
     return render(request, template, context)

@@ -14,7 +14,7 @@
     </div>
     <div class="toast-body bg-main-hightlight">
 
-        {% if grand_total and not on_profile_page %}
+        {% if grand_total and not hide_checkout_preview %}
         <p class="logo-font bg-main-hightlight text-black py-1">Your Bag ({{ product_count }})</p>
         <div class="cart-notification-wrapper">
             {% for item in cart_items %}

@@ -128,7 +128,8 @@ def checkout_success(request, order_number):
         del request.session['cart']
 
     template = 'checkout/checkout_success.html'
-    context = {'order':order}
+    context = {'order': order,
+               'hide_checkout_preview': True}
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')

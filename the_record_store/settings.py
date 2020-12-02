@@ -210,7 +210,28 @@ STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET', '')
 ACCOUNT_FORMS = {
     'signup': 'the_record_store.forms.CustomSignupForm',
 }
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+
+
+if 'DEBUG' in os.environ:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'therecordstore@example.com'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+
+
+
+
+
+
+
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
