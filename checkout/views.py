@@ -110,15 +110,18 @@ def checkout_success(request, order_number):
                             'town_or_city': order.town_or_city,
                             'county_or_province': order.county_or_province,
                             'country': order.country,
-                            'post_code_or_zip_code': order.post_code_or_zip_code,
+                            'post_code_or_zip_code':
+                            order.post_code_or_zip_code,
                             'phone_number': order.phone_number,
                             'primary_address': True}
             address_form = AddressForm(address_data)
             if address_form.is_valid():
                 print("address is valid")
-                address_manager = Address_Manager(request)
-                address_manager.clear_previous_primary_address(request.user)
-                address_form.save()
+                address_manager = Address_Manager()
+                if address_manager.address_already_exists(address_form) is False:
+                    address_manager.clear_previous_primary_address(
+                        request.user)
+                    address_form.save()
             else:
                 print(address_form.errors)
     if 'cart' in request.session:

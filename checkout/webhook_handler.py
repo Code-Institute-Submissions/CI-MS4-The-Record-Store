@@ -1,12 +1,10 @@
 from django.http import HttpResponse
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.conf import settings
-
+from profiles.forms import AddressForm
+from profiles.views import Address_Manager
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
-
+import re
 import json
 import time
 
@@ -31,18 +29,42 @@ class StripeWH_Handler:
         pid = intent.id
         billing_details = intent.charges.data[0].billing_details
         cart = intent.metadata.cart
+        save_info = intent.metadata.save_info
         grand_total = round(intent.charges.data[0].amount / 100, 2)
 
         profile = None
         username = intent.metadata.username
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
+            if save_info:
+                address_data = {
+                    'user': profile.user,
+                    'first_name':
+                    (re.search('(.*) ', billing_details.name,)).group(1),
+                    'last_name':
+                    (re.search(' (.*)', billing_details.name,)).group(1),
+                    'address_line_1': billing_details.address.line1,
+                    'address_line_2': billing_details.address.line2,
+                    'town_or_city': billing_details.address.city,
+                    'county_or_province': billing_details.address.state,
+                    'country': billing_details.country,
+                    'post_code_or_zip_code':
+                    billing_details.address.postal_code,
+                    'phone_number': billing_details.phone,
+                    'primary_address': True}
+                address_form = AddressForm(address_data)
+                address_manager = Address_Manager()
+                if address_manager.address_already_exists(address_form) is False:
+                    address_manager.clear_previous_primary_address(
+                        profile.user)
+                    address_form.save()
 
         order_exists = False
         attempt = 1
         while attempt <= 5:
             try:
-                order = Order.objects.get(stripe_pid=pid)
+                order = Order.objects.get(
+                    stripe_pid=pid, grand_total=grand_total)
                 order_exists = True
                 break
             except Order.DoesNotExist:
@@ -58,8 +80,8 @@ class StripeWH_Handler:
             order = None
             try:
                 order = Order.objects.create(
-                    first_name=user.first_name,
-                    second_name=user.second_name,
+                    first_name=profile.user.first_name,
+                    second_name=profile.user.second_name,
                     user_profile=profile,
                     email=billing_details.email,
                     phone_number=billing_details.phone,
@@ -89,6 +111,7 @@ class StripeWH_Handler:
             content=(f'Webhook received: {event["type"]} | SUCCESS: '
                      'Created order in webhook'),
             status=200)
+
     def handle_payment_intent_payment_failed(self, event):
         """
         Handle the payment_intent.payment_failed webhook from Stripe
