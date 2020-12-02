@@ -10,8 +10,28 @@ from profiles.views import Address_Manager
 from django.conf import settings
 from cart.contexts import cart_contents
 import stripe
-# import json
+from django.contrib import messages
+from django.views.decorators.http import require_POST
+import json
 # Create your views here.
+
+
+@require_POST
+def cache_checkout_data(request):
+    try:
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'cart': json.dumps(request.session.get('cart', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, ('Sorry, your payment cannot be '
+                                 'processed right now. Please try '
+                                 'again later.'))
+        return HttpResponse(content=e, status=400)
 
 
 def checkout(request):
@@ -20,11 +40,12 @@ def checkout(request):
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     if request.method == 'POST':
-        print("Checkout POST")
+        print(request.POST)
         cart = cart_contents(request)
         user = request.user
+        pid = request.POST.get('client_secret').split('_secret')[0]
         original_request = request.POST.copy()
-        updated_request = add_hidden_info(original_request, cart, user)
+        updated_request = add_hidden_info(original_request, cart, user, pid)
         order_form = OrderForm(updated_request)
 
         if order_form.is_valid():
@@ -41,7 +62,8 @@ def checkout(request):
                 )
                 order_line_item.save()
             request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('checkout_success', args=[order.order_number]))
+            return redirect(reverse('checkout_success',
+                                    args=[order.order_number]))
 
         else:
             print(order_form.errors)
@@ -101,8 +123,7 @@ def checkout_success(request, order_number):
                 print(address_form.errors)
     if 'cart' in request.session:
         del request.session['cart']
-    if 'save_info' in request.session['save_info']:
-        del request.session['save_info']
+
     template = 'checkout/checkout_success.html'
     context = {}
     messages.success(request, f'Order successfully processed! \
@@ -111,7 +132,7 @@ def checkout_success(request, order_number):
     return render(request, template, context)
 
 
-def add_hidden_info(original_request, cart, user):
+def add_hidden_info(original_request, cart, user, pid):
 
     if user.id is not None:
         original_request.update(
@@ -122,4 +143,6 @@ def add_hidden_info(original_request, cart, user):
         {'order_total': cart['total']})
     original_request.update(
         {'grand_total': cart['grand_total']})
+    original_request.update(
+        {'stripe_pid': pid})
     return original_request
