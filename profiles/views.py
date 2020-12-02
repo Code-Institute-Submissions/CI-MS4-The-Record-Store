@@ -100,7 +100,7 @@ def delete_address(request, item_id):
 
 class Address_Manager:
 
-    def clear_previous_primary_address(user):
+    def clear_previous_primary_address(self,user):
         print("Clearing previous primary addess")
         previous_primary_address = (
             Address.objects.filter(primary_address=True).first())
@@ -108,7 +108,7 @@ class Address_Manager:
             previous_primary_address.primary_address = False
             previous_primary_address.save()
 
-    def address_already_exists(address_form):
+    def address_already_exists(self,address_form):
         if Address.objects.filter(first_name=address_form['first_name'].value(),
                                last_name=address_form['last_name'].value(),
                                address_line_1=address_form['address_line_1'].value(),
