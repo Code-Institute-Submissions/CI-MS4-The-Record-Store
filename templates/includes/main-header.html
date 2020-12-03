@@ -1,4 +1,4 @@
-<div class="row no-gutters d-none d-lg-flex" id="nav-search">
+<div class="row no-gutters w-100" id="nav-search">
   <div class="col-1 offset-1 my-auto" id="brand">
     <!-- Brand/logo -->
     <a href="{% url 'home'%}">
@@ -31,24 +31,24 @@
     </div>
     </form>
   </div>
-  <div class="col-3 my-auto">
+  <div class="col-3 my-auto text-center">
     <!-- Wishlist, Profile & Cart -->
-    <ul class="navbar-nav row no-gutters">
-      <li class="nav-item p-0 col-4">
+    <ul class="list-inline">
+      <li class="list-inline-item">
         <div class="text-center">
           <a class="nav-link" href="{% url 'view_wishlist' %}"
             ><i class="far fa-heart fa-lg navbar-icon"></i
           ></a>
         </div>
       </li>
-      <li class="nav-item p-0 col-4">
+      <li class="list-inline-item">
         <div class="text-center">
           <a class="nav-link" href="{% url 'profile' %}"
             ><i class="far fa-user-circle fa-lg navbar-icon"></i
           ></a>
         </div>
       </li>
-      <li class="nav-item p-0 col-4">
+      <li class="list-inline-item">
         <div class="text-center">
           <a class="nav-link" href="{% url 'view_cart' %}"
             ><i class="fas fa-shopping-cart fa-lg navbar-icon"></i
@@ -58,7 +58,8 @@
     </ul>
   </div>
 </div>
-<div class="row no-gutters d-none d-lg-flex" id="nav-menu">
+
+{% comment %} <div class="row no-gutters" id="nav-menu">
   <div class="col-6 offset-3">
     <div class="row no-gutters">
       <!-- Site Nav -->
@@ -80,12 +81,6 @@
             <a class="dropdown-item" href="{% url 'view_products' %}?genre={{genre}}">{{genre.friendly_name}}</a>
             {% endfor %}
           </div>
-        </li>
-        <li class="nav-item p-0 text-center p-0 col-3">
-          <a class="nav-link" href="" href="#">New Releases</a>
-        </li>
-        <li class="nav-item p-0 text-center p-0 col-3">
-          <a class="nav-link" href="" href="#">Pre Orders</a>
         </li>
         <li class="nav-item p-0 text-center p-0 col-3 dropdown">
           <a
@@ -110,4 +105,4 @@
       </ul>
     </div>
   </div>
-</div>
+</div> {% endcomment %}

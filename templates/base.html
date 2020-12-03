@@ -65,26 +65,30 @@
 <body>
   {% block page_header %}
   <header class="container-fluid p-0">
-    <nav class="navbar navbar-expand-sm p-0">
-      <div class="row no-gutters w-100 h-100 navbar-inner">
-        <div class="col">
+    <nav class="navbar row no-gutters h-100">
           <!-- Main Navbar -->
-          {% include 'includes/main-header.html' %}
+          <div class="col-12 d-none d-md-flex">
+            {% include 'includes/main-header.html' %}
+          </div>
           <!-- Mobile Navbar -->
-          {% include 'includes/mobile-header.html' %}
-        </div>
-      </div>
+          <div class="col-12 d-flex d-md-none">
+            {% include 'includes/mobile-header.html' %}
+          </div>
     </nav>
   </header>
   {% endblock %}
   <main class="container-fluid p-0 main-content">
     <!-- Mobile Site Navigation -->
-    {% include 'includes/mobile-site-navigation.html' %} {% block content %}
+    {% include 'includes/mobile-site-navigation.html' %} 
+    {% block content %}
     {% endblock %}
   </main>
 
-  {% block page_footer %} {% include 'includes/main-footer.html' %}
+  {% block page_footer %} 
+  {% include 'includes/main-footer.html' %}
   {%endblock %}
+  
+  
   {%block postloadjs %}
   <script type="text/javascript">
     $(".toast").toast("show");

@@ -1,19 +1,13 @@
-<div class="row no-gutters d-lg-none text-center" id="nav-search">
-  <div class="col" id="mobile-search-bar">
+<form method="GET" action="{% url 'view_products' %}" class="row no-gutters text-center" id="nav-search">
+  <div class="col-12" id="mobile-search-bar">
     <div class="row no-gutters h-100">
       <div class="col-2 text-center my-auto mobile-search-toggle">
         <i class="fas fa-chevron-left mobile-navbar-icon"></i>
       </div>
-      <div class="col-8 my-auto">
-        <!-- Serach Bar -->
+      <div class="col-9 my-auto">
         <div class="input-group w-100">
-          <input
-            class="form-control rounded-0"
-            type="text"
-            name="q"
-            id="search-bar-mobile"
-            placeholder="Search by Title, Artist, Label etc"
-          />
+          <input class="form-control rounded-0" type="text" name="search_bar_main" id="search-bar-mobile"
+            placeholder="Search by Title, Artist, Label etc" />
           <div class="input-group-append">
             <button class="form-control append-button-dark" type="submit" id="search-icon">
               <span class="icon">
@@ -25,11 +19,13 @@
       </div>
     </div>
   </div>
+</form>
+
+<div class="row w-100 no-gutters">
   <div class="col-1 text-center my-auto" id="site-navigation-toggle">
     <i class="fas fa-bars mobile-navbar-icon"></i>
   </div>
-  <div class="col-8 offset-1 my-auto" id="brand">
-    <!-- Brand/logo -->
+  <div class="col-8 offset-1 my-auto text-center" id="brand">
     <a href="{% url 'home'%}">
       <i class="fas fa-record-vinyl" id="brand-icon"></i>
       <div id="brand-name">The Record Store</div>
