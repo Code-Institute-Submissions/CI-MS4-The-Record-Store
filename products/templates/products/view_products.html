@@ -13,13 +13,13 @@
       <div class="row no-gutters">
         <div class="col-4 offset-1 text-center">
           <div class="text-center"></div>
-          <button class="form-control d-inline d-sm-none" type="button" data-toggle="collapse"
+          <button class="form-control d-inline d-md-none" type="button" data-toggle="collapse"
             data-target="#filter-menu" aria-haspopup="true" aria-expanded="false">
             Refine
           </button>
         </div>
         <div class="col-4 offset-2 ">
-          <div class="d-inline d-sm-none text-center">
+          <div class="d-inline d-md-none text-center">
             <select id="sort-selector-mobile" class="form-control">
               <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %} class="text-center">Sort
                 by...</option>
@@ -40,7 +40,7 @@
 
       <div class="row no-gutters">
         <!-- Filter Menu -->
-        <div class="col-10 offset-1 col-sm-2 offset-sm-0 collapse only-collapse-on-xs" id="filter-menu">
+        <div class="col-10 offset-1 col-md-2 offset-md-0 collapse only-collapse-on-xs" id="filter-menu">
           <div class="row no-gutters">
             <div class="col-12 col-sm-10 offset-sm-1">
               <button class="filter-dropdown-button" type="button" data-toggle="collapse"
@@ -163,7 +163,7 @@
           </div>
         </div>
         <!-- Products -->
-        <div class="col-12 col-sm-10">
+        <div class="col-12 col-md-10">
           <div class="row no-gutters">
             <div class="col-10 offset-1 col-md-4 offset-md-4">
               <div class="page-title text-center">Products</div>
@@ -173,7 +173,7 @@
           <div class="row no-gutters">
             <div class="col-12">
               <div class="col-3 offset-8 text-center">
-                <div class="d-none d-sm-block ">
+                <div class="d-none d-md-block ">
                   <select id="sort-selector" class="form-control">
                     <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                     <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to
