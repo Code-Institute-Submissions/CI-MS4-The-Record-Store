@@ -15,7 +15,7 @@
       <div class="row">
         {% if addresses|length %}
         {% for address in addresses %}
-        <div class="standard-paragraph text-center col-4">
+        <div class="standard-paragraph text-center col-12 col-md-4">
           {% if address.primary_address %}
           <div class="primary">Primary Address</div>
           {% endif %}
@@ -25,11 +25,13 @@
           {{address.county_or_province}}<br />
           {{address.country.name}}<br />
           {{address.post_code_or_zip_code}}<br />
-          {{address.phone_number}}<br/>
+          {{address.phone_number}}<br />
           <a href="{% url 'edit_address' address.id %}">Edit</a>
           <span> | </span>
           <a href="{% url 'delete_address' address.id %}">Delete</a>
+          <div class="dark-hr"></div>
         </div>
+
         {% endfor%}
 
         {% else %}
@@ -42,7 +44,7 @@
   <div class="row no-gutters">
     <div class="col-10 offset-1">
       <div class="row">
-        <div class="col-4 offset-4">
+        <div class="col-12 col-md-4 offset-md-4">
           <a class="form-control dark-button text-center" href="{% url 'add_address' %}">Add New Address</a>
         </div>
       </div>
