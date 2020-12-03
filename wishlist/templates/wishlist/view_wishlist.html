@@ -15,14 +15,14 @@
 
 
 <div class="row no-gutters">
-    <div class="col-4 offset-4">
+    <div class="col-10 offset-1 col-md-4 offset-md-4">
         <div class="row no-gutters">
-            <form class="form col-4" action="{% url 'remove_all_from_wishlist' %}" method="POST">
+            <form class="form col-12 col-lg-6" action="{% url 'remove_all_from_wishlist' %}" method="POST">
                 {% csrf_token %}
                 <input class="text-center dark-button form-control" type="submit" value="Remove All"></input>
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
             </form>
-            <form class="form col-4 offset-4" action="{% url 'add_wishlist_to_cart' %}" method="POST">
+            <form class="form col-12 col-lg-6" action="{% url 'add_wishlist_to_cart' %}" method="POST">
                 {% csrf_token %}
                 <input class="text-center dark-button form-control" type="submit" value="Add All To Cart"></input>
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
