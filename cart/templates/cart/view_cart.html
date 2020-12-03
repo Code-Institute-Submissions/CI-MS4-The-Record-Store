@@ -13,11 +13,11 @@
     </div>
   </div>
 <div class="row no-gutters">
-    <div class="col-8 offset-2">
+    <div class="col-12 col-md-8 offset-md-2">
 
 
         {% if cart_items|length %}
-        <div class="row no-gutters">
+        <div class="row no-gutters d-none d-md-flex">
             <div class="col-5 footer-heading">Products</div>
             <div class="col-2 footer-heading text-center">Price</div>
             <div class="col-2 footer-heading text-center ">Quantity</div>
@@ -30,7 +30,7 @@
                     <div class="col-12 dark-hr"></div>
                 </div>
                 <div class="row no-gutters">
-                    <div class="col-5">
+                    <div class="col-12 col-md-5">
                         <div class="row no-gutters">
                             <div class="col-5">
                                 <div class="square">
@@ -46,10 +46,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-2 my-auto text-center">
+                    <div class="col-4 col-md-2 my-auto text-center">
                         <h2>€{{cart_item.product.price}}</h2>
                     </div>
-                    <div class="col-2 my-auto">
+                    <div class="col-5 col-md-2 my-auto">
                         <form class="form update-form" method="POST" action="{% url 'update_cart' cart_item.item_id %}">
                             {% csrf_token %}
                             <div class="form-group">
@@ -77,10 +77,10 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-2 my-auto text-center">
+                    <div class="col-2 my-auto text-center d-none d-md-block">
                         <h2>€{{ cart_item.product.price | calc_subtotal:cart_item.quantity }} </h2>
                     </div>
-                    <div class="col-1 text-center my-auto navbar-icon">
+                    <div class="col-3 col-md-1 text-center my-auto navbar-icon">
                         <form class="form" action="{% url 'remove_from_cart' cart_item.item_id %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="fas fa-trash-alt icon-button"></button>
@@ -94,12 +94,12 @@
         </div>
 
         <div class="row no-gutters">
-            <div class="col text-right">
+            <div class="col-10 offset-1 text-right">
                 <h2 class="footer-heading">Subtotal Total = €{{total}}</h2>
             </div>
         </div>
         <div class="row no-gutters">
-            <div class="col-2 my-auto ">
+            <div class="col-10 offset-1 my-auto ">
                 <a href="{% url 'view_products' %}" class="sub-link">
                     <span class="icon">
                         <i class="fas fa-chevron-left"></i>
@@ -107,7 +107,7 @@
                     <span class="text-uppercase sub-link ">Keep Shopping</span>
                 </a>
             </div>
-            <div class="col-3 offset-7 text-center">
+            <div class="col-10 offset-1 text-center">
                 <a href="{% url 'checkout' %}" class="form-control dark-button">
                     <span class="text-uppercase">Checkout</span>
                     <span class="icon">
