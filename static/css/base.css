@@ -271,7 +271,7 @@ main {
 }
 
 .form-control {
-  font-size: 2rem;
+  font-size: 1.75rem;
   border-color: var(--main-text-and-icon-color);
   color: var(--main-text-and-icon-color);
   background-color: var(--main-hightlight-color);
@@ -502,7 +502,7 @@ main {
   text-transform: uppercase;
   font-weight: 600;
   color: var(--main-navbar-color);
-  margin-top: 3rem;
+  margin-top: 1.5rem;
 }
 
 .dark-hr {

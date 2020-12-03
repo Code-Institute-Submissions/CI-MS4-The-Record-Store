@@ -6,19 +6,24 @@
 
 {% block content %}
 <div class="row no-gutters my-5">
-    <div class="col-6">
-    {% if product.image %}
-        <div class="product-image" style="background-image: url({{product.image.url}})"></div>
-    {% else %}
+    <div class="col-10 offset-1 col-md-7 offset-md-0">
+        {% if product.image %}
+
+                <!-- Product Image -->
+                <img src="{{product.image.url}}" class="img-fluid" alt="Responsive image">
+                    <!-- <div class="img-fluid" style="background-image: url({{product.image.url}})"></div> -->
+
+
+        {% else %}
         <div class="product-image" style="background-image: url('{{ MEDIA_URL }}noimage.png')"></div>
-    {% endif %}
+        {% endif %}
     </div>
-    <div class="col-6">
-        <div class="page-title">{{product.artist.friendly_name}}</div>
-        <div class="page-title">{{product.name}} ({{product.release_year}})</div>
-        <div class="page-title">€{{product.price}}</div>
-        <div class="row">
-            <form class="form col-3" action="{% url 'add_to_cart' product.id %}" method="POST"
+    <div class="col-10 offset-1 col-md-5 offset-md-0 my-auto text-center">
+        <div class="footer-heading">{{product.artist.friendly_name}}</div>
+        <div class="footer-heading">{{product.name}} ({{product.release_year}})</div>
+        <div class="footer-heading">€{{product.price}}</div>
+        <div class="row no-gutters">
+            <form class="form col-10 offset-1 col-md-4 offset-md-2" action="{% url 'add_to_cart' product.id %}" method="POST"
                 id="add-to-cart-{{product.id}}">
                 {% csrf_token %}
                 <input class="text-center dark-button form-control " type="submit" value="Add to cart"></input>
@@ -26,7 +31,7 @@
                     data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}" />
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
             </form>
-            <form class="form col-3" action="{% url 'add_to_wishlist' product.id %}" method="POST">
+            <form class="form col-10 offset-1 col-md-4" action="{% url 'add_to_wishlist' product.id %}" method="POST">
                 {% csrf_token %}
                 <input class="text-center dark-button form-control " type="submit" value="Add to wishlist"></input>
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
@@ -36,13 +41,12 @@
         <div><span class="order-sub-heading">Format: </span><span>{{product.format.friendly_name}}</span></div>
         <div><span class="order-sub-heading">Colour: </span><span>{{product.colour.friendly_name}}</span></div>
         <div><span class="order-sub-heading">Genre: </span><span>{{product.genre.friendly_name}}</span></div>
-
     </div>
 </div>
 <div class="row no-gutters">
-    <div class="col-4 offset-1">{{product.description}}</div>
-    <div class="col-5 offset-1 text-left">
-        <div class="order-sub-heading">Tracklist</div>
+    <div class="col-10 offset-1 col-md-6 offset-md-1 text-left mb-5">{{product.description}}</div>
+    <div class="col-10 offset-1 col-md-4 offset-md-1 text-left">
+        <div class="order-sub-heading mb-2">Tracklist</div>
         {% for track in product.tracklist %}
         {% if forloop.counter < 10 %}
         <div>Track {{forloop.counter|stringformat:"02d"}}: {{track}}</div>
@@ -50,6 +54,11 @@
         <div>Track {{forloop.counter|stringformat:"01d"}}: {{track}}</div>
         {% endif %}
         {% endfor %}
+    </div>
+</div>
+<div class="row no-gutters mt-5 mb-5">
+    <div class="col-10 offset-1 text-left">
+        <strong>SKU: {{product.sku}}</strong> 
     </div>
 </div>
 
