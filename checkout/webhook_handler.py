@@ -6,6 +6,7 @@ from profiles.views import Address_Manager
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
+from django.conf import settings
 import re
 import json
 import time
@@ -32,7 +33,7 @@ class StripeWH_Handler:
             body,
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
-    )
+        )
 
     def handle_event(self, event):
         return HttpResponse(
@@ -73,7 +74,8 @@ class StripeWH_Handler:
                     'primary_address': True}
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
-                if address_manager.address_already_exists(address_form) is False:
+                if (address_manager.address_already_exists(address_form)
+                        is False):
                     address_manager.clear_previous_primary_address(
                         profile.user)
                     address_form.save()
@@ -91,6 +93,7 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if order_exists:
+            self._send_confirmation_email(order)
             return HttpResponse(
                 content=(f'Webhook received: {event["type"]} | SUCCESS: '
                          'Verified order already in database'),
@@ -125,7 +128,7 @@ class StripeWH_Handler:
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
-
+        self._send_confirmation_email(order)
         return HttpResponse(
             content=(f'Webhook received: {event["type"]} | SUCCESS: '
                      'Created order in webhook'),
