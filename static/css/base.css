@@ -81,6 +81,8 @@ header {
   color: var(--main-text-and-icon-color);
 }
 
+
+
 .list-inline-item {
   transition: all 0.3s ease-in-out;
   font-size: 2rem;
