@@ -44,36 +44,6 @@
   </div>
 </div>
 <div class="row w-100 no-gutters" id="nav-menu">
-
-  <!-- <div class="col-6 offset-3">
-    <div class="row no-gutters">
-      <ul class="navbar-nav w-100">
-        <li class="nav-item p-0 text-center p-0 col-3 dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Genre
-          </a>
-          <div class="dropdown-menu w-100 text-center" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'view_products' %}">All</a>
-            {% for genre in genres %}
-            <a class="dropdown-item" href="{% url 'view_products' %}?genre={{genre}}">{{genre.friendly_name}}</a>
-            {% endfor %}
-          </div>
-        </li>
-        <li class="nav-item p-0 text-center p-0 col-3 dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Special Offers
-          </a>
-          <div class="dropdown-menu w-100 text-center" aria-labelledby="navbarDropdownMenuLink">
-            {% for tag in tags %}
-            <a class="dropdown-item" href="{% url 'view_products' %}?tag={{tag}}">{{tag.friendly_name}}</a>
-            {% endfor %}
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div> -->
   <ul class="list-inline col-6 offset-3 navbar-nav">
     <div class="row no-gutters">
       <li class="list-inline-item dropdown col-6 p-0 m-0 text-center">
@@ -100,7 +70,5 @@
         </div>
       </li>
     </div>
-
   </ul>
-
 </div>
