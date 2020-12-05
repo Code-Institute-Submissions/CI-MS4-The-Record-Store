@@ -7,10 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  {% endblock %}
-  {% block extra_meta %}
-  {% endblock %}
-  {% block corecss %}
+  {% endblock %} {% block extra_meta %} {% endblock %} {% block corecss %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css"
     integrity="sha512-KRrxEp/6rgIme11XXeYvYRYY/x6XPGwk0RsIC6PyMRc072vj2tcjBzFmn939xzjeDhj0aDO7TDMd7Rbz3OEuBQ=="
     crossorigin="anonymous" />
@@ -18,11 +15,10 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap" />
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
   <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-  {% endblock %}
-  {% block extra_css %}
-  {% endblock %}
-  {% block corejs %}
+  {% endblock %} {% block extra_css %} {% endblock %} {% block corejs %}
   <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -33,63 +29,51 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <!-- Stripe -->
   <script src="https://js.stripe.com/v3/"></script>
-  {% endblock %}
-  {% block extra_js %}
-  {% endblock %}
-
-
-  {% if messages %}
+  {% endblock %} {% block extra_js %} {% endblock %} {% if messages %}
   <div class="message-container">
-    {% for message in messages %}
-    {% with message.level as level %}
-    {% if level == 40 %}
-    {% include 'includes/toasts/toast_error.html' %}
-    {% elif level == 30 %}
-    {% include 'includes/toasts/toast_warning.html' %}
-    {% elif level == 25 %}
-    {% include 'includes/toasts/toast_success.html' %}
-    {% else %}
-    {% include 'includes/toasts/toast_info.html' %}
-    {% endif %}
-    {% endwith %}
+    {% for message in messages %} {% with message.level as level %} 
+    {% if level == 40 %} 
+    {% include 'includes/toasts/toast_error.html' %} 
+    {% elif level == 30 %} 
+    {% include 'includes/toasts/toast_warning.html' %} 
+    {% elif level == 25 %} 
+    {% include 'includes/toasts/toast_success.html' %} 
+    {% else %} 
+    {% include 'includes/toasts/toast_info.html' %} 
+    {% endif %} 
+    {% endwith %} 
     {% endfor %}
   </div>
   {% endif %}
-  <title>The Record Store
-    {% block extra_title %}
-    {% endblock %}</title>
+  <title>The Record Store {% block extra_title %} {% endblock %}</title>
 </head>
 
 <body>
   {% block page_header %}
   <header class="container-fluid p-0">
     <nav class="navbar row no-gutters h-100">
-          <!-- Main Navbar -->
-          <div class="col-12 d-none d-md-block">
-            {% include 'includes/main-header.html' %}
-          </div>
-          <!-- Mobile Navbar -->
-          <div class="col-12 d-block d-md-none">
-            {% include 'includes/mobile-header.html' %}
-          </div>
+      <!-- Main Navbar -->
+      <div class="col-12 d-none d-md-block">
+        {% include 'includes/main-header.html' %}
+      </div>
+      <!-- Mobile Navbar -->
+      <div class="col-12 d-block d-md-none">
+        {% include 'includes/mobile-header.html' %}
+      </div>
     </nav>
   </header>
   {% endblock %}
   <main class="container-fluid p-0 main-content">
     <!-- Mobile Site Navigation -->
-    {% include 'includes/mobile-site-navigation.html' %} 
-    {% block content %}
+    {% include 'includes/mobile-site-navigation.html' %} {% block content %}
     {% endblock %}
   </main>
 
-  {% block page_footer %} 
-  {% include 'includes/main-footer.html' %}
-  {%endblock %}
-  
-  
-  {%block postloadjs %}
+  {% block page_footer %} {% include 'includes/main-footer.html' %} {%endblock%} {%block postloadjs %}
   <script type="text/javascript">
     $(".toast").toast("show");
 

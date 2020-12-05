@@ -2,11 +2,11 @@
     <div class="col mobile-site-nav" id="mobile-site-nav">
         <ul class="accordion navbar-nav text-center" id="site-navigation-accordion">
             <li class="nav-item p-0 text-center">
-                <button class="filter-dropdown-button nav-link w-100" type="button" data-toggle="collapse"
+                <button class="filter-dropdown-button nav-link w-100 collapsed" type="button" data-toggle="collapse"
                     data-target="#collapsed-genres" aria-expanded="true" aria-controls="collapsed-genres">
                     Genre
                 </button>
-                <div id="collapsed-genres" class="collapse show" aria-labelledby="genre">
+                <div id="collapsed-genres" class="collapse" aria-labelledby="genre">
                     <a class="dropdown-item" href="{% url 'view_products' %}">All</a>
                     {% for genre in genres %} 
                     <a class="dropdown-item" href="{% url 'view_products' %}?genre={{genre}}">
@@ -15,15 +15,24 @@
                 </div>
             </li>
             <li class="nav-item p-0 text-center">
-                <button class="filter-dropdown-button nav-link w-100" type="button" data-toggle="collapse"
+                <button class="filter-dropdown-button nav-link w-100 collapsed" type="button" data-toggle="collapse"
                     data-target="#collapsed-special-offers" aria-expanded="true" aria-controls="collapsed-special-offers">
                     Special Offers
                 </button>
-                <div id="collapsed-special-offers" class="collapse show" aria-labelledby="special-offers">
+                <div id="collapsed-special-offers" class="collapse" aria-labelledby="special-offers">
                     {% for tag in tags %} 
                     <a class="dropdown-item" href="{% url 'view_products' %}?tag={{tag}}">
                     {{tag.friendly_name}}</a>
                     {% endfor %}
+                </div>
+            </li
+            <li class="nav-item p-0 text-center">
+                <button class="filter-dropdown-button nav-link w-100 collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapsed-profile" aria-expanded="true" aria-controls="collapsed-profile">
+                    Account
+                </button>
+                <div id="collapsed-profile" class="collapse" aria-labelledby="special-offers">
+                    <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                 </div>
             </li
         </ul>

@@ -19,23 +19,26 @@
                       <div class="carousel-caption d-md-block">
                           <div class="text-background">AC/DC</div>
                           <div class="text-background">Power Up</div>
-                          <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5" href="*">Buy Now</a>
+                          <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5"
+                              href="*">Buy Now</a>
                       </div>
                   </div>
                   <div class="carousel-item">
                       <img class="d-block carousel-image w-100" src="{{ MEDIA_URL }}slide-02.jpg" alt="Second slide">
                       <div class="carousel-caption d-md-block">
-                        <div class="text-background">Kayne West</div>
-                        <div class="text-background">my beautiful dark twisted fantasy</div>
-                          <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5" href="*">Buy Now</a>
+                          <div class="text-background">Kayne West</div>
+                          <div class="text-background">my beautiful dark twisted fantasy</div>
+                          <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5"
+                              href="*">Buy Now</a>
                       </div>
                   </div>
                   <div class="carousel-item">
                       <img class="d-block carousel-image w-100" src="{{ MEDIA_URL }}slide-03.jpg" alt="Third slide">
                       <div class="carousel-caption d-md-block">
-                        <div class="text-background">Run the Jewels</div>
-                        <div class="text-background">RTJ4</div>
-                          <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5" href="*">Buy Now</a>
+                          <div class="text-background">Run the Jewels</div>
+                          <div class="text-background">RTJ4</div>
+                          <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5"
+                              href="*">Buy Now</a>
                       </div>
                   </div>
                   <a class="carousel-control-prev" href="#carouselFull" role="button" data-slide="prev">
@@ -50,9 +53,132 @@
           </div>
       </div>
   </div>
+  
+  <div class="row no-gutters">
+      <div class="col-10 offset-1 col-md-4 offset-md-4">
+          <div class="page-title text-center">New Releases</div>
+          <div class="dark-hr"></div>
+      </div>
+  </div>
+  <div class="row no-gutters">
+      <!-- Swiper -->
+      <div class="swiper-container col">
+          <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                  <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+              </div>
+              <div class="swiper-slide">
+                  <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+              </div>
+              <div class="swiper-slide">
+                  <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+              </div>
+              <div class="swiper-slide">
+                  <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+              </div>
+              <div class="swiper-slide">
+                  <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+              </div>
+              <div class="swiper-slide">
+                  <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+              </div>
+          </div>
+          <!-- Add Pagination -->
+          <!-- <div class="swiper-pagination"></div> -->
+          <!-- Add Arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+      </div>
+  </div>
+
+  <div class="row no-gutters">
+    <div class="col-10 offset-1 col-md-4 offset-md-4">
+        <div class="page-title text-center">Special Offers</div>
+        <div class="dark-hr"></div>
+    </div>
+</div>
+<div class="row no-gutters">
+    <!-- Swiper -->
+    <div class="swiper-container col">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="swiper-slide">
+                <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="swiper-slide">
+                <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="swiper-slide">
+                <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="swiper-slide">
+                <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="swiper-slide">
+                <img src="{{ MEDIA_URL }}ACDCPOWERUP3_800x.png" class="img-fluid" alt="Responsive image">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <!-- <div class="swiper-pagination"></div> -->
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+
 
   {% endblock %}
 
   {% block postloadjs %}
   {{ block.super }}
+  <script>
+      var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 3,
+          spaceBetween: 0,
+          slidesPerGroup: 3,
+          loop: true,
+          loopFillGroupWithBlank: true,
+          pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+          },
+          navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+          },
+      });
+
+      for (let i = 0; i < swiper.length; i++) {
+          swiper[i].on('init', function () {
+              setSlidesPerView()
+          });
+      }
+
+
+      function setSlidesPerView() {
+          console.log(window.innerWidth)
+          for (let i = 0; i < swiper.length; i++) {
+              if (window.innerWidth < 768) {
+                  swiper[i].params.slidesPerView = 2;
+
+              }
+              if (window.innerWidth >= 768 && window.innerWidth <= 992) {
+                  swiper[i].params.slidesPerView = 3;
+
+              } else if (window.innerWidth > 992) {
+                  swiper[i].params.slidesPerView = 4;
+
+              }
+
+              swiper[i].update()
+          }
+      }
+
+      setSlidesPerView();
+      window.addEventListener("resize", function () {
+          setTimeout(setSlidesPerView(), 1000);
+      });
+  </script>
   {% endblock %}
