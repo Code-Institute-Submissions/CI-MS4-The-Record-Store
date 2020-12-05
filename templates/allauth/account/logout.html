@@ -5,10 +5,10 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <div class="sub-label">You are about to sign out. Are you sure you want to sign out?</div>
+  <div class="col-10 offset-1 text-center">You are about to sign out. Are you sure you want to sign out?</div>
   <div class="row no-gutters">
-    <button class="dark-button form-control col-3" type="submit">Sign Out</button>
-    <a class="col-3 offset-6 my-auto text-center sub-link" href="{% url 'profile' %}">Cancel</a>
+    <button class="dark-button form-control col-4 offset-4" type="submit">Sign Out</button>
+    <a class="col-10 offset-1 my-auto text-center sub-link" href="{% url 'profile' %}">Cancel</a>
   </div>
 </form>
 

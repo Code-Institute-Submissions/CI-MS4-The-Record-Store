@@ -11,11 +11,14 @@
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   <div class="row no-gutters">
-    <button class="dark-button form-control col-3" type="submit">Sign In</button>
-    <a class="col-3 offset-6 my-auto text-center sub-link" href="{% url 'account_reset_password' %}">Forgot
+    <button class="dark-button form-control col-10 offset-1 col-md-4 offset-md-4" type="submit">Sign In</button>
+    <a class="col-10 offset-1 my-auto text-center sub-link" href="{% url 'account_reset_password' %}">Forgot
       Password?</a>
   </div>
-  <div class="sub-label">New Customer? <a class="sub-link" href="{{ signup_url }}">Sign Up</a></div>
+  <div class="col-10 offset-1 text-center">
+    <div class="sub-label">New Customer? <a class="sub-link" href="{{ signup_url }}">Sign Up</a></div>
+  </div>
+  
 </form>
 
 {% endblock %}
