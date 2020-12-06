@@ -100,7 +100,7 @@ def delete_address(request, item_id):
 
 class Address_Manager:
 
-    def clear_previous_primary_address(self,user):
+    def clear_previous_primary_address(self, user):
         print("Clearing previous primary addess")
         previous_primary_address = (
             Address.objects.filter(primary_address=True).first())
@@ -108,16 +108,17 @@ class Address_Manager:
             previous_primary_address.primary_address = False
             previous_primary_address.save()
 
-    def address_already_exists(self,address_form):
-        if Address.objects.filter(first_name=address_form['first_name'].value(),
-                               last_name=address_form['last_name'].value(),
-                               address_line_1=address_form['address_line_1'].value(),
-                               address_line_2=address_form['address_line_2'].value(),
-                               town_or_city=address_form['town_or_city'].value(),
-                               county_or_province=address_form['county_or_province'].value(),
-                               country=address_form['country'].value(),
-                               post_code_or_zip_code=address_form['post_code_or_zip_code'].value(),
-                               phone_number=address_form['phone_number'].value()).exists():
+    def address_already_exists(self, address_form):
+        if Address.objects.filter(
+                first_name=address_form['first_name'].value(),
+                last_name=address_form['last_name'].value(),
+                address_line_1=address_form['address_line_1'].value(),
+                address_line_2=address_form['address_line_2'].value(),
+                town_or_city=address_form['town_or_city'].value(),
+                county_or_province=address_form['county_or_province'].value(),
+                country=address_form['country'].value(),
+                post_code_or_zip_code=address_form['post_code_or_zip_code'].value(),
+                phone_number=address_form['phone_number'].value()).exists():
             print("Address already exists")
             return True
         else:

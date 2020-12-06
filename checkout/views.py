@@ -118,7 +118,8 @@ def checkout_success(request, order_number):
             if address_form.is_valid():
                 print("address is valid")
                 address_manager = Address_Manager()
-                if address_manager.address_already_exists(address_form) is False:
+                if address_manager.address_already_exists(address_form) \
+                        is False:
                     address_manager.clear_previous_primary_address(
                         request.user)
                     address_form.save()

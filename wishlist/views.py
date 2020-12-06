@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .models import Wishlist
 from profiles.models import UserProfile
@@ -69,7 +69,7 @@ def add_wishlist_to_cart(request):
     for wishlist_item in wishlist:
         cart[wishlist_item] = 1
     request.session['cart'] = cart
-    messages.success(request, f'Added all wishlist items to your cart')
+    messages.success(request, 'Added all wishlist items to your cart')
     redirect_url = request.POST.get('redirect_url')
 
     return redirect(redirect_url)
@@ -92,7 +92,8 @@ def update_wishlist(user, session):
         # The profile doesn't have a saved wishlist
         if profile_wishlist is None:
             session_wishlist = session.get('wishlist')
-            # If there is a session wishlist then create a profile wishlist and add the session wishlist to it
+            # If there is a session wishlist then create a 
+            # profile wishlist and add the session wishlist to it
             if session_wishlist is not None:
                 new_wishlist = Wishlist()
                 new_wishlist.user_profile = user_profile
@@ -104,14 +105,16 @@ def update_wishlist(user, session):
         # The profile has a saved wishlist
         else:
             session_wishlist = session.get('wishlist', {})
-            # If the session wishlist is empty then add the profile wishlist to it
+            # If the session wishlist is empty then add the 
+            # profile wishlist to it
             if session_wishlist is None:
                 for wishlist_item in profile_wishlist.products.all():
                     if wishlist_item not in list(session_wishlist.keys()):
                         session_wishlist[wishlist_item.pk] = 1
             # A session wishlist and profile wishlist exists so merge them
             else:
-                # Add any products in the session wishlist that aren't in the profile wishlist to the profile wishlist
+                # Add any products in the session wishlist that aren't 
+                # in the profile wishlist to the profile wishlist
                 profile_wishlist_products = profile_wishlist.products.all()
 
                 for wishlist_item in session_wishlist:

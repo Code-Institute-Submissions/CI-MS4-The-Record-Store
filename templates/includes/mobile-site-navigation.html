@@ -25,7 +25,7 @@
                     {{tag.friendly_name}}</a>
                     {% endfor %}
                 </div>
-            </li
+            </li>
             <li class="nav-item p-0 text-center">
                 <button class="filter-dropdown-button nav-link w-100 collapsed" type="button" data-toggle="collapse"
                     data-target="#collapsed-profile" aria-expanded="true" aria-controls="collapsed-profile">
@@ -34,7 +34,16 @@
                 <div id="collapsed-profile" class="collapse" aria-labelledby="special-offers">
                     <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                 </div>
-            </li
+            </li>
+            <li class="nav-item p-0 text-center">
+                <button class="filter-dropdown-button nav-link w-100 collapsed" type="button" data-toggle="collapse"
+                    data-target="#collapsed-wishlist" aria-expanded="true" aria-controls="collapsed-wishlist">
+                    Wishlist
+                </button>
+                <div id="collapsed-wishlist" class="collapse" aria-labelledby="wishlist">
+                    <a class="dropdown-item" href="{% url 'view_wishlist' %}">View</a>
+                </div>
+            </li>
         </ul>
     </div>
 </div>

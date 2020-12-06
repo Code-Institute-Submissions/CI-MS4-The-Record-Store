@@ -218,6 +218,7 @@ def view_products(request):
                               )
             products = products.filter(search_queries)
 
+    current_sorting = f'{sort}_{direction}'
     context = {
         'products': products,
         'genre_filters': genre_filters,
@@ -228,6 +229,7 @@ def view_products(request):
         'tag_filters': tag_filters,
         'min_price': min_price,
         'max_price': max_price,
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'products/view_products.html', context)
@@ -243,6 +245,7 @@ def view_product(request, product_id):
     }
 
     return render(request, 'products/view_product.html', context)
+
 
 @login_required
 def edit_product(request, product_id):
@@ -267,7 +270,6 @@ def edit_product(request, product_id):
         'product': product,
     }
 
-    
     return render(request, template, context)
 
 
