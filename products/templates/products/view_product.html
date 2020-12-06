@@ -9,9 +9,9 @@
     <div class="col-10 offset-1 col-md-7 offset-md-0">
         {% if product.image %}
 
-                <!-- Product Image -->
-                <img src="{{product.image.url}}" class="img-fluid" alt="Responsive image">
-                    <!-- <div class="img-fluid" style="background-image: url({{product.image.url}})"></div> -->
+        <!-- Product Image -->
+        <img src="{{product.image.url}}" class="img-fluid" alt="Responsive image">
+        <!-- <div class="img-fluid" style="background-image: url({{product.image.url}})"></div> -->
 
 
         {% else %}
@@ -23,8 +23,8 @@
         <div class="footer-heading">{{product.name}} ({{product.release_year}})</div>
         <div class="footer-heading">€{{product.price}}</div>
         <div class="row no-gutters">
-            <form class="form col-10 offset-1 col-md-4 offset-md-2" action="{% url 'add_to_cart' product.id %}" method="POST"
-                id="add-to-cart-{{product.id}}">
+            <form class="form col-10 offset-1 col-md-4 offset-md-2" action="{% url 'add_to_cart' product.id %}"
+                method="POST" id="add-to-cart-{{product.id}}">
                 {% csrf_token %}
                 <input class="text-center dark-button form-control " type="submit" value="Add to cart"></input>
                 <input class="form-control qty_input" type="hidden" name="quantity" value="1" min="1" max="99"
@@ -58,8 +58,14 @@
 </div>
 <div class="row no-gutters mt-5 mb-5">
     <div class="col-10 offset-1 text-left">
-        <strong>SKU: {{product.sku}}</strong> 
+        <strong>SKU: {{product.sku}}</strong>
     </div>
+    {% if request.user.is_superuser %}
+    <small class="ml-3">
+        <a href="{% url 'edit_product' product.id %}">Edit</a> |
+        <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+    </small>
+    {% endif %}
 </div>
 
 

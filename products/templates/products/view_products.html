@@ -278,6 +278,7 @@
                   <a class="product-label"
                     href="{% url 'view_products' %}?label={{product.label}}">{{product.label.friendly_name}}</a>
                   <div class="product-sub-heading">€{{product.price}}</div>
+                  
                   {% if request.user.is_superuser %}
                   <small class="ml-3">
                     <a href="{% url 'edit_product' product.id %}">Edit</a> |

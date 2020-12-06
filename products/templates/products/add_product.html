@@ -113,7 +113,7 @@
         trackCopyInput.setAttribute("id", trackNumber);
         trackCopyInput.setAttribute("class", "tracklist_item form-control");
         trackCopyInput.setAttribute("name", "text_field[]");
-        trackCopyInput.setAttribute("value", "");
+        trackCopyInput.value = "";
 
         lastTrack.parentNode.insertBefore(trackCopy, lastTrack.nextSibling);
         toggleDeleteButton();

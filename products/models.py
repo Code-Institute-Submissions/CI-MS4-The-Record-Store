@@ -90,7 +90,6 @@ class Product(models.Model):
     name = models.CharField(max_length=254, default='')
     artist = models.ForeignKey(
         'Artist', null=True, blank=True, on_delete=models.SET_NULL)
-    # artist = ModelChoiceField(queryset=Artist.objects.all())
     label = models.ForeignKey(
         'Label', null=True, blank=True, on_delete=models.SET_NULL)
     genre = models.ForeignKey(

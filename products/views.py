@@ -21,7 +21,7 @@ def add_product(request):
         form = ProductForm(updated_request, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('home'))
+            return redirect(reverse('view_products'))
 
     else:
         form = ProductForm()
