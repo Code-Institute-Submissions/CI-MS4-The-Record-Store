@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %}
 <div class="row no-gutters">
   <div class="col-10 offset-1 col-md-4 offset-md-4">
     <div class="page-title text-center">Account</div>
@@ -14,7 +16,8 @@
     <div class="footer-heading">Primary Address</div>
     <!-- {{form.primary_address}} -->
     <div class="standard-paragraph">
-      {% if primary_address|length %} {% for address in primary_address %}
+      {% if primary_address|length %} 
+      {% for address in primary_address %}
       {{address.address_line_1}}<br />
       {{address.address_line_2}}<br />
       {{address.town_or_city}}<br />
@@ -22,19 +25,19 @@
       {{address.country}}<br />
       {{address.post_code_or_zip_code}}<br />
       {{address.phone_number}}<br />
-      {% endfor%} {% else %}
+      {% endfor%} 
+      {% else %}
       <div>
         You haven't set your primary address yet, please choose one from your
         address book.
       </div>
       {% endif %}
     </div>
-    <a class="form-control btn dark-button" href="{% url 'addresses' %}"
-      >Manage Addresses</a
-    >
-    <a class="form-control btn dark-button" href="{% url 'account_logout' %}"
-      >Logout</a
-    >
+    <a class="form-control btn dark-button" href="{% url 'addresses' %}">Manage Addresses</a>
+    <a class="form-control btn dark-button" href="{% url 'account_logout' %}">Logout</a>
+    {% if user.is_superuser %}
+    <a class="form-control btn dark-button" href="{% url 'add_product' %}">Product Management</a>
+    {% endif %}
   </div>
   <div class="col-10 offset-1 col-md-7 offset-md-1">
     <div class="footer-heading">Order History</div>
@@ -58,9 +61,9 @@
                     Parcel</a></span> -->
               </div>
               <div class="col-12">
-              {% for line_item in order.line_items.all %}
-              <div>{{ line_item.product }} x{{ line_item.quantity }}</div>
-              {% endfor %}
+                {% for line_item in order.line_items.all %}
+                <div>{{ line_item.product }} x{{ line_item.quantity }}</div>
+                {% endfor %}
               </div>
             </div>
           </div>

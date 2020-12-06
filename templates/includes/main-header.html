@@ -40,6 +40,13 @@
           <a class="nav-link" href="{% url 'view_cart' %}"><i class="fas fa-shopping-cart fa-lg navbar-icon"></i></a>
         </div>
       </li>
+      {% if user.is_superuser %}
+      <li class="list-inline-item">
+        <div class="text-center">
+          <a class="nav-link" href="{% url 'add_product' %}"><i class="fas fa-tools fa-lg navbar-icon"></i></a>
+        </div>
+      </li>
+      {% endif %}
     </ul>
   </div>
 </div>
