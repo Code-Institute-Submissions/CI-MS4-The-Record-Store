@@ -9,11 +9,13 @@ class OrderForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        # Set the class and label on all fields in the form
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = ('form-control')
-            self.fields[field].widget.attrs['placeholder'] = self.fields[field].label
+            self.fields[field].widget.attrs['placeholder'] = (
+                self.fields[field].label)
 
+        # Hide the fields that don't require user input
         self.fields['user_profile'].widget = forms.HiddenInput()
         self.fields['order_total'].widget = forms.HiddenInput()
         self.fields['delivery_cost'].widget = forms.HiddenInput()

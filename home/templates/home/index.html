@@ -23,7 +23,7 @@
                         <div class="text-background">AC/DC</div>
                         <div class="text-background">Power Up</div>
                         <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5"
-                            href="*">Buy Now</a>
+                            href="{% url 'view_product' 46 %}">Buy Now</a>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -32,7 +32,7 @@
                         <div class="text-background">Kayne West</div>
                         <div class="text-background">my beautiful dark twisted fantasy</div>
                         <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5"
-                            href="*">Buy Now</a>
+                            href="{% url 'view_product' 86 %}">Buy Now</a>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -41,7 +41,7 @@
                         <div class="text-background">Run the Jewels</div>
                         <div class="text-background">RTJ4</div>
                         <a class="dark-button form-control col-6 offset-3 col-md-6 offset-md-3 col-lg-2 offset-lg-5"
-                            href="*">Buy Now</a>
+                            href="{% url 'view_product' 87 %}">Buy Now</a>
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselFull" role="button" data-slide="prev">
@@ -87,7 +87,7 @@
 
 <div class="row no-gutters">
     <div class="col-10 offset-1 col-md-4 offset-md-4">
-        <div class="page-title text-center">Special Offers</div>
+        <div class="page-title text-center">Reccomended</div>
         <div class="dark-hr"></div>
     </div>
 </div>
@@ -95,15 +95,15 @@
     <!-- Swiper -->
     <div class="swiper-container col">
         <div class="swiper-wrapper">
-            {% for special_offer in special_offers %}
+            {% for reccomended_product in recommended_products %}
             <div class="swiper-slide d-block">
-                <a href="{% url 'view_product' special_offer.id %}"><img src="{{special_offer.image.url}}" class="img-fluid" alt="Responsive image" /></a>
-                <a class="product-title" href="{% url 'view_product' special_offer.id %}">{{special_offer.name}}</a><br>
+                <a href="{% url 'view_product' reccomended_product.id %}"><img src="{{reccomended_product.image.url}}" class="img-fluid" alt="Responsive image" /></a>
+                <a class="product-title" href="{% url 'view_product' reccomended_product.id %}">{{reccomended_product.name}}</a><br>
                 <a class="product-artist"
-                  href="{% url 'view_products' %}?artist={{special_offer.artist}}">{{special_offer.artist.friendly_name}}</a><br>
+                  href="{% url 'view_products' %}?artist={{reccomended_product.artist}}">{{reccomended_product.artist.friendly_name}}</a><br>
                 <a class="product-label"
-                  href="{% url 'view_products' %}?label={{special_offer.label}}">{{special_offer.label.friendly_name}}</a>
-                <div class="product-sub-heading">€{{special_offer.price}}</div>
+                  href="{% url 'view_products' %}?label={{reccomended_product.label}}">{{reccomended_product.label.friendly_name}}</a>
+                <div class="product-sub-heading">€{{reccomended_product.price}}</div>
             </div>
             {% endfor %}
         </div>

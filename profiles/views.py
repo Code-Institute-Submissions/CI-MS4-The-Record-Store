@@ -34,7 +34,6 @@ def profile(request):
 def addresses(request):
     template = 'profiles/addresses.html'
     addresses = Address.objects.filter(user=request.user)
-    print(addresses)
     context = {
         'addresses': addresses
     }
@@ -54,8 +53,6 @@ def add_address(request):
                 address_manager.clear_previous_primary_address(request.user)
             form.save()
             return redirect(reverse('addresses'))
-        else:
-            print(form.errors)
     else:
         form = AddressForm()
 
@@ -73,7 +70,6 @@ def edit_address(request, item_id):
     address = get_object_or_404(Address, pk=item_id)
     if request.method == 'POST':
         form = AddressForm(request.POST, instance=address)
-        print(form)
         if form.is_valid():
             if form.cleaned_data['primary_address'] is True:
                 address_manager.clear_previous_primary_address(request.user)
@@ -101,7 +97,6 @@ def delete_address(request, item_id):
 class Address_Manager:
 
     def clear_previous_primary_address(self, user):
-        print("Clearing previous primary addess")
         previous_primary_address = (
             Address.objects.filter(primary_address=True).first())
         if(previous_primary_address):
@@ -119,8 +114,6 @@ class Address_Manager:
                 country=address_form['country'].value(),
                 post_code_or_zip_code=address_form['post_code_or_zip_code'].value(),
                 phone_number=address_form['phone_number'].value()).exists():
-            print("Address already exists")
             return True
         else:
-            print("Address doesn't already exist")
             return False

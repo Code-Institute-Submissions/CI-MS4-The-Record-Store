@@ -7,13 +7,11 @@ def index(request):
 
     products = Product.objects.all()
     new_releases = products.filter(tags__name='new_release')
-    special_offers = products.filter(tags__name='three_for_two')
+    recommended = products.filter(tags__name='recommended')
 
-    print(new_releases)
-    print(special_offers)
     context = {
         'new_releases': new_releases,
-        'special_offers': special_offers,
+        'recommended_products': recommended,
     }
 
     return render(request, 'home/index.html', context)

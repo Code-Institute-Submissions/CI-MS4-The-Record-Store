@@ -13,7 +13,6 @@ import stripe
 from django.contrib import messages
 from django.views.decorators.http import require_POST
 import json
-# Create your views here.
 
 
 @require_POST
@@ -40,7 +39,6 @@ def checkout(request):
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     if request.method == 'POST':
-        print(request.POST)
         cart = cart_contents(request)
         user = request.user
         pid = request.POST.get('client_secret').split('_secret')[0]
@@ -49,7 +47,6 @@ def checkout(request):
         order_form = OrderForm(updated_request)
 
         if order_form.is_valid():
-            print("Checkout Order Form Is Valid")
             order = order_form.save(commit=False)
             order.save()
 
@@ -65,8 +62,6 @@ def checkout(request):
             return redirect(reverse('checkout_success',
                                     args=[order.order_number]))
 
-        else:
-            print(order_form.errors)
     else:
         if request.user.is_authenticated:
             user_profile = UserProfile.objects.get(user=request.user)
@@ -116,15 +111,12 @@ def checkout_success(request, order_number):
                             'primary_address': True}
             address_form = AddressForm(address_data)
             if address_form.is_valid():
-                print("address is valid")
                 address_manager = Address_Manager()
                 if address_manager.address_already_exists(address_form) \
                         is False:
                     address_manager.clear_previous_primary_address(
                         request.user)
                     address_form.save()
-            else:
-                print(address_form.errors)
     if 'cart' in request.session:
         del request.session['cart']
 

@@ -34,8 +34,16 @@ def add_product(request):
     return render(request, template, context)
 
 
+""" Parse the dynamic data from the Select2 Dynamic Dropdowns in
+the Add Product form. First check if the data submitted is a foreign key,
+if it is a foreign key(isnumeric) then it already exists in the
+database and no action needs to be taken, if it isn't foreign key
+then then create a new object and add it to the database. Then update the
+request with the newly added data so that the form will validate correctly """
+
+
 def add_dynamically_created_data_to_the_database(updated_request):
-    # Check if there is an Artist not in the database
+
     artist_submitted_in_the_form = updated_request['artist']
     if(not artist_submitted_in_the_form.isnumeric()):
         # Create a new artist and insert it into the database
@@ -189,7 +197,7 @@ def view_products(request):
             min_price = re.search('(.*)-', price_range).group(1)
             max_price = re.search('-(.*)', price_range).group(1)
             products = products.filter(price__range=(min_price, max_price))
-            print(products)
+
 
         if 'artist' in request.GET:
             artist_request = request.GET['artist'].split(',')

@@ -8,8 +8,6 @@ class CustomSignupForm(SignupForm):
     last_name = forms.CharField(max_length=30, label='Last Name')
 
     def save(self, request):
-
-        print("Custsom Save")
         user = super(CustomSignupForm, self).save(request)
         new_user_profile = UserProfile()
         new_user_profile.user = user

@@ -20,8 +20,6 @@ class ProductAdmin(admin.ModelAdmin):
     # search_fields = ['name', 'artist__Artist_name']
     ordering = ('sku',)
 
-    
-
 
 class GenreAdmin(admin.ModelAdmin):
     list_display = (
@@ -29,34 +27,40 @@ class GenreAdmin(admin.ModelAdmin):
         'name',
     )
 
+
 class ArtistAdmin(admin.ModelAdmin):
     list_display = (
         'friendly_name',
         'name',
     )
+
+
 class LabelAdmin(admin.ModelAdmin):
     list_display = (
-    'friendly_name',
-    'name',
-)
+        'friendly_name',
+        'name',
+    )
+
 
 class ColourAdmin(admin.ModelAdmin):
     list_display = (
-    'friendly_name',
-    'name',
-)
+        'friendly_name',
+        'name',
+    )
+
 
 class FormatAdmin(admin.ModelAdmin):
     list_display = (
-    'friendly_name',
-    'name',
-)
+        'friendly_name',
+        'name',
+    )
+
 
 class TagAdmin(admin.ModelAdmin):
     list_display = (
-    'friendly_name',
-    'name',
-)
+        'friendly_name',
+        'name',
+    )
 
 
 admin.site.register(Product, ProductAdmin)

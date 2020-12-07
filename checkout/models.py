@@ -5,8 +5,6 @@ from profiles.models import UserProfile
 from products.models import Product
 from django_countries.fields import CountryField
 
-# Create your models here.
-
 
 class Order(models.Model):
 
@@ -14,18 +12,27 @@ class Order(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                      null=True, blank=True,
                                      related_name='orders')
-    email = models.EmailField(max_length=254, null=False, blank=False, verbose_name="Email")
-    first_name = models.CharField(max_length=50, null=False, blank=False, verbose_name="First Name")
-    last_name = models.CharField(max_length=50, null=False, blank=False, verbose_name="Last Name")
-    address_line_1 = models.CharField(max_length=80, null=False, blank=False, verbose_name="Address Line 1")
-    address_line_2 = models.CharField(max_length=80, null=False, blank=False, verbose_name="Address Line 2")
-    town_or_city = models.CharField(max_length=80, null=False, blank=False, verbose_name="City/Town")
-    county_or_province = models.CharField(max_length=80, null=False,
-                                          blank=False, verbose_name="County/Province")
+    email = models.EmailField(
+        max_length=254, null=False, blank=False, verbose_name="Email")
+    first_name = models.CharField(
+        max_length=50, null=False, blank=False, verbose_name="First Name")
+    last_name = models.CharField(
+        max_length=50, null=False, blank=False, verbose_name="Last Name")
+    address_line_1 = models.CharField(
+        max_length=80, null=False, blank=False, verbose_name="Address Line 1")
+    address_line_2 = models.CharField(
+        max_length=80, null=False, blank=False, verbose_name="Address Line 2")
+    town_or_city = models.CharField(
+        max_length=80, null=False, blank=False, verbose_name="City/Town")
+    county_or_province = models.CharField(max_length=80,
+                                          null=False,
+                                          blank=False,
+                                          verbose_name="County/Province")
     country = CountryField(blank_label='Country *', null=False, blank=False)
     post_code_or_zip_code = models.CharField(
         max_length=80, null=False, blank=False, verbose_name="Postcode/Zip")
-    phone_number = models.CharField(max_length=20, null=False, blank=False, verbose_name="Phone")
+    phone_number = models.CharField(
+        max_length=20, null=False, blank=False, verbose_name="Phone")
     date = models.DateTimeField(auto_now_add=True)
     delivery_cost = models.DecimalField(max_digits=6, decimal_places=2,
                                         null=False, default=0)
@@ -68,7 +75,6 @@ class OrderLineItem(models.Model):
         blank=False, editable=False)
 
     def save(self, *args, **kwargs):
-        print('order line item save')
         self.line_item_total = self.product.price * self.quantity
         super().save(*args, **kwargs)
 
