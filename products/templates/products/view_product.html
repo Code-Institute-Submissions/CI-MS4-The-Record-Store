@@ -26,14 +26,14 @@
             <form class="form col-10 offset-1 col-md-4 offset-md-2" action="{% url 'add_to_cart' product.id %}"
                 method="POST" id="add-to-cart-{{product.id}}">
                 {% csrf_token %}
-                <input class="text-center dark-button form-control " type="submit" value="Add to cart"></input>
-                <input class="form-control qty_input" type="hidden" name="quantity" value="1" min="1" max="99"
+                <input class="text-center dark-button form-control " type="submit" value="Add to cart">
+                <input class="form-control qty_input" type="hidden" name="quantity" value="1"
                     data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}" />
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
             </form>
             <form class="form col-10 offset-1 col-md-4" action="{% url 'add_to_wishlist' product.id %}" method="POST">
                 {% csrf_token %}
-                <input class="text-center dark-button form-control " type="submit" value="Add to wishlist"></input>
+                <input class="text-center dark-button form-control " type="submit" value="Add to wishlist">
                 <input type="hidden" name="redirect_url" value="{{ request.path }}" />
             </form>
         </div>
