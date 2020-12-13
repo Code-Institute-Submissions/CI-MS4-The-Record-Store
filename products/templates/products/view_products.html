@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-
+    </div>
       <div class="row no-gutters">
         <!-- Filter Menu -->
         <div class="col-10 offset-1 col-md-2 offset-md-0 collapse only-collapse-on-xs" id="filter-menu">
@@ -74,7 +74,7 @@
                 <div class="filter-checkbox">
                   <input onchange="filterChanged(this.name, this.checked)" type="checkbox" id="{{genre.name}}_filter"
                     name="t_genre={{genre}}" {% if genre_filters|keyvalue:genre == genre.name %}checked{% endif %}>
-                  <label for="{{genre}}">{{genre.friendly_name}}</label><br>
+                  <label for="{{genre.name}}_filter">{{genre.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -88,9 +88,9 @@
               <div class="filter collapse show" id="artist-dropdown-menu">
                 {% for artist in artists  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{artist.name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{artist.name}}_filter"
                     name="t_artist={{artist}}" {% if artist_filters|keyvalue:artist == artist.name %}checked{% endif %}>
-                  <label for="{{artist}}">{{artist.friendly_name}}</label><br>
+                  <label for="{{artist.name}}_filter">{{artist.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -104,9 +104,9 @@
               <div class="filter collapse show" id="label-dropdown-menu">
                 {% for label in labels  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{label.name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{label.name}}_filter"
                     name="t_label={{label}}" {% if label_filters|keyvalue:label == label.name %}checked{% endif %}>
-                  <label for="{{label}}">{{label.friendly_name}}</label><br>
+                  <label for="{{label.name}}_filter">{{label.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -120,9 +120,9 @@
               <div class="filter collapse show" id="format-dropdown-menu">
                 {% for format in formats  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{format.name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{format.name}}_filter"
                     name="t_format={{format}}" {% if format_filters|keyvalue:format == format.name %}checked{% endif %}>
-                  <label for="{{format}}">{{format.friendly_name}}</label><br>
+                  <label for="{{format.name}}_filter">{{format.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -136,9 +136,9 @@
               <div class="filter collapse show" id="colour-dropdown-menu">
                 {% for colour in colours  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{colour.name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{colour.name}}_name"
                     name="t_colour={{colour}}" {% if colour_filters|keyvalue:colour == colour.name %}checked{% endif %}>
-                  <label for="{{colour}}">{{colour.friendly_name}}</label><br>
+                  <label for="{{colour.name}}_name">{{colour.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -152,9 +152,9 @@
               <div class="filter collapse show" id="tag-dropdown-menu">
                 {% for tag in tags  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{tag.name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{tag.name}}_filter"
                     name="t_tag={{tag}}" {% if tag_filters|keyvalue:tag == tag.name %}checked{% endif %}>
-                  <label for="{{tag}}">{{tag.friendly_name}}</label><br>
+                  <label for="{{tag.name}}_filter">{{tag.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
