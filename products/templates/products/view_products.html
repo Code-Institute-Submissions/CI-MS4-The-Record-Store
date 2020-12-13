@@ -88,9 +88,9 @@
               <div class="filter collapse show" id="artist-dropdown-menu">
                 {% for artist in artists  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{artist.friendly_name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{artist}}"
                     name="t_artist={{artist}}" {% if artist_filters|keyvalue:artist == artist.name %}checked{% endif %}>
-                  <label for="{{artist.friendly_name}}">{{artist.friendly_name}}</label><br>
+                  <label for="{{artist}}">{{artist.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -104,9 +104,9 @@
               <div class="filter collapse show" id="label-dropdown-menu">
                 {% for label in labels  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{label.friendly_name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{label}}"
                     name="t_label={{label}}" {% if label_filters|keyvalue:label == label.name %}checked{% endif %}>
-                  <label for="{{label.friendly_name}}">{{label.friendly_name}}</label><br>
+                  <label for="{{label}}">{{label.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -120,9 +120,9 @@
               <div class="filter collapse show" id="format-dropdown-menu">
                 {% for format in formats  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{format.friendly_name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{format}}"
                     name="t_format={{format}}" {% if format_filters|keyvalue:format == format.name %}checked{% endif %}>
-                  <label for="{{format.friendly_name}}">{{format.friendly_name}}</label><br>
+                  <label for="{{format}}">{{format.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -136,9 +136,9 @@
               <div class="filter collapse show" id="colour-dropdown-menu">
                 {% for colour in colours  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{colour.friendly_name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{colour}}"
                     name="t_colour={{colour}}" {% if colour_filters|keyvalue:colour == colour.name %}checked{% endif %}>
-                  <label for="{{colour.friendly_name}}">{{colour.friendly_name}}</label><br>
+                  <label for="{{colour}}">{{colour.friendly_name}}</label><br>
                 </div>
                 {% endfor %}
               </div>
@@ -152,9 +152,9 @@
               <div class="filter collapse show" id="tag-dropdown-menu">
                 {% for tag in tags  %}
                 <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{tag.friendly_name}}"
+                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{tag}}"
                     name="t_tag={{tag}}" {% if tag_filters|keyvalue:tag == tag.name %}checked{% endif %}>
-                  <tag for="{{tag.friendly_name}}">{{tag.friendly_name}}</tag><br>
+                  <tag for="{{tag}}">{{tag.friendly_name}}</tag><br>
                 </div>
                 {% endfor %}
               </div>
@@ -274,9 +274,9 @@
                   <!-- Product Details -->
                   <a class="product-title" href="{% url 'view_product' product.id %}">{{product.name}}</a><br>
                   <a class="product-artist"
-                    href="{% url 'view_products' %}?artist={{product.artist}}">{{product.artist.friendly_name}}</a><br>
+                    href="{% url 'view_products' %}?artist={{product.artist}}">{{product.artist}}</a><br>
                   <a class="product-label"
-                    href="{% url 'view_products' %}?label={{product.label}}">{{product.label.friendly_name}}</a>
+                    href="{% url 'view_products' %}?label={{product.label}}">{{product.label}}</a>
                   <div class="product-sub-heading">€{{product.price}}</div>
                   
                   {% if request.user.is_superuser %}

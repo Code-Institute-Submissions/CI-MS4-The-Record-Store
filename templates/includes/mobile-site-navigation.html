@@ -6,7 +6,7 @@
                     data-target="#collapsed-genres" aria-expanded="true" aria-controls="collapsed-genres">
                     Genre
                 </button>
-                <div id="collapsed-genres" class="collapse" aria-labelledby="genre">
+                <div id="collapsed-genres" class="collapse">
                     <a class="dropdown-item" href="{% url 'view_products' %}">All</a>
                     {% for genre in genres %} 
                     <a class="dropdown-item" href="{% url 'view_products' %}?genre={{genre}}">
@@ -19,7 +19,7 @@
                     data-target="#collapsed-special-offers" aria-expanded="true" aria-controls="collapsed-special-offers">
                     Promotions
                 </button>
-                <div id="collapsed-special-offers" class="collapse" aria-labelledby="special-offers">
+                <div id="collapsed-special-offers" class="collapse">
                     {% for tag in tags %} 
                     <a class="dropdown-item" href="{% url 'view_products' %}?tag={{tag}}">
                     {{tag.friendly_name}}</a>
@@ -31,7 +31,7 @@
                     data-target="#collapsed-profile" aria-expanded="true" aria-controls="collapsed-profile">
                     Account
                 </button>
-                <div id="collapsed-profile" class="collapse" aria-labelledby="special-offers">
+                <div id="collapsed-profile" class="collapse">
                     <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
                 </div>
             </li>
@@ -40,7 +40,7 @@
                     data-target="#collapsed-wishlist" aria-expanded="true" aria-controls="collapsed-wishlist">
                     Wishlist
                 </button>
-                <div id="collapsed-wishlist" class="collapse" aria-labelledby="wishlist">
+                <div id="collapsed-wishlist" class="collapse">
                     <a class="dropdown-item" href="{% url 'view_wishlist' %}">View</a>
                 </div>
             </li>
