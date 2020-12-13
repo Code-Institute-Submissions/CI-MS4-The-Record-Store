@@ -15,6 +15,7 @@
       <form method="POST" action="{% url 'add_address' %}" class="form mb-2" id="address-form"
         enctype="multipart/form-data">
         {% csrf_token %}
+        {{form.user}}
         <div class="row no-gutters">
           <div class="col-12 col-md-6">
             <div class="mr-md-2"><input type="text" name="first_name" value="" maxlength="50" class="form-control"
@@ -543,10 +544,16 @@
             <div class="ml-md-2"><input type="text" name="post_code_or_zip_code" value="" maxlength="80"
                 class="form-control" placeholder="Postcode/Zip" required="" id="id_post_code_or_zip_code"></div>
           </div>
-          <div class="col-12 d-flex"><input type="text" name="phone_number" value="" maxlength="20" class="form-control"
-              placeholder="Phone" required="" id="id_phone_number"></div>
-            <button class="dark-button form-control col col-md-4 offset-md-4">Add Address</button>
-            <a class="btn btn-outline-black rounded-0 col-12 text-center" href="{% url 'addresses' %}">Cancel</a>
+          <div class="col-12 d-flex">
+            <input type="text" class="form-control" placeholder="Phone Number" name="phone_number"
+              value="" maxlength="20" required="" id="id_phone_number">
+          </div>
+          <div class="col-12 d-flex">
+            <label for="id_primary_address" class="sub-label">Primary Address</label>
+            <input type="checkbox" class="form-control" name="primary_address" id="id_primary_address">
+          </div>
+          <button class="dark-button form-control col col-md-4 offset-md-4">Add Address</button>
+          <a class="btn btn-outline-black rounded-0 col-12 text-center" href="{% url 'addresses' %}">Cancel</a>
           <div class="text-right">
             <input type="hidden" name="redirect_url" value="{{ request.path }}" />
           </div>

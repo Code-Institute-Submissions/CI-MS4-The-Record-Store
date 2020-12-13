@@ -21,16 +21,19 @@ def add_product(request):
         form = ProductForm(updated_request, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Successfully added product!')
             return redirect(reverse('view_products'))
 
     else:
         form = ProductForm()
+        messages.info(
+            request, 'You are about to add a new product to the store')
 
     template = 'products/add_product.html'
     context = {
         'form': form,
     }
-    messages.success(request, 'Successfully added product!')
+
     return render(request, template, context)
 
 
@@ -197,7 +200,6 @@ def view_products(request):
             min_price = re.search('(.*)-', price_range).group(1)
             max_price = re.search('-(.*)', price_range).group(1)
             products = products.filter(price__range=(min_price, max_price))
-
 
         if 'artist' in request.GET:
             artist_request = request.GET['artist'].split(',')

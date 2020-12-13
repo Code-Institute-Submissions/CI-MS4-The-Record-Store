@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfile, Address
 from wishlist.views import update_wishlist
 from .forms import DefaultAddressForm, AddressForm
+from django.contrib import messages
 # Create your views here.
 
 
@@ -75,6 +76,9 @@ def edit_address(request, item_id):
                 address_manager.clear_previous_primary_address(request.user)
             form.save()
             return redirect(reverse('addresses'))
+        else:
+            messages.error(
+            request, f'{form.errors}')
     else:
         form = AddressForm(instance=address)
 
