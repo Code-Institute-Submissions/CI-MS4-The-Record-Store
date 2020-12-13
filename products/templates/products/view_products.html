@@ -38,354 +38,345 @@
         </div>
       </div>
     </div>
+
+    <!-- Filter Menu -->
+    <div class="col-10 offset-1 col-md-2 offset-md-0 collapse only-collapse-on-xs" id="filter-menu">
       <div class="row no-gutters">
-        <!-- Filter Menu -->
-        <div class="col-10 offset-1 col-md-2 offset-md-0 collapse only-collapse-on-xs" id="filter-menu">
-          <div class="row no-gutters">
-            <div class="col-12 col-sm-10 offset-sm-1">
-              <button class="filter-dropdown-button" type="button" data-toggle="collapse"
-                data-target="#price-range-menu" aria-haspopup="true" aria-expanded="false">
-                Price
-              </button>
-              <div class="filter collapse show" id="price-range-menu">
-                <div class="row no-gutters">
-                  <div class="col-6">
-                    <div class="mr-1">
-                      <input class="form-control" type="number" name="lower-price" id="lower-price" value="{{min_price}}">
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="ml-1">
-                      <input class="form-control" type="number" name="lower-price" id="upper-price" value="{{max_price}}">
-                    </div>
-                  </div>
-                  <div class="col-12" id="slider"></div>
+        <div class="col-12 col-sm-10 offset-sm-1">
+          <button class="filter-dropdown-button" type="button" data-toggle="collapse" data-target="#price-range-menu"
+            aria-haspopup="true" aria-expanded="false">
+            Price
+          </button>
+          <div class="filter collapse show" id="price-range-menu">
+            <div class="row no-gutters">
+              <div class="col-6">
+                <div class="mr-1">
+                  <input class="form-control" type="number" name="lower-price" id="lower-price" value="{{min_price}}">
                 </div>
               </div>
-            </div>
-            <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
-            <div class="col-12 col-sm-10 offset-sm-1">
-              <button class="filter-dropdown-button" type="button" data-toggle="collapse"
-                data-target="#genre-dropdown-menu" aria-haspopup="true" aria-expanded="false">
-                Genres
-              </button>
-              <div class="filter collapse show" id="genre-dropdown-menu">
-                {% for genre in genres  %}
-                <div class="filter-checkbox">
-                  <input onchange="filterChanged(this.name, this.checked)" type="checkbox" id="{{genre.name}}_filter"
-                    name="t_genre={{genre}}" {% if genre_filters|keyvalue:genre == genre.name %}checked{% endif %}>
-                  <label for="{{genre.name}}_filter">{{genre.friendly_name}}</label><br>
+              <div class="col-6">
+                <div class="ml-1">
+                  <input class="form-control" type="number" name="lower-price" id="upper-price" value="{{max_price}}">
                 </div>
-                {% endfor %}
               </div>
+              <div class="col-12" id="slider"></div>
             </div>
-            <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
-            <div class="col-12 col-sm-10 offset-sm-1">
-              <button class="filter-dropdown-button" type="button" data-toggle="collapse"
-                data-target="#artist-dropdown-menu" aria-haspopup="true" aria-expanded="false">
-                Artist
-              </button>
-              <div class="filter collapse show" id="artist-dropdown-menu">
-                {% for artist in artists  %}
-                <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{artist.name}}_filter"
-                    name="t_artist={{artist}}" {% if artist_filters|keyvalue:artist == artist.name %}checked{% endif %}>
-                  <label for="{{artist.name}}_filter">{{artist.friendly_name}}</label><br>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
-            <div class="col-12 col-sm-10 offset-sm-1">
-              <button class="filter-dropdown-button" type="button" data-toggle="collapse"
-                data-target="#label-dropdown-menu" aria-haspopup="true" aria-expanded="false">
-                Label
-              </button>
-              <div class="filter collapse show" id="label-dropdown-menu">
-                {% for label in labels  %}
-                <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{label.name}}_filter"
-                    name="t_label={{label}}" {% if label_filters|keyvalue:label == label.name %}checked{% endif %}>
-                  <label for="{{label.name}}_filter">{{label.friendly_name}}</label><br>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
-            <div class="col-12 col-sm-10 offset-sm-1">
-              <button class="filter-dropdown-button" type="button" data-toggle="collapse"
-                data-target="#format-dropdown-menu" aria-haspopup="true" aria-expanded="false">
-                Format
-              </button>
-              <div class="filter collapse show" id="format-dropdown-menu">
-                {% for format in formats  %}
-                <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{format.name}}_filter"
-                    name="t_format={{format}}" {% if format_filters|keyvalue:format == format.name %}checked{% endif %}>
-                  <label for="{{format.name}}_filter">{{format.friendly_name}}</label><br>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
-            <div class="col-12 col-sm-10 offset-sm-1">
-              <button class="filter-dropdown-button" type="button" data-toggle="collapse"
-                data-target="#colour-dropdown-menu" aria-haspopup="true" aria-expanded="false">
-                Colour
-              </button>
-              <div class="filter collapse show" id="colour-dropdown-menu">
-                {% for colour in colours  %}
-                <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{colour.name}}_name"
-                    name="t_colour={{colour}}" {% if colour_filters|keyvalue:colour == colour.name %}checked{% endif %}>
-                  <label for="{{colour.name}}_name">{{colour.friendly_name}}</label><br>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
-            <div class="col-12 col-sm-10 offset-sm-1">
-              <button class="filter-dropdown-button" type="button" data-toggle="collapse"
-                data-target="#tag-dropdown-menu" aria-haspopup="true" aria-expanded="false">
-                Tag
-              </button>
-              <div class="filter collapse show" id="tag-dropdown-menu">
-                {% for tag in tags  %}
-                <div class="filter-checkbox">
-                  <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{tag.name}}_filter"
-                    name="t_tag={{tag}}" {% if tag_filters|keyvalue:tag == tag.name %}checked{% endif %}>
-                  <label for="{{tag.name}}_filter">{{tag.friendly_name}}</label><br>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="col-12 dark-hr"></div>
           </div>
         </div>
-        <!-- Products -->
-        <div class="col-12 col-md-10">
-          <div class="row no-gutters">
-            <div class="col-10 offset-1 col-md-4 offset-md-4">
-              <div class="page-title text-center">Products</div>
-              <div class="dark-hr"></div>
-            </div>
-          </div>
-          <div class="row no-gutters">
-            <div class="col-12">
-              <div class="col-3 offset-8 text-center">
-                <div class="d-none d-md-block ">
-                  <select id="sort-selector" class="form-control">
-                    <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
-                    <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to
-                      high)
-                    </option>
-                    <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high
-                      to
-                      low)</option>
-                    <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>
-                      Alphabetically: A-Z</option>
-                    <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Alphabetically:
-                      Z-A
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row no-gutters">
-            {% for product in products %}
-            <!-- Add to cart & and to wishlist forms -->
-            <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST"
-              id="add-to-cart-{{product.id}}">
-              {% csrf_token %}
-              <input class="form-control qty_input" type="hidden" name="quantity" value="1"
-                data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}_add_to_cart" />
-              <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-            </form>
-            <form class="form" action="{% url 'add_to_wishlist' product.id %}" method="POST"
-              id="add-to-wishlist-{{product.id}}">
-              {% csrf_token %}
-              <input class="form-control qty_input" type="hidden" name="quantity" value="1"
-                data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}_add_to_wishlist" />
-              <input type="hidden" name="redirect_url" value="{{ request.path }}" />
-            </form>
-            <!-- Product Card -->
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card mt-5">
-              <div class="square">
-                <div class="square-inner text-center">
-                  <!-- Product Image -->
-                  <div class="h-75 product-header">
-                    {% if product.image %}
-                    <div class="product-image" style="background-image: url({{product.image.url}})">
-                      <div class="product-image-overlay">
-                      </div>
-                      <div class="product-image-overlay-buttons row no-gutters">
-                        <div class="col-3 offset-2 my-auto">
-                          <div class="square">
-                            <div class="square-inner text-center">
-                              <button class="product-image-overlay-button" type="submit"
-                                form="add-to-cart-{{product.id}}">
-                                <i class="fas fa-cart-plus"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-3 offset-2 my-auto">
-                          <div class="square">
-                            <div class="square-inner text-center">
-                              <button class="product-image-overlay-button" type="submit"
-                                form="add-to-wishlist-{{product.id}}">
-                                <i class="far fa-heart"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {% else %}
-                    <div class="product-image" style="background-image: url('{{ MEDIA_URL }}noimage.png')">
-                      <div class="product-image-overlay">
-                      </div>
-                      <div class="product-image-overlay-buttons row no-gutters">
-                        <div class="col-3 offset-2 my-auto">
-                          <div class="square">
-                            <div class="square-inner text-center">
-                              <button class="product-image-overlay-button" type="submit"
-                                form="add-to-cart-{{product.id}}">
-                                <i class="fas fa-cart-plus"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-3 offset-2 my-auto">
-                          <div class="square">
-                            <div class="square-inner text-center">
-                              <button class="product-image-overlay-button" type="submit"
-                                form="add-to-wishlist-{{product.id}}">
-                                <i class="far fa-heart"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {% endif %}
-                  </div>
-                  <!-- Product Details -->
-                  <a class="product-title" href="{% url 'view_product' product.id %}">{{product.name}}</a><br>
-                  <a class="product-artist"
-                    href="{% url 'view_products' %}?artist={{product.artist}}">{{product.artist}}</a><br>
-                  <a class="product-label"
-                    href="{% url 'view_products' %}?label={{product.label}}">{{product.label}}</a>
-                  <div class="product-sub-heading">€{{product.price}}</div>
-                  
-                  {% if request.user.is_superuser %}
-                  <small class="ml-3">
-                    <a href="{% url 'edit_product' product.id %}">Edit</a> |
-                    <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
-                  </small>
-                  {% endif %}
-                </div>
-              </div>
+        <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
+        <div class="col-12 col-sm-10 offset-sm-1">
+          <button class="filter-dropdown-button" type="button" data-toggle="collapse" data-target="#genre-dropdown-menu"
+            aria-haspopup="true" aria-expanded="false">
+            Genres
+          </button>
+          <div class="filter collapse show" id="genre-dropdown-menu">
+            {% for genre in genres  %}
+            <div class="filter-checkbox">
+              <input onchange="filterChanged(this.name, this.checked)" type="checkbox" id="{{genre.name}}_filter"
+                name="t_genre={{genre}}" {% if genre_filters|keyvalue:genre == genre.name %}checked{% endif %}>
+              <label for="{{genre.name}}_filter">{{genre.friendly_name}}</label><br>
             </div>
             {% endfor %}
           </div>
         </div>
+        <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
+        <div class="col-12 col-sm-10 offset-sm-1">
+          <button class="filter-dropdown-button" type="button" data-toggle="collapse"
+            data-target="#artist-dropdown-menu" aria-haspopup="true" aria-expanded="false">
+            Artist
+          </button>
+          <div class="filter collapse show" id="artist-dropdown-menu">
+            {% for artist in artists  %}
+            <div class="filter-checkbox">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{artist.name}}_filter"
+                name="t_artist={{artist}}" {% if artist_filters|keyvalue:artist == artist.name %}checked{% endif %}>
+              <label for="{{artist.name}}_filter">{{artist.friendly_name}}</label><br>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
+        <div class="col-12 col-sm-10 offset-sm-1">
+          <button class="filter-dropdown-button" type="button" data-toggle="collapse" data-target="#label-dropdown-menu"
+            aria-haspopup="true" aria-expanded="false">
+            Label
+          </button>
+          <div class="filter collapse show" id="label-dropdown-menu">
+            {% for label in labels  %}
+            <div class="filter-checkbox">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{label.name}}_filter"
+                name="t_label={{label}}" {% if label_filters|keyvalue:label == label.name %}checked{% endif %}>
+              <label for="{{label.name}}_filter">{{label.friendly_name}}</label><br>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
+        <div class="col-12 col-sm-10 offset-sm-1">
+          <button class="filter-dropdown-button" type="button" data-toggle="collapse"
+            data-target="#format-dropdown-menu" aria-haspopup="true" aria-expanded="false">
+            Format
+          </button>
+          <div class="filter collapse show" id="format-dropdown-menu">
+            {% for format in formats  %}
+            <div class="filter-checkbox">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{format.name}}_filter"
+                name="t_format={{format}}" {% if format_filters|keyvalue:format == format.name %}checked{% endif %}>
+              <label for="{{format.name}}_filter">{{format.friendly_name}}</label><br>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
+        <div class="col-12 col-sm-10 offset-sm-1">
+          <button class="filter-dropdown-button" type="button" data-toggle="collapse"
+            data-target="#colour-dropdown-menu" aria-haspopup="true" aria-expanded="false">
+            Colour
+          </button>
+          <div class="filter collapse show" id="colour-dropdown-menu">
+            {% for colour in colours  %}
+            <div class="filter-checkbox">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{colour.name}}_name"
+                name="t_colour={{colour}}" {% if colour_filters|keyvalue:colour == colour.name %}checked{% endif %}>
+              <label for="{{colour.name}}_name">{{colour.friendly_name}}</label><br>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 col-sm-10 offset-sm-1 dark-hr"></div>
+        <div class="col-12 col-sm-10 offset-sm-1">
+          <button class="filter-dropdown-button" type="button" data-toggle="collapse" data-target="#tag-dropdown-menu"
+            aria-haspopup="true" aria-expanded="false">
+            Tag
+          </button>
+          <div class="filter collapse show" id="tag-dropdown-menu">
+            {% for tag in tags  %}
+            <div class="filter-checkbox">
+              <input type="checkbox" onchange="filterChanged(this.name, this.checked)" id="{{tag.name}}_filter"
+                name="t_tag={{tag}}" {% if tag_filters|keyvalue:tag == tag.name %}checked{% endif %}>
+              <label for="{{tag.name}}_filter">{{tag.friendly_name}}</label><br>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12 dark-hr"></div>
       </div>
+    </div>
+    <!-- Products -->
+    <div class="col-12 col-md-10">
+      <div class="row no-gutters">
+        <div class="col-10 offset-1 col-md-4 offset-md-4">
+          <div class="page-title text-center">Products</div>
+          <div class="dark-hr"></div>
+        </div>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-12">
+          <div class="col-3 offset-8 text-center">
+            <div class="d-none d-md-block ">
+              <select id="sort-selector" class="form-control">
+                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to
+                  high)
+                </option>
+                <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high
+                  to
+                  low)</option>
+                <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>
+                  Alphabetically: A-Z</option>
+                <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Alphabetically:
+                  Z-A
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row no-gutters">
+        {% for product in products %}
+        <!-- Add to cart & and to wishlist forms -->
+        <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST" id="add-to-cart-{{product.id}}">
+          {% csrf_token %}
+          <input class="form-control qty_input" type="hidden" name="quantity" value="1" data-item_id="{{ product.id }}"
+            id="id_qty_{{ product.id }}_add_to_cart" />
+          <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+        </form>
+        <form class="form" action="{% url 'add_to_wishlist' product.id %}" method="POST"
+          id="add-to-wishlist-{{product.id}}">
+          {% csrf_token %}
+          <input class="form-control qty_input" type="hidden" name="quantity" value="1" data-item_id="{{ product.id }}"
+            id="id_qty_{{ product.id }}_add_to_wishlist" />
+          <input type="hidden" name="redirect_url" value="{{ request.path }}" />
+        </form>
+        <!-- Product Card -->
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 product-card mt-5">
+          <div class="square">
+            <div class="square-inner text-center">
+              <!-- Product Image -->
+              <div class="h-75 product-header">
+                {% if product.image %}
+                <div class="product-image" style="background-image: url({{product.image.url}})">
+                  <div class="product-image-overlay">
+                  </div>
+                  <div class="product-image-overlay-buttons row no-gutters">
+                    <div class="col-3 offset-2 my-auto">
+                      <div class="square">
+                        <div class="square-inner text-center">
+                          <button class="product-image-overlay-button" type="submit" form="add-to-cart-{{product.id}}">
+                            <i class="fas fa-cart-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-3 offset-2 my-auto">
+                      <div class="square">
+                        <div class="square-inner text-center">
+                          <button class="product-image-overlay-button" type="submit"
+                            form="add-to-wishlist-{{product.id}}">
+                            <i class="far fa-heart"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% else %}
+                <div class="product-image" style="background-image: url('{{ MEDIA_URL }}noimage.png')">
+                  <div class="product-image-overlay">
+                  </div>
+                  <div class="product-image-overlay-buttons row no-gutters">
+                    <div class="col-3 offset-2 my-auto">
+                      <div class="square">
+                        <div class="square-inner text-center">
+                          <button class="product-image-overlay-button" type="submit" form="add-to-cart-{{product.id}}">
+                            <i class="fas fa-cart-plus"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-3 offset-2 my-auto">
+                      <div class="square">
+                        <div class="square-inner text-center">
+                          <button class="product-image-overlay-button" type="submit"
+                            form="add-to-wishlist-{{product.id}}">
+                            <i class="far fa-heart"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+              <!-- Product Details -->
+              <a class="product-title" href="{% url 'view_product' product.id %}">{{product.name}}</a><br>
+              <a class="product-artist"
+                href="{% url 'view_products' %}?artist={{product.artist}}">{{product.artist.friendly_name}}</a><br>
+              <a class="product-label"
+                href="{% url 'view_products' %}?label={{product.label}}">{{product.label.friendly_name}}</a>
+              <div class="product-sub-heading">€{{product.price}}</div>
 
-
-
+              {% if request.user.is_superuser %}
+              <small class="ml-3">
+                <a href="{% url 'edit_product' product.id %}">Edit</a> |
+                <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+              </small>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
 
+  </div>
+  {% endblock %}
+
+  {% block postloadjs %}
+  {{ block.super }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"
+    integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg=="
+    crossorigin="anonymous"></script>
+  <script>
+    var slider = document.getElementById('slider');
+    var lowerPrice = document.getElementById('lower-price');
+    var upperPrice = document.getElementById('upper-price');
+
+    lowerPrice.addEventListener("change", function () {
+      var currentUrl = new URL(window.location);
+      var priceRange = `${this.value }-${upperPrice.getAttribute("value")}`
+      currentUrl.searchParams.set("price", priceRange);
+      window.location.replace(currentUrl);
+    });
+
+    upperPrice.addEventListener("change", function () {
+      var currentUrl = new URL(window.location);
+      var priceRange = `${lowerPrice.getAttribute("value") }-${this.value}`
+      currentUrl.searchParams.set("price", priceRange);
+      window.location.replace(currentUrl);
+    });
+
+    noUiSlider.create(slider, {
+      start: [lowerPrice.getAttribute("value"), upperPrice.getAttribute("value")],
+      connect: true,
+      range: {
+        'min': 0,
+        'max': 300
+      }
+    });
 
 
-    {% endblock %}
+    slider.noUiSlider.on('update', function (values, handle) {
+      lowerPrice.value = values[0];
+      upperPrice.value = values[1];
+    });
+    slider.noUiSlider.on('set', function (values, handle) {
+      var currentUrl = new URL(window.location);
+      var priceRange = `${values[0]}-${values[1]}`
+      currentUrl.searchParams.set("price", priceRange);
+      window.location.replace(currentUrl);
+    });
 
-    {% block postloadjs %}
-    {{ block.super }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"
-      integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg=="
-      crossorigin="anonymous"></script>
-    <script>
-      var slider = document.getElementById('slider');
-      var lowerPrice = document.getElementById('lower-price');
-      var upperPrice = document.getElementById('upper-price');
 
-      lowerPrice.addEventListener("change", function () {
-        var currentUrl = new URL(window.location);
-        var priceRange = `${this.value }-${upperPrice.getAttribute("value")}`
-        currentUrl.searchParams.set("price", priceRange);
+    $('#sort-selector, #sort-selector-mobile').change(function () {
+      var selector = $(this);
+      var currentUrl = new URL(window.location);
+
+      var selectedVal = selector.val();
+      if (selectedVal != "reset") {
+        var sort = selectedVal.split("_")[0];
+        var direction = selectedVal.split("_")[1];
+
+        currentUrl.searchParams.set("sort", sort);
+        currentUrl.searchParams.set("direction", direction);
+
         window.location.replace(currentUrl);
-      });
-
-      upperPrice.addEventListener("change", function () {
-        var currentUrl = new URL(window.location);
-        var priceRange = `${lowerPrice.getAttribute("value") }-${this.value}`
-        currentUrl.searchParams.set("price", priceRange);
-        window.location.replace(currentUrl);
-      });
-
-      noUiSlider.create(slider, {
-        start: [lowerPrice.getAttribute("value"), upperPrice.getAttribute("value")],
-        connect: true,
-        range: {
-          'min': 0,
-          'max': 300
-        }
-      });
-
-
-      slider.noUiSlider.on('update', function (values, handle) {
-        lowerPrice.value = values[0];
-        upperPrice.value = values[1];
-      });
-      slider.noUiSlider.on('set', function (values, handle) {
-        var currentUrl = new URL(window.location);
-        var priceRange = `${values[0]}-${values[1]}`
-        currentUrl.searchParams.set("price", priceRange);
-        window.location.replace(currentUrl);
-      });
-
-
-      $('#sort-selector, #sort-selector-mobile').change(function () {
-        var selector = $(this);
-        var currentUrl = new URL(window.location);
-
-        var selectedVal = selector.val();
-        if (selectedVal != "reset") {
-          var sort = selectedVal.split("_")[0];
-          var direction = selectedVal.split("_")[1];
-
-          currentUrl.searchParams.set("sort", sort);
-          currentUrl.searchParams.set("direction", direction);
-
-          window.location.replace(currentUrl);
-        } else {
-          currentUrl.searchParams.delete("sort");
-          currentUrl.searchParams.delete("direction");
-
-          window.location.replace(currentUrl);
-        }
-      })
-
-      function filterChanged(filter, isChecked) {
-        var currentUrl = new URL(window.location);
-        if (isChecked) {
-          currentUrl.searchParams.append("filter", filter);
-        } else {
-          currentUrl = removeURLParameter(currentUrl, filter)
-        }
+      } else {
+        currentUrl.searchParams.delete("sort");
+        currentUrl.searchParams.delete("direction");
 
         window.location.replace(currentUrl);
       }
+    })
 
-      function removeURLParameter(url, parameter) {
-        encodedFilterParameter = encodeURIComponent(parameter);
-        filterToRemove = "filter=" + encodedFilterParameter;
-        url = url.href.toString();
-        urlWithFilterRemoved = url.replace(filterToRemove, "");
-        url = new URL(urlWithFilterRemoved)
-        return url;
+    function filterChanged(filter, isChecked) {
+      var currentUrl = new URL(window.location);
+      if (isChecked) {
+        currentUrl.searchParams.append("filter", filter);
+      } else {
+        currentUrl = removeURLParameter(currentUrl, filter)
       }
-    </script>
-    {% endblock %}
+
+      window.location.replace(currentUrl);
+    }
+
+    function removeURLParameter(url, parameter) {
+      encodedFilterParameter = encodeURIComponent(parameter);
+      filterToRemove = "filter=" + encodedFilterParameter;
+      url = url.href.toString();
+      urlWithFilterRemoved = url.replace(filterToRemove, "");
+      url = new URL(urlWithFilterRemoved)
+      return url;
+    }
+  </script>
+  {% endblock %}
