@@ -33,34 +33,33 @@ header {
   position: relative;
 }
 
-#nav-search {
+#nav-search, #nav-search-mobile{
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-#brand-icon {
+.brand-icon {
   transition: all 0.3s ease-in-out;
   font-size: 10rem;
   background-color: var(--main-text-and-icon-color);
   color: var(--main-navbar-color);
   padding: 3px;
 }
-#brand-name {
+.brand-name {
   transition: all 0.3s ease-in-out;
   font-size: 1.1rem;
   font-weight: 800;
   text-transform: uppercase;
   color: var(--main-text-and-icon-color);
 }
-#brand {
-}
-#brand a:hover {
+
+.brand a:hover {
   text-decoration: none;
 }
-#brand a:hover #brand-name {
+.brand a:hover .brand-name {
   color: var(--main-hightlight-color);
 }
-#brand a:hover #brand-icon {
+.brand a:hover .brand-icon {
   background-color: var(--main-hightlight-color);
 }
 
@@ -437,7 +436,7 @@ main {
     font-size: 8px;
   }
 
-  #brand-icon {
+  .brand-icon {
     font-size: 5rem;
   }
 
@@ -451,7 +450,7 @@ main {
 
 /* Small devices (landscape phones, 576px and up) */
 @media screen and (min-width: 576px) {
-  #brand-icon {
+  .brand-icon {
     font-size: 10rem;
   }
 }
