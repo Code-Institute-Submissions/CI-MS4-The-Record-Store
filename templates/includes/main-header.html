@@ -51,8 +51,30 @@
   </div>
 </div>
 <div class="row w-100 no-gutters" id="nav-menu">
-  <ul class="list-inline col-6 offset-3 navbar-nav">
-    <div class="row no-gutters">
+  <div class="col-6 offset-3">
+    <ul class="inline-list row no-gutters">
+      <li class="list-inline-item col-6 text-center p-0 m-0 dropdown">
+          <a class="nav-link" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Genre
+          </a>
+          <div class="dropdown-menu text-center border-0" aria-labelledby="{{genre}}-link">
+            {% for genre in genres %}
+            <a class="dropdown-item" href="{% url 'view_products' %}?genre={{genre}}">{{genre.friendly_name}}</a>
+            {% endfor %}
+          </div>
+      </li>
+      <li class="list-inline-item col-6 text-center p-0 m-0 dropdown">
+        <a class="nav-link" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Promotions
+        </a>
+        <div class="dropdown-menu text-center border-0" aria-labelledby="{{tag.friendly_name}}-link">
+          {% for tag in tags %}
+          <a class="dropdown-item" href="{% url 'view_products' %}?tag={{tag}}">{{tag.friendly_name}}</a>
+          {% endfor %}
+        </div>
+    </li>
+  </ul>
+    <!-- <ul class="list-inline">
       <li class="list-inline-item dropdown col-6 p-0 m-0 text-center">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -76,6 +98,6 @@
           {% endfor %}
         </div>
       </li>
-    </div>
-  </ul>
+    </ul> -->
+  </div>
 </div>

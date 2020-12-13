@@ -75,10 +75,16 @@ header {
 .navbar-icon:hover {
   color: var(--main-hightlight-color);
 }
-.navbar-nav .nav-link {
+.list-inline-item .nav-link {
   transition: all 0.3s ease-in-out;
   font-size: 2rem;
   color: var(--main-text-and-icon-color);
+}
+
+.dropdown .nav-link:after {
+  font-family: FontAwesome;
+  content: "\f078";
+  font-size: 2rem;
 }
 
 .list-inline-item {
@@ -87,6 +93,8 @@ header {
   color: var(--main-text-and-icon-color);
   padding: 2rem;
 }
+
+
 
 .navbar-nav .footer-nav-link {
   transition: all 0.3s ease-in-out;
@@ -121,6 +129,7 @@ header {
   font-size: 2rem;
   padding: 2rem;
   border-style: none;
+  width: 100%;
 }
 
 .dropdown-item {
