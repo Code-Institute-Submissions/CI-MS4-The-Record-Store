@@ -30,6 +30,7 @@ class ProductForm(forms.ModelForm):
         self.fields['artist'].choices = friendly_names
         self.fields['artist'].widget.attrs['class'] = (
             'single-dynamic form-control')
+        self.fields['artist'].widget.attrs['value'] = ""
 
         genres = Genre.objects.all()
         friendly_names = ([(genre.id, genre.get_friendly_name())

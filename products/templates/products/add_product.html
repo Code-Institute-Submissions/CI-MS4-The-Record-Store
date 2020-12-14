@@ -70,7 +70,10 @@
 <script>
     $(".single-dynamic").select2({
         tags: true,
+        allowClear: true,
+        placeholder: "Select from the list or type and enter to add new."
     });
+    $(".single-dynamic").val(null).trigger('change');
 
     const zeroPad = (num, places) => String(num).padStart(places, "0");
 
