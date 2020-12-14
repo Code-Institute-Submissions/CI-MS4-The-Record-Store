@@ -150,6 +150,7 @@ def view_products(request):
     max_price = 300.00
 
     if request.GET:
+        # Product Sorting
         if 'sort' in request.GET:
             sortkey = request.GET['sort']
             sort = sortkey
@@ -161,9 +162,8 @@ def view_products(request):
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
             products = products.order_by(sortkey)
-
+        # Filter Panel Multifilter
         if 'filter' in request.GET:
-
             _filter = Q()
             filters = request.GET.getlist('filter')
             for filter in filters:
@@ -194,27 +194,29 @@ def view_products(request):
                                 _filter.connector)
                     tag_filters[filter_value] = filter_value
             products = products.filter(_filter)
-
+        # Only Products In Selected Price Range
         if 'price' in request.GET:
             price_range = request.GET['price']
             min_price = re.search('(.*)-', price_range).group(1)
             max_price = re.search('-(.*)', price_range).group(1)
             products = products.filter(price__range=(min_price, max_price))
-
+        # Only Products By Selected Artist
         if 'artist' in request.GET:
             artist_request = request.GET['artist'].split(',')
             products = products.filter(artist__name__in=artist_request)
+        # Only Products By Selected Label
         if 'label' in request.GET:
             label_request = request.GET['label'].split(',')
             products = products.filter(label__name__in=label_request)
+        # Only Products By Selected Genre
         if 'genre' in request.GET:
             genre_request = request.GET['genre'].split(',')
             products = products.filter(genre__name__in=genre_request)
-
+        # Only Products By Selected Tag
         if 'tag' in request.GET:
             tag_request = request.GET['tag'].split(',')
             products = products.filter(tags__name__in=tag_request)
-
+        # Products matching search bar query
         if 'search_bar_main' in request.GET:
             search_query = request.GET['search_bar_main']
             if not search_query:

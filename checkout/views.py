@@ -128,6 +128,8 @@ def checkout_success(request, order_number):
         email will be sent to {order.email}.')
     return render(request, template, context)
 
+# Populate the hiddens fields of the order form so that it validates
+
 
 def add_hidden_info(original_request, cart, user, pid):
 

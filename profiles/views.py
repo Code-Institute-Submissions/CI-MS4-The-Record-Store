@@ -78,7 +78,7 @@ def edit_address(request, item_id):
             return redirect(reverse('addresses'))
         else:
             messages.error(
-            request, f'{form.errors}')
+                request, f'{form.errors}')
     else:
         form = AddressForm(instance=address)
 
@@ -107,6 +107,7 @@ class Address_Manager:
             previous_primary_address.primary_address = False
             previous_primary_address.save()
 
+    # Check is address already exist in the database
     def address_already_exists(self, address_form):
         if Address.objects.filter(
                 first_name=address_form['first_name'].value(),
@@ -116,7 +117,8 @@ class Address_Manager:
                 town_or_city=address_form['town_or_city'].value(),
                 county_or_province=address_form['county_or_province'].value(),
                 country=address_form['country'].value(),
-                post_code_or_zip_code=address_form['post_code_or_zip_code'].value(),
+                post_code_or_zip_code=address_form['post_code_or_zip_code'
+                                                   ].value(),
                 phone_number=address_form['phone_number'].value()).exists():
             return True
         else:
