@@ -57,6 +57,7 @@ class StripeWH_Handler:
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
             if save_info:
+                print('info should be saved')
                 address_data = {'user': profile.user,
                                 'first_name': first_name,
                                 'last_name': last_name,
@@ -73,12 +74,13 @@ class StripeWH_Handler:
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
                 if address_manager.address_already_exists(address_form) is False:
+                    print('address is already in the database')
                     address_manager.clear_previous_primary_address(profile.user)
                     address_form.save()
-
         
         order_exists = False
         attempt = 1
+        print('checking if order exists')
         while attempt <= 5:
             try:
                 order = Order.objects.get(stripe_pid=pid)
@@ -89,6 +91,7 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if order_exists:
+            print(f'order exists, sending email to {order.email} ')
             self._send_confirmation_email(order)
             return HttpResponse(content=(f'Webhook received: {event["type"]} | SUCCESS: ' 'Verified order already in database'), status=200)
         else:
@@ -119,7 +122,7 @@ class StripeWH_Handler:
                 if order:
                     order.delete()
                 return HttpResponse(content=f'Webhook received: {event["type"]} | ERROR: {e}', status=500)
-
+        print(f'created order in webhook, sending email to {order.email} ')
         self._send_confirmation_email(order)
         return HttpResponse(content=(f'Webhook received: {event["type"]} | SUCCESS: ''Created order in webhook'), status=200)
 
