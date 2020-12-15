@@ -52,7 +52,10 @@ def add_address(request):
         if form.is_valid():
             if form.cleaned_data['primary_address'] is True:
                 address_manager.clear_previous_primary_address(request.user)
-            form.save()
+            new_primary_address = form.save()
+            user_profile = UserProfile.objects.get(user=request.user)
+            user_profile.primary_address = new_primary_address
+            user_profile.save()
             return redirect(reverse('addresses'))
     else:
         form = AddressForm()
@@ -74,7 +77,10 @@ def edit_address(request, item_id):
         if form.is_valid():
             if form.cleaned_data['primary_address'] is True:
                 address_manager.clear_previous_primary_address(request.user)
-            form.save()
+            new_primary_address = form.save()
+            user_profile = UserProfile.objects.get(user=request.user)
+            user_profile.primary_address = new_primary_address
+            user_profile.save()
             return redirect(reverse('addresses'))
         else:
             messages.error(

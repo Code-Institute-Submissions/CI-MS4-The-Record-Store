@@ -44,7 +44,6 @@ class StripeWH_Handler:
         """
         Handle the payment_intent.succeeded webhook from Stripe
         """
-        print("Handling Payment Intent Succeded")
         intent = event.data.object
         pid = intent.id
         billing_details = intent.charges.data[0].billing_details
@@ -58,13 +57,6 @@ class StripeWH_Handler:
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
             if save_info:
-                print(billing_details.address.line1)
-                print(billing_details.address.line2)
-                print(billing_details.address.city)
-                print(billing_details.address.state)
-                print(billing_details.address.country)
-                print(billing_details.address.postal_code)
-                print(billing_details.phone)
                 address_data = {'user': profile.user,
                                 'first_name': first_name,
                                 'last_name': last_name,
@@ -77,25 +69,22 @@ class StripeWH_Handler:
                                 billing_details.address.postal_code,
                                 'phone_number': billing_details.phone,
                                 'primary_address': True}
-                print(address_data)
+   
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
                 if address_manager.address_already_exists(address_form) is False:
                     address_manager.clear_previous_primary_address(profile.user)
                     address_form.save()
 
-        print('Checking if order exists')
+        
         order_exists = False
         attempt = 1
         while attempt <= 5:
             try:
-                print(f'attempt {attempt}')
                 order = Order.objects.get(stripe_pid=pid)
                 order_exists = True
-                print('Order found')
                 break
             except Order.DoesNotExist:
-                print('No Order Found')
                 attempt += 1
                 time.sleep(1)
 
