@@ -48,9 +48,29 @@ class StripeWH_Handler:
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
 
+        order_exists = False
+        attempt = 1
+        while attempt <= 5:
+            try:
+                print(f'Trying To Find Order attempt {attempt}')
+                order = Order.objects.get(stripe_pid=pid, grand_total=grand_total)
+                order_exists = True
+                print('order already exists')
+                break
+            except Order.DoesNotExist:
+                attempt += 1
+                time.sleep(1)
+
+        print("If the order exist just send and email")
+        if order_exists:
+            print('Order exists')
+            self._send_confirmation_email(order)
+            return HttpResponse(content=(f'Webhook received: {event["type"]} | SUCCESS: ' 'Verified order already in database'),status=200)
+        else:
+            print("Order doesn't exist")
+        
         return HttpResponse(
-            content=f'Unhandled webhook received: {event["type"]}',
-            status=200)
+            content=f'Unhandled webhook received: {event["type"]}',status=200)
 
     def handle_payment_intent_succeeded(self, event):
         """
