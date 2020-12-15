@@ -60,7 +60,17 @@ class StripeWH_Handler:
             if save_info:
                 print('Saving Info')
                 address_data = {
-                    'user': profile.user}
+                    'user': profile.user,
+                    'first_name':intent.metadata.request_post.get('first_name'),
+                    'last_name':intent.metadata.request_post.get('last_name'),
+                    'address_line_1': intent.metadata.request_post.get('address_line_1'),
+                    'address_line_2': intent.metadata.request_post.get('address_line_2'),
+                    'town_or_city': intent.metadata.request_post.get('town_or_city'),
+                    'county_or_province': intent.metadata.request_post.get('county_or_province'),
+                    'country': intent.metadata.request_post.get('country'),
+                    'post_code_or_zip_code': intent.metadata.request_post.get('post_code_or_zip_code'),
+                    'phone_number': intent.metadata.request_post.get('phone_number'),
+                    'primary_address': True}
                 print(f'Address Data {address_data}')
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
