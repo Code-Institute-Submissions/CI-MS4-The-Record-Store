@@ -48,18 +48,18 @@ class StripeWH_Handler:
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
 
-        order_exists = False
-        attempt = 1
-        while attempt <= 5:
-            try:
-                print(f'Trying To Find Order attempt {attempt}')
-                order = Order.objects.get(stripe_pid=pid, grand_total=grand_total)
-                order_exists = True
-                print('order already exists')
-                break
-            except Order.DoesNotExist:
-                attempt += 1
-                time.sleep(1)
+        # order_exists = False
+        # attempt = 1
+        # while attempt <= 5:
+        #     try:
+        #         print(f'Trying To Find Order attempt {attempt}')
+        #         order = Order.objects.get(stripe_pid=pid, grand_total=grand_total)
+        #         order_exists = True
+        #         print('order already exists')
+        #         break
+        #     except Order.DoesNotExist:
+        #         attempt += 1
+        #         time.sleep(1)
 
         print("If the order exist just send and email")
         if order_exists:
