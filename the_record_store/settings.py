@@ -215,7 +215,7 @@ ACCOUNT_FORMS = {
 }
 
 
-if os.environ.get('DEBUG') == 'True':
+if 'DEBUG' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'therecordstore@example.com'
 else:
