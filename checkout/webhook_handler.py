@@ -54,6 +54,29 @@ class StripeWH_Handler:
         save_info = intent.metadata.save_info
         grand_total = round(intent.charges.data[0].amount / 100, 2)
         profile = None
+        username = intent.metadata.username
+        
+        if username != 'AnonymousUser':
+            profile = UserProfile.objects.get(user__username=username)
+            if save_info:
+                address_data = {'user': profile.user,
+                                'first_name': first_name,
+                                'last_name': last_name,
+                                'address_line_1': billing_details.address.line1,
+                                'address_line_2': billing_details.address.line2,
+                                'town_or_city': billing_details.address.city,
+                                'county_or_province': billing_details.address.state,
+                                'country': billing_details.address.country,
+                                'post_code_or_zip_code':
+                                billing_details.postal_code,
+                                'phone_number': billing_details.phone,
+                                'primary_address': True}
+                print(address_data)
+                address_form = AddressForm(address_data)
+                address_manager = Address_Manager()
+                if address_manager.address_already_exists(address_form) is False:
+                    address_manager.clear_previous_primary_address(profile.user)
+                    address_form.save()
 
         print('Checking if order exists')
         order_exists = False
@@ -77,17 +100,17 @@ class StripeWH_Handler:
             order = None
             try:
                 order = Order.objects.create(
-                    first_name=first_name,
-                    last_name=last_name,
                     user_profile=profile,
                     email=billing_details.email,
-                    phone_number=billing_details.phone,
-                    country=billing_details.address.country,
-                    postcode=billing_details.address.postal_code,
+                    first_name=first_name,
+                    last_name=last_name,
+                    address_line_1=billing_details.address.line1,
+                    address_line_2=billing_details.address.line2,
                     town_or_city=billing_details.address.city,
-                    street_address1=billing_details.address.line1,
-                    street_address2=billing_details.address.line2,
-                    county=billing_details.address.state,
+                    county_or_province=billing_details.address.state,
+                    country=billing_details.address.country,
+                    post_code_or_zip_code=billing_details.address.postal_code,
+                    phone_number=billing_details.phone,
                     stripe_pid=pid,
                 )
                 for item_id, item_data in json.loads(cart).items():
