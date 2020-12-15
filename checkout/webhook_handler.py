@@ -52,10 +52,19 @@ class StripeWH_Handler:
         save_info = intent.metadata.save_info
         grand_total = round(intent.charges.data[0].amount / 100, 2)
 
+        print(intent)
+        print(pid)
+        print(billing_details)
+        print(cart)
+        print(save_info)
+        print(grand_total)
+
+
         profile = None
         username = intent.metadata.username
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
+            print(profile)
             if save_info:
                 address_data = {
                     'user': profile.user,
@@ -77,6 +86,7 @@ class StripeWH_Handler:
                 if (address_manager.address_already_exists(address_form) is False):
                     address_manager.clear_previous_primary_address(profile.user)
                     address_form.save()
+                print('address saved')
 
         
         
@@ -84,8 +94,10 @@ class StripeWH_Handler:
         attempt = 1
         while attempt <= 5:
             try:
+                print(f'Trying To Find Order attempt {attempt}')
                 order = Order.objects.get(stripe_pid=pid, grand_total=grand_total)
                 order_exists = True
+                print('order already exists')
                 break
             except Order.DoesNotExist:
                 attempt += 1
@@ -97,6 +109,7 @@ class StripeWH_Handler:
         else:
             order = None
             try:
+                print('Try To Create The Order')
                 order = Order.objects.create(
                     first_name=profile.user.first_name,
                     second_name=profile.user.second_name,
@@ -111,6 +124,7 @@ class StripeWH_Handler:
                     county=billing_details.address.state,
                     stripe_pid=pid,
                 )
+                print('Add Line Items')
                 for item_id, item_data in json.loads(cart).items():
                     product = Product.objects.get(id=item_id)
                     order_line_item = OrderLineItem(
