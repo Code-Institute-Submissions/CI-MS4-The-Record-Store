@@ -59,17 +59,18 @@ class StripeWH_Handler:
             print(f'found profile {profile}')
             if save_info:
                 print('Saving Info')
+                first, last = billing_details.name.split(" ", 1)
                 address_data = {
                     'user': profile.user,
-                    'first_name':intent.metadata.request_post.get('first_name'),
-                    'last_name':intent.metadata.request_post.get('last_name'),
-                    'address_line_1': intent.metadata.request_post.get('address_line_1'),
-                    'address_line_2': intent.metadata.request_post.get('address_line_2'),
-                    'town_or_city': intent.metadata.request_post.get('town_or_city'),
-                    'county_or_province': intent.metadata.request_post.get('county_or_province'),
-                    'country': intent.metadata.request_post.get('country'),
-                    'post_code_or_zip_code': intent.metadata.request_post.get('post_code_or_zip_code'),
-                    'phone_number': intent.metadata.request_post.get('phone_number'),
+                    'first_name': first,
+                    'last_name': last,
+                    'address_line_1': billing_details.address.line1,
+                    'address_line_2': billing_details.address.line2,
+                    'town_or_city': billing_details.address.city,
+                    'county_or_province': billing_details.address.state,
+                    'country': billing_details.country,
+                    'post_code_or_zip_code': billing_details.address.postal_code,
+                    'phone_number': billing_details.phone,
                     'primary_address': True}
                 print(f'Address Data {address_data}')
                 address_form = AddressForm(address_data)

@@ -24,7 +24,6 @@ def cache_checkout_data(request):
             'cart': json.dumps(request.session.get('cart', {})),
             'save_info': request.POST.get('save_info'),
             'username': request.user,
-            'request_post': request.POST
         })
         return HttpResponse(status=200)
     except Exception as e:
