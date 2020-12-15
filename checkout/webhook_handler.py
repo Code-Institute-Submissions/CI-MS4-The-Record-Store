@@ -60,24 +60,11 @@ class StripeWH_Handler:
             if save_info:
                 print('Saving Info')
                 address_data = {
-                    'user': profile.user,
-                    'first_name':
-                    (re.search('(.*) ', billing_details.name,)).group(1),
-                    'last_name':
-                    (re.search(' (.*)', billing_details.name,)).group(1),
-                    'address_line_1': billing_details.address.line1,
-                    'address_line_2': billing_details.address.line2,
-                    'town_or_city': billing_details.address.city,
-                    'county_or_province': billing_details.address.state,
-                    'country': billing_details.country,
-                    'post_code_or_zip_code':
-                    billing_details.address.postal_code,
-                    'phone_number': billing_details.phone,
-                    'primary_address': True}
+                    'user': profile.user}
                 print(f'Address Data {address_data}')
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
-                if address_manager.address_already_exists(address_form)is False:
+                if address_manager.address_already_exists(address_form) is False:
                     print('Saving Address')
                     address_manager.clear_previous_primary_address(profile.user)
                     address_form.save()
