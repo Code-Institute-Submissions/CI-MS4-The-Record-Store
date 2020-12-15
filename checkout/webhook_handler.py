@@ -59,6 +59,7 @@ class StripeWH_Handler:
             print(f'found profile {profile}')
             if save_info:
                 print('Saving Info')
+                print(billing_details)
                 first, last = billing_details.name.split(" ", 1)
                 address_data = {
                     'user': profile.user,
