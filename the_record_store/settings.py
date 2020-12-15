@@ -30,7 +30,7 @@ SECRET_KEY = 'secret_key'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = DEBUG = 'DEVELOPMENT' in os.environ
 
 ALLOWED_HOSTS = ['the-record-store.herokuapp.com', '127.0.0.1']
 SITE_ID = 2
@@ -214,8 +214,7 @@ ACCOUNT_FORMS = {
     'signup': 'the_record_store.forms.CustomSignupForm',
 }
 
-
-if 'DEBUG' in os.environ:
+if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'therecordstore@example.com'
 else:
