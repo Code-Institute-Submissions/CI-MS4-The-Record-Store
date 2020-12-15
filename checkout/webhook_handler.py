@@ -47,7 +47,6 @@ class StripeWH_Handler:
         print("Handling Payment Intent Succeded")
         intent = event.data.object
         pid = intent.id
-        print(f'pid = {pid}')
         billing_details = intent.charges.data[0].billing_details
         first_name, last_name = billing_details.name.split(" ", 1)
         cart = intent.metadata.cart
@@ -59,6 +58,13 @@ class StripeWH_Handler:
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
             if save_info:
+                print(billing_details.address.line1)
+                print(billing_details.address.line2)
+                print(billing_details.address.city)
+                print(billing_details.address.state)
+                print(billing_details.address.country)
+                print(billing_details.address.postal_code)
+                print(billing_details.phone)
                 address_data = {'user': profile.user,
                                 'first_name': first_name,
                                 'last_name': last_name,
@@ -68,7 +74,7 @@ class StripeWH_Handler:
                                 'county_or_province': billing_details.address.state,
                                 'country': billing_details.address.country,
                                 'post_code_or_zip_code':
-                                billing_details.postal_code,
+                                billing_details.address.postal_code,
                                 'phone_number': billing_details.phone,
                                 'primary_address': True}
                 print(address_data)
