@@ -52,12 +52,7 @@ class StripeWH_Handler:
         save_info = intent.metadata.save_info
         grand_total = round(intent.charges.data[0].amount / 100, 2)
 
-        print(intent)
-        print(pid)
-        print(billing_details)
-        print(cart)
-        print(save_info)
-        print(grand_total)
+
 
 
         profile = None
@@ -68,19 +63,17 @@ class StripeWH_Handler:
             if save_info:
                 address_data = {
                     'user': profile.user,
-                    'first_name':
-                    (re.search('(.*) ', billing_details.name,)).group(1),
-                    'last_name':
-                    (re.search(' (.*)', billing_details.name,)).group(1),
+                    'first_name':(re.search('(.*) ', billing_details.name,)).group(1),
+                    'last_name':(re.search(' (.*)', billing_details.name,)).group(1),
                     'address_line_1': billing_details.address.line1,
                     'address_line_2': billing_details.address.line2,
                     'town_or_city': billing_details.address.city,
                     'county_or_province': billing_details.address.state,
                     'country': billing_details.country,
-                    'post_code_or_zip_code':
-                    billing_details.address.postal_code,
+                    'post_code_or_zip_code': billing_details.address.postal_code,
                     'phone_number': billing_details.phone,
                     'primary_address': True}
+                print(address_data)
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
                 if (address_manager.address_already_exists(address_form) is False):
