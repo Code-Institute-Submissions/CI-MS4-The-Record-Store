@@ -116,7 +116,10 @@ def checkout_success(request, order_number):
                         is False:
                     address_manager.clear_previous_primary_address(
                         request.user)
-                    address_form.save()
+                    new_primary_address = address_form.save()
+                    user_profile = UserProfile.objects.get(user=request.user)
+                    user_profile.primary_address = new_primary_address
+                    user_profile.save()
     if 'cart' in request.session:
         del request.session['cart']
 

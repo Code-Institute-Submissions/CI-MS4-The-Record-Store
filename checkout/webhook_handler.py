@@ -21,6 +21,7 @@ class StripeWH_Handler:
     def _send_confirmation_email(self, order):
         """Send the user a confirmation email"""
         cust_email = order.email
+        print(f'email address is {cust_email}')
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
             {'order': order})
@@ -34,6 +35,7 @@ class StripeWH_Handler:
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
         )
+        print('email sent')
 
     def handle_event(self, event):
         return HttpResponse(
@@ -74,9 +76,11 @@ class StripeWH_Handler:
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
                 if address_manager.address_already_exists(address_form) is False:
-                    print('address is already in the database')
+                    print('address is not already in the database')
                     address_manager.clear_previous_primary_address(profile.user)
-                    address_form.save()
+                    new_primary_address = address_form.save()
+                    profile.primary_address = new_primary_address
+                    profile.save()
         
         order_exists = False
         attempt = 1
