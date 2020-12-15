@@ -298,6 +298,8 @@
     integrity="sha512-EnXkkBUGl2gBm/EIZEgwWpQNavsnBbeMtjklwAa7jLj60mJk932aqzXFmdPKCG6ge/i8iOCK0Uwl1Qp+S0zowg=="
     crossorigin="anonymous"></script>
   <script>
+
+    // noUiSlider Configuration 
     var slider = document.getElementById('slider');
     var lowerPrice = document.getElementById('lower-price');
     var upperPrice = document.getElementById('upper-price');
@@ -324,8 +326,6 @@
         'max': 300
       }
     });
-
-
     slider.noUiSlider.on('update', function (values, handle) {
       lowerPrice.value = values[0];
       upperPrice.value = values[1];
@@ -337,7 +337,7 @@
       window.location.replace(currentUrl);
     });
 
-
+    // Update sorting searchParams when the sorting is changed
     $('#sort-selector, #sort-selector-mobile').change(function () {
       var selector = $(this);
       var currentUrl = new URL(window.location);
@@ -359,6 +359,7 @@
       }
     })
 
+    // Update Filter searchParams when a filter get changed
     function filterChanged(filter, isChecked) {
       var currentUrl = new URL(window.location);
       if (isChecked) {
@@ -369,7 +370,6 @@
 
       window.location.replace(currentUrl);
     }
-
     function removeURLParameter(url, parameter) {
       encodedFilterParameter = encodeURIComponent(parameter);
       filterToRemove = "filter=" + encodedFilterParameter;

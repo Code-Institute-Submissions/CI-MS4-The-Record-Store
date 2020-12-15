@@ -14,7 +14,6 @@
     </div>
     <div class="standard-paragraph">{{profile.user.email}}</div>
     <div class="footer-heading">Primary Address</div>
-    <!-- {{form.primary_address}} -->
     <div class="standard-paragraph">
       {% if primary_address|length %} 
       {% for address in primary_address %}
@@ -57,8 +56,6 @@
             <div class="row">
               <div class="col-12">
                 <span>Order dispatched to {{order.address_line_1}}</span>
-                <!-- <span><a class="btn dark-button" href="https://www.fastway.ie/courier-services/track-your-parcel">Track
-                    Parcel</a></span> -->
               </div>
               <div class="col-12">
                 {% for line_item in order.line_items.all %}

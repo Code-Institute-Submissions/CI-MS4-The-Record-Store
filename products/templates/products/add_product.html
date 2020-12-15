@@ -68,6 +68,8 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
+
+    //Select2 Settings & Assignment 
     $(".single-dynamic").select2({
         tags: true,
         allowClear: true,
@@ -75,12 +77,13 @@
     });
     $(".single-dynamic").val(null).trigger('change');
 
+    // Tracklist Entry Dynamic Form
     const zeroPad = (num, places) => String(num).padStart(places, "0");
-
     var add_button = document.getElementById("add_track");
     var delete_button = document.getElementById("delete_track");
     toggleDeleteButton();
 
+    // Update the last track variables when a track gets deleted.
     function toggleDeleteButton() {
         var lastTrack = add_button.previousElementSibling;
         var lastTrackInput = lastTrack.getElementsByTagName("input")[0];
@@ -93,12 +96,14 @@
         }
     }
 
+    // Remove Last Track Text Input
     delete_button.addEventListener("click", function (ev) {
         var lastTrack = add_button.previousElementSibling;
         lastTrack.remove();
         toggleDeleteButton();
     });
 
+    // Add A New Track Text Input
     add_button.addEventListener("click", function (ev) {
         var lastTrack = add_button.previousElementSibling;
         var trackCopy = lastTrack.cloneNode(true);
@@ -124,9 +129,9 @@
 
     var form = document.getElementById("product-form");
 
+    //Concatenate the tracklist inputs into an arrayfield string.
     form.addEventListener("submit", function (ev) {
         ev.preventDefault();
-        //Concatonate the tracklist inputs into an arrayfield string.
         tracklistInputs = document.getElementsByClassName("tracklist_item");
         var tracklist = "";
         for (i = 0; i < tracklistInputs.length; i++) {

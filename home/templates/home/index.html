@@ -117,6 +117,8 @@
 {% block postloadjs %} 
 {{ block.super }}
 <script>
+
+    // SwiperJS Configuration 
     var swiper = new Swiper(".swiper-container", {
         slidesPerView: 3,
         spaceBetween: 0,
@@ -139,6 +141,7 @@
         });
     }
 
+    // Change number of slides based on screen size.
     function setSlidesPerView() {
         console.log(window.innerWidth);
         for (let i = 0; i < swiper.length; i++) {

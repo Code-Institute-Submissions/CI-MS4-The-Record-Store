@@ -8,12 +8,8 @@
 <div class="row no-gutters my-5">
     <div class="col-10 offset-1 col-md-7 offset-md-0">
         {% if product.image %}
-
         <!-- Product Image -->
         <img src="{{product.image.url}}" class="img-fluid" alt="Responsive image">
-        <!-- <div class="img-fluid" style="background-image: url({{product.image.url}})"></div> -->
-
-
         {% else %}
         <div class="product-image" style="background-image: url('{{ MEDIA_URL }}noimage.png')"></div>
         {% endif %}
@@ -67,8 +63,6 @@
     </small>
     {% endif %}
 </div>
-
-
 {% endblock %}
 
 {% block postloadjs %}
