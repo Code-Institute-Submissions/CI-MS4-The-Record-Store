@@ -47,9 +47,9 @@ def checkout(request):
         order_form = OrderForm(updated_request)
 
         if order_form.is_valid():
+            
             order = order_form.save(commit=False)
             order.save()
-
             for cart_item in cart['cart_items']:
                 product = Product.objects.get(id=cart_item['item_id'])
                 order_line_item = OrderLineItem(

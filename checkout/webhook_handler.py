@@ -47,6 +47,7 @@ class StripeWH_Handler:
         print("Handling Payment Intent Succeded")
         intent = event.data.object
         pid = intent.id
+        print(f'pid = {pid}')
         billing_details = intent.charges.data[0].billing_details
         cart = intent.metadata.cart
         save_info = intent.metadata.save_info
@@ -58,8 +59,7 @@ class StripeWH_Handler:
         while attempt <= 5:
             try:
                 print(f'attempt {attempt}')
-                order = Order.objects.get(
-                    stripe_pid=pid, grand_total=grand_total)
+                order = Order.objects.get(stripe_pid=pid)
                 order_exists = True
                 print('Order found')
                 break
@@ -68,7 +68,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
 
-        return HttpResponse(content=f'Webhook received: {event["type"]}',status=200)
+        return HttpResponse(content=f'Webhook received: {event["type"]}', status=200)
 
     def handle_payment_intent_payment_failed(self, event):
         """
