@@ -21,7 +21,6 @@ class StripeWH_Handler:
     def _send_confirmation_email(self, order):
         """Send the user a confirmation email"""
         cust_email = order.email
-        print(f'email address is {cust_email}')
         subject = render_to_string(
             'checkout/confirmation_emails/confirmation_email_subject.txt',
             {'order': order})
@@ -29,15 +28,13 @@ class StripeWH_Handler:
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
 
-        print('sending mail')
-        print(settings.DEFAULT_FROM_EMAIL)
         send_mail(
             subject,
             body,
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
         )
-        print('email sent')
+
 
     def handle_event(self, event):
         return HttpResponse(
@@ -61,7 +58,6 @@ class StripeWH_Handler:
         if username != 'AnonymousUser':
             profile = UserProfile.objects.get(user__username=username)
             if save_info:
-                print('info should be saved')
                 address_data = {'user': profile.user,
                                 'first_name': first_name,
                                 'last_name': last_name,
@@ -78,7 +74,6 @@ class StripeWH_Handler:
                 address_form = AddressForm(address_data)
                 address_manager = Address_Manager()
                 if address_manager.address_already_exists(address_form) is False:
-                    print('address is not already in the database')
                     address_manager.clear_previous_primary_address(profile.user)
                     new_primary_address = address_form.save()
                     profile.primary_address = new_primary_address
@@ -86,7 +81,6 @@ class StripeWH_Handler:
         
         order_exists = False
         attempt = 1
-        print('checking if order exists')
         while attempt <= 5:
             try:
                 order = Order.objects.get(stripe_pid=pid)
@@ -97,7 +91,6 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if order_exists:
-            print(f'order exists, sending email to {order.email} ')
             self._send_confirmation_email(order)
             return HttpResponse(content=(f'Webhook received: {event["type"]} | SUCCESS: ' 'Verified order already in database'), status=200)
         else:
@@ -128,7 +121,6 @@ class StripeWH_Handler:
                 if order:
                     order.delete()
                 return HttpResponse(content=f'Webhook received: {event["type"]} | ERROR: {e}', status=500)
-        print(f'created order in webhook, sending email to {order.email} ')
         self._send_confirmation_email(order)
         return HttpResponse(content=(f'Webhook received: {event["type"]} | SUCCESS: ''Created order in webhook'), status=200)
 

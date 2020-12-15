@@ -13,16 +13,12 @@ def profile(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     template = 'profiles/profile.html'
     addresses = Address.objects.filter(user=request.user)
-    primary_address = Address.objects.filter(
-        user=request.user).filter(primary_address=True)
-    form = DefaultAddressForm()
-    form.fields['primary_address'].choices = [
-        (address.pk, address.address_line_1) for address in addresses]
+    primary_address = None
+    primary_address = profile.primary_address
 
     orders = profile.orders.all()
     context = {
         'profile': profile,
-        'form': form,
         'primary_address': primary_address,
         'orders': orders,
         'hide_checkout_preview': True

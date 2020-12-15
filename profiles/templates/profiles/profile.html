@@ -14,17 +14,17 @@
     </div>
     <div class="standard-paragraph">{{profile.user.email}}</div>
     <div class="footer-heading">Primary Address</div>
+
     <div class="standard-paragraph">
-      {% if primary_address|length %} 
-      {% for address in primary_address %}
-      {{address.address_line_1}}<br />
-      {{address.address_line_2}}<br />
-      {{address.town_or_city}}<br />
-      {{address.county_or_province}}<br />
-      {{address.country}}<br />
-      {{address.post_code_or_zip_code}}<br />
-      {{address.phone_number}}<br />
-      {% endfor%} 
+      {% if primary_address != None %} 
+        {{primary_address.first_name}} {{primary_address.last_name}}<br/>
+        {{primary_address.address_line_1}}<br />
+        {{primary_address.address_line_2}}<br />
+        {{primary_address.town_or_city}}<br />
+        {{primary_address.county_or_province}}<br />
+        {{primary_address.country.name}}<br />
+        {{primary_address.post_code_or_zip_code}}<br />
+        {{primary_address.phone_number}}<br />
       {% else %}
       <div>
         You haven't set your primary address yet, please choose one from your
