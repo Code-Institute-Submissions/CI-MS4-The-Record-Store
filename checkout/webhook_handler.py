@@ -52,92 +52,23 @@ class StripeWH_Handler:
         save_info = intent.metadata.save_info
         grand_total = round(intent.charges.data[0].amount / 100, 2)
 
-        profile = None
-        username = intent.metadata.username
-        if username != 'AnonymousUser':
-            profile = UserProfile.objects.get(user__username=username)
-            print(f'found profile {profile}')
-            if save_info:
-                print('Saving Info')
-                print(billing_details)
-                first, last = billing_details.name.split(" ", 1)
-                address_data = {
-                    'user': profile.user,
-                    'first_name': first,
-                    'last_name': last,
-                    'address_line_1': billing_details.address.line1,
-                    'address_line_2': billing_details.address.line2,
-                    'town_or_city': billing_details.address.city,
-                    'county_or_province': billing_details.address.state,
-                    'country': billing_details.country,
-                    'post_code_or_zip_code': billing_details.address.postal_code,
-                    'phone_number': billing_details.phone,
-                    'primary_address': True}
-                print(f'Address Data {address_data}')
-                address_form = AddressForm(address_data)
-                address_manager = Address_Manager()
-                if address_manager.address_already_exists(address_form) is False:
-                    print('Saving Address')
-                    address_manager.clear_previous_primary_address(profile.user)
-                    address_form.save()
-                else:
-                    print("Address already exists")
-        
+        print('Checking if order exists')
+        order_exists = False
+        attempt = 1
+        while attempt <= 5:
+            try:
+                print(f'attempt {attempt}')
+                order = Order.objects.get(
+                    stripe_pid=pid, grand_total=grand_total)
+                order_exists = True
+                print('Order found')
+                break
+            except Order.DoesNotExist:
+                print('No Order Found')
+                attempt += 1
+                time.sleep(1)
+
         return HttpResponse(content=f'Webhook received: {event["type"]}',status=200)
-
-        # order_exists = False
-        # attempt = 1
-        # while attempt <= 5:
-        #     try:
-        #         order = Order.objects.get(
-        #             stripe_pid=pid, grand_total=grand_total)
-        #         order_exists = True
-        #         break
-        #     except Order.DoesNotExist:
-        #         attempt += 1
-        #         time.sleep(1)
-
-        # if order_exists:
-        #     self._send_confirmation_email(order)
-        #     return HttpResponse(
-        #         content=(f'Webhook received: {event["type"]} | SUCCESS: '
-        #                  'Verified order already in database'),
-        #         status=200)
-        # else:
-        #     order = None
-        #     try:
-        #         order = Order.objects.create(
-        #             first_name=profile.user.first_name,
-        #             second_name=profile.user.second_name,
-        #             user_profile=profile,
-        #             email=billing_details.email,
-        #             phone_number=billing_details.phone,
-        #             country=billing_details.address.country,
-        #             postcode=billing_details.address.postal_code,
-        #             town_or_city=billing_details.address.city,
-        #             street_address1=billing_details.address.line1,
-        #             street_address2=billing_details.address.line2,
-        #             county=billing_details.address.state,
-        #             stripe_pid=pid,
-        #         )
-        #         for item_id, item_data in json.loads(cart).items():
-        #             product = Product.objects.get(id=item_id)
-        #             order_line_item = OrderLineItem(
-        #                 order=order,
-        #                 product=product,
-        #                 quantity=item_data,)
-        #             order_line_item.save()
-        #     except Exception as e:
-        #         if order:
-        #             order.delete()
-        #         return HttpResponse(
-        #             content=f'Webhook received: {event["type"]} | ERROR: {e}',
-        #             status=500)
-        #     self._send_confirmation_email(order)
-        #     return HttpResponse(
-        #         content=(f'Webhook received: {event["type"]} | SUCCESS: '
-        #                 'Created order in webhook'),
-        #         status=200)
 
     def handle_payment_intent_payment_failed(self, event):
         """
