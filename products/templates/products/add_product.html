@@ -12,7 +12,7 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-8 offset-2">
+        <div class="col-12 col-md-8 offset-md-2">
             <form method="POST" action="{% url 'add_product'%}" class="form mb-2" id="product-form"
                 enctype="multipart/form-data">
                 {% csrf_token %}
@@ -30,20 +30,20 @@
                     <div class="col-2 my-auto">
                         <label for="1">Track 01:</label>
                     </div>
-                    <div class="col-8">
+                    <div class="col-10">
                         <input type="text" id="1" class="tracklist_item form-control" name="text_field[]" value="" />
                     </div>
                 </div>
-                <button class="dark-button" id="add_track" type="button">
+                <button class="dark-button col-10 offset-1" id="add_track" type="button">
                     Add New Track
                 </button>
-                <button class="dark-button" id="delete_track" type="button">
+                <button class="dark-button col-10 offset-1" id="delete_track" type="button">
                     Delete Track
                 </button>
 
 
                 <div class="row no-gutters">
-                    <div class="col-2 my-auto">
+                    <div class="col-12 col-md-2 my-auto">
                         <a href="{% url 'view_products' %}" class="sub-link">
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
@@ -51,7 +51,7 @@
                             <span class="text-uppercase sub-link">Cancel</span>
                         </a>
                     </div>
-                    <div class="col-3 offset-7 text-center">
+                    <div class="col-12 col-md-3 offset-md-7 text-center">
                         <button type="submit" class="form-control dark-button">
                             <span class="text-uppercase">Add Product</span>
                             <span class="icon">
