@@ -2,7 +2,7 @@
 
 This is an assignment project for [https://codeinstitute.net/](https://codeinstitute.net/). The project aims to create a webstore for selling vinyl records.
 
-The Record Store is a ecommerce site for selling vinyl records. Customers can search for and filter products to find the records they are looking for. User accounts can be created for storing and viewing order history, creating and managing addresses to make the checkout process as well as storing wishlists. Wishlists can be created and stored to user accounts so wishlist items can be quickly found to add to cart on future visits. 
+The Record Store is a ecommerce site for selling vinyl records. Customers can search for and filter products to find the records they are looking for. User accounts can be created for storing and viewing order history, creating and managing addresses to make the checkout process. Wishlists can be created and stored to user accounts so wishlist items can be quickly found to add to cart on future visits. 
 
 ## Table of Contents
 
@@ -11,7 +11,6 @@ The Record Store is a ecommerce site for selling vinyl records. Customers can se
 	*  [User Stories](#user-stories)
 2.  [Features](#features) 
 	*  [Implemented](#implemented)
-	* [To Implement](#to-implement)
 3.  [Wireframes](#wireframes)
 4. [Schema Design](#schema-design)
 5.  [Technologies Used](#techmologies-used)
@@ -26,7 +25,7 @@ The Record Store is a ecommerce site for selling vinyl records. Customers can se
 
 ## UX:
 ### Design choices
-I wanted to keep the design very clean and minimal to keep with modern web design trends, I looked at many different online music stores and found a lot of the designs to be very busy and cluttered. I site that found to meet the style that I wanted was [The Record Hub](https://therecordhub.com/) so I wanted to see if I could recreate a similar design. With the design and layout decided on I wanted to find a colour scheme that was vibrant and modern. I checked through some lists of popular colour schemes of 2020 on sites like [Visme](https://visme.co/) and [Design Shack](https://designshack.net/) and found a colour scheme that Spotify had used it's Taste Rewind promotion to inline with what I was looking for.
+I wanted to keep the design very clean and minimal to keep with modern web design trends, I looked at many different online music stores and found a lot of the designs to be very busy and cluttered. A site that found to meet the style that I wanted was [The Record Hub](https://therecordhub.com/) so I wanted to see if I could recreate a similar design. With the design and layout decided on I wanted to find a colour scheme that was vibrant and modern. I checked through some lists of popular colour schemes of 2020 on sites like [Visme](https://visme.co/) and [Design Shack](https://designshack.net/) and found a colour scheme that Spotify had used for it's Taste Rewind promotion to be inline with what I was looking for.
 
 ![website color scheme 45](https://visme.co/blog/wp-content/uploads/2016/09/website45.jpg)
 
@@ -55,8 +54,12 @@ I wanted to keep the design very clean and minimal to keep with modern web desig
 
 ## Features:
 ### Implemented
-#### General
+#### General/Home
 - Navigation Bar
+- Hero Carousel
+- SliderJS Slides for product promotions.
+- Newsletter Signup
+- Emails for registration and password recovery.
 #### User Profile
 - Create a user account.
 - Log in to a user account.
@@ -78,10 +81,11 @@ I wanted to keep the design very clean and minimal to keep with modern web desig
 - Add a product to the stores database.
 - Edit an existing product in the database.
 - Delete a product from the database.
+- Add new Genres, Artists, Labels, Formats, Colours and Tags to the database using dynamic option creation and parsing in the add product form using "Select2".
 #### Store Search, Filter & Sort
 - Search for products using text search, with results for a product title, artist name, label,  description and track list.
 - Filter products by Price, Genre, Artist, Label, Format, Colour or Tag.
-- Add new Genres, Artists, Labels, Formats, Colours and Tags to the database using dynamic option creation and parsing in the add product form.
+- Sort results by price or alphabetically.
 #### Product Purchasing
 - Add products to the cart.
 - Remove a product from the cart.
@@ -89,6 +93,7 @@ I wanted to keep the design very clean and minimal to keep with modern web desig
 - Save and address form in the order to a user address book for use in future orders.
 - Pay for an order with Stripe Payments.
 - Store users orders to a user profile on checkout.
+- Email order summary to customer.
 
 ## Wireframes
 Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com/)
@@ -190,7 +195,12 @@ Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com
 |Post Code Or Zip Code | post_code_or_zip_code | CharField |
 |Primary Address | primary_address | BooleanField |
 
-#### Wishlist
+#### Wishlist (Subscriber)
+| Name    | Database key | Data Type | Function
+| --- | --- | --- | --- |
+|email | email | EmailField|
+
+#### Newsletter
 | Name    | Database key | Data Type | Function
 | --- | --- | --- | --- |
 |User Profile | user_profile | ForeignKey(UserProfile) |
@@ -235,7 +245,7 @@ Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com
 ### Libraries
 -  [jQuery](https://jquery.com/)
 -  [Select2](https://select2.org/) - The project uses Select2 for dynamic option creation in multiselect dropdowns.
-[SwiperJS](https://swiperjs.com/) - The project uses Swiper for the coverflow used to browse the games.
+[SwiperJS](https://swiperjs.com/) .
 ### Frameworks
 -  [Bootstrap 4](https://getbootstrap.com/) - The project used the **Bootstrap 4** for a responsive grid system.
 - [Django](https://www.djangoproject.com/)
@@ -249,7 +259,6 @@ Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com
 ### Tools
 -  [Visual Studio Code](https://code.visualstudio.com/) - The project used the **Visual Studio** IDE to develop the website linked with **Github** for version control.
 - [Fontawesome](https://fontawesome.com/)
--  [Favicon.io](https://favicon.io/favicon-converter/) - The project used the **Favicon.io** the favicon icons or the site.
 -  [Autoprefixer CSS](https://autoprefixer.github.io/) - The project used the **Autoprefixer CSS** to ensure CSS compatibility with all browsers.
 -  [HTML Validator](https://validator.w3.org/) - The project used the **HTML Validator** to validate and find errors in the HTML.
 -  [CSS Validator](https://jigsaw.w3.org/css-validator/) -The project used the **CSS Validator** to validate and find errors in the CSS.
@@ -289,16 +298,15 @@ Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com
 7. You now have a local copy of the repository.
 8. Setup a virtual environment with your IDE, eg `python -m venv .venv` in Vs Code.
 9. Install required modules using the requirements.txt. using `pip install -r requirements.txt`.
-10. Create a .env file and add the following variables to it, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DATABASE_URL, DEBUG, EMAIL_HOST_PASS, EMAIL_HOST_USER, SECRET_KEY, STRIPE_PUBLIC_KEY,  STRIPE_SECRET_KEY, STRIPE_WH_SECRET, USE_AWS and give them their needed values.
+10. Create a .env file and add the following variables to it, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DATABASE_URL, DEVELOPMENT, EMAIL_HOST_PASS, EMAIL_HOST_USER, SECRET_KEY, STRIPE_PUBLIC_KEY,  STRIPE_SECRET_KEY, STRIPE_WH_SECRET, USE_AWS and give them their needed values.
 11.  Run the app with `python3 manage.py runserver`
 
 ## Testing
-Testing documented is a separate [TESTS]() file.
+Testing documented is a separate [TESTS)](https://github.com/Kieran-Murray-Code/CI-MS4-The-Record-Store/blob/master/TESTS.md) file.
 
 ## Credits
--  Code templates and workflow methods taking from Boutique Ado (Code Institute).
-- Design layout ideas and  media and text content taken from [The Record Hub](https://therecordhub.com/)
+-  Code templates and workflow methods taken from Boutique Ado (Code Institute).
+- Design layout ideas, media and text content taken from [The Record Hub](https://therecordhub.com/)
 
 ## Disclaimer
 This website was built for educational purposes only.
-

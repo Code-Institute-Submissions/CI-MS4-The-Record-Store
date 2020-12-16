@@ -1,6 +1,6 @@
 ﻿
 
-Access main [READEME](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/blob/master/README.md) file.
+Access main [README](https://github.com/Kieran-Murray-Code/CI-MS4-The-Record-Store/blob/master/README.md) file.
 
 ### Testing User Stories
 #### Shopper
@@ -36,7 +36,7 @@ Access main [READEME](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/bl
 9. As a shopper I want to be able to create a user account to store and view my order history.
 	- I can click on the profile icon on the main navbar from any page and I will be taken to the sign in page, on the sign in page there is a link for new customers to sign up.
 	- When I have created an account I can click on the profile to be taken to my account page where I can view my order history.
-10.As a shopper I want to be able to create a user account to store and recall my wishlist. 
+10. As a shopper I want to be able to create a user account to store and recall my wishlist. 
 	- I can click on the profile icon on the main navbar from any page and I will be taken to the sign in page, on the sign in page there is a link for new customers to sign up.
 	- Whenever I log in to my account, any items in the session wishlist that are not in the wishlist saved to my account will be added to by wishlist and saved. Then my account wishlist will be loaded into the session.
 	- When I log in if there is no items in the session wishlist then my account wishlist will be loaded into the session.
@@ -47,8 +47,9 @@ Access main [READEME](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/bl
 	 - A payment system using Stripe Payments is integrated in the site and I can accept payments for products from customers.
 2. As a store owner I want to be able to add new products to the store. 
 	- When signed in as a superuser the admin icon will appear on the navbar beside the cart icon, clicking on this will open up the add product page.
-	- 
-3. As a store owner I want to be able to edit and delete existing products in the store.
+	- On the add product page I can fill in the product details, upload and upload a product image.
+	- The add product form uses Select2 to allowing dynamic option creation on the dropdown selects for Artist, Genre, Label, Colour, Format and Tag to allow new options to be added to the database when creating a product with having to add them manually in the admin panel.
+ 3. As a store owner I want to be able to edit and delete existing products in the store.
 	- When signed in as a superuser and on the view products page an edit & delete button will appear below each product. Clicking on the edit button will bring up the edit product page with the form populated with all existing product data.
 	- 
 ### HTML & CSS Validation
@@ -73,4 +74,4 @@ The following errors were found and fixed.
 #### CSS
 The following errors were found when running were found when running my **CSS** through [https://jigsaw.w3.org/css-validator/validator](https://jigsaw.w3.org/css-validator/validator)
 
-No errors were found.
+Any issues found were due to the validator not being up to date with current CSS spec.
