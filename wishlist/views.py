@@ -87,7 +87,10 @@ def update_wishlist(user, session):
         try:
             profile_wishlist = Wishlist.objects.get(user_profile=user_profile)
         except ObjectDoesNotExist:
-            profile_wishlist = None
+            # If the user doesn't have a wishlist create one
+            profile_wishlist = Wishlist()
+            profile_wishlist.user_profile = user_profile
+            profile_wishlist.save()
 
         # The profile doesn't have a saved wishlist
         if profile_wishlist is None:
