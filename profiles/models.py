@@ -6,7 +6,7 @@ from django_countries.fields import CountryField
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     first_name = models.CharField(max_length=254)
     last_name = models.CharField(max_length=254)
     address_line_1 = models.CharField(max_length=254)
@@ -27,7 +27,7 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     primary_address = models.ForeignKey(
-        Address, null=True, on_delete=models.CASCADE)
+        Address, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.user.username
